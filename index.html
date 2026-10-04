@@ -95,7 +95,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #6fa8ff;outline-offset:2p
     </section>
 
     <a href="#/college/sumeru/timeline" class="mt-14 flex items-center justify-between gap-4 bg-gradient-to-r from-[#13294b] via-[#1d3e72] to-[#13294b] text-white px-6 sm:px-10 py-7 hover:brightness-110 transition">
-      <span><b class="block text-xl sm:text-2xl font-black">수메르 아카데미아 · 티바트 역사 연도별 정리</b><span class="text-sm text-slate-300">시대와 지역별 사건을 기록하고 수정하는 학부 자료실</span></span>
+      <span><b class="block text-xl sm:text-2xl font-black">수메르 아카데미아 · 티바트 연표</b><span class="text-sm text-slate-300">시대와 지역별 사건을 기록하고 수정하는 학부 자료실</span></span>
       <span class="flex-none text-[#e7c978] font-bold">바로가기 &gt;</span>
     </a>
 
@@ -451,7 +451,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #6fa8ff;outline-offset:2p
       return (
         <div className="w-full">
           {/* 상단 헤더 */}
-          <div className="mb-5 pb-4 border-b border-slate-200"><h3 className="text-xl font-bold text-[#13294b]">티바트 역사 연도별 정리</h3><p className="text-sm text-slate-500 mt-1">허수의 나무에서 원신의 배경이 되는 우주가 탄생(140억 년 전)</p></div>
+          <div className="mb-5 pb-4 border-b border-slate-200"><h3 className="text-xl font-bold text-[#13294b]">티바트 연표</h3><p className="text-sm text-slate-500 mt-1">허수의 나무에서 원신의 배경이 되는 우주가 탄생(140억 년 전)</p></div>
 
           {/* 상단 컨트롤러 */}
           <div className="flex flex-wrap items-center justify-between gap-4 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200 backdrop-blur">
@@ -954,8 +954,8 @@ const COLLEGES=[
  {id:'mond',name:'몬드 인문대학',tag:'자유의 학풍',c:'#0d9488',desc:'바람의 도시에서 시작된 인문 교육의 터전입니다. 자유로운 토론과 창작을 중시합니다.',depts:['시문학과','양조문화학과','자유철학과','점성술학과','몬드종교학과']},
  {id:'liyue',name:'리월 상경대학',tag:'계약의 학풍',c:'#d97706',desc:'계약과 교역의 정신을 배우는 상경 계열 대학입니다.',depts:['무역학과','계약법학과','광물경제학과','항만물류학과']},
  {id:'inazuma',name:'이나즈마 공과대학',tag:'영원의 학풍',c:'#9333ea',desc:'번개의 에너지와 장인 정신을 바탕으로 한 공학 중심 대학입니다.',depts:['전기공학과','단조·금속공학과','기계장치학과','전통건축학과']},
- {id:'sumeru',name:'수메르 아카데미아',tag:'지혜의 학풍',c:'#059669',desc:'티바트 최대의 지식 기관입니다. 역사, 언어, 원소학 등 학술 연구를 이끌며, 티바트 역사 연도별 정리를 학부 자료로 관리합니다.',depts:['원소학과','역사·고고학과','식물학과','천문학과']},
- {id:'fontaine',name:'폰타인 법학·예술대학',tag:'정의의 학풍',c:'#0891b2',desc:'재판과 무대 예술을 함께 가르치는 대학입니다.',depts:['법학과','연극영화학과','기계공학과','수상생태학과']},
+ {id:'sumeru',name:'수메르 아카데미아',tag:'지혜의 학풍',c:'#059669',desc:'티바트 최대의 지식 기관입니다. 역사, 언어, 원소학 등 학술 연구를 이끌며, 티바트 연표 정리를 학부 자료로 관리합니다.',depts:['원소학과','역사·고고학과','식물학과','천문학과']},
+ {id:'fontaine',name:'폰타인 법학·예술대학',tag:'정의의 학풍',c:'#0891b2',desc:'재판과 무대 예술을 함께 가르치는 대학입니다.',depts:['법학과','연극영화학과','기계공학과','수상생태학과','교도관양성학과']},
  {id:'natlan',name:'나타 체육·전투대학',tag:'전쟁의 학풍',c:'#ea580c',desc:'열정과 경쟁의 정신으로 체력과 전투 기술을 단련하는 대학입니다.',depts:['체육교육과','전투기술학과','고대이름단조학과','열소응용학과']},
  {id:'snezhnaya',name:'스네즈나야 첨단과학대학',tag:'북국의 학풍',c:'#0284c7',desc:'혹한의 땅에서 발전한 첨단 과학 기술을 연구합니다.',depts:[,'저온공학과','정밀기계학과','외교·전략학과','우인군사학과','스네즈나야 문화·예술학과']}
 ];
@@ -971,7 +971,7 @@ const MENU=[
  ['학부/대학원','#colleges',COLLEGES.map(c=>[c.name,'#/college/'+c.id])],
  [G[1].n,'#/page/adm',pg(G[1])],
  [G[2].n,'#/page/calendar',pg(G[2])],
- [G[3].n,'#/page/results',[...pg(G[3]),['티바트 역사 연도별 정리','#/college/sumeru/timeline']]]
+ [G[3].n,'#/page/results',[...pg(G[3]),['티바트 연표','#/college/sumeru/timeline']]]
 ];
 $('gnb').innerHTML=MENU.map(m=>`<a href="${m[1]}" class="gnb-link text-center py-4 hover:text-[#1d3e72]">${m[0]}</a>`).join('');
 $('megaCols').innerHTML=MENU.map(m=>`<ul class="space-y-2.5 text-slate-600">${m[2].map(i=>`<li><a href="${i[1]}" class="hover:text-[#1d3e72] hover:font-bold">${i[0]}</a></li>`).join('')}</ul>`).join('');
@@ -984,7 +984,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')megaOpen(false)});
 $('menuBtn').onclick=()=>$('mobileMenu').classList.toggle('hidden');
 $('mobileMenu').addEventListener('click',e=>{if(e.target.closest('a'))$('mobileMenu').classList.add('hidden')});
 $('searchBtn').onclick=()=>{$('searchBox').classList.toggle('hidden');$('searchInput').focus()};
-const PAGES=[...COLLEGES.map(c=>[c.name,'#/college/'+c.id]),['티바트 역사 연도별 정리','#/college/sumeru/timeline']];
+const PAGES=[...COLLEGES.map(c=>[c.name,'#/college/'+c.id]),['티바트 역사 연표','#/college/sumeru/timeline']];
 $('searchInput').oninput=e=>{const q=e.target.value.trim();$('searchRes').innerHTML=q?PAGES.filter(p=>p[0].includes(q)).map(p=>`<a href="${p[1]}" class="bg-white border border-slate-300 hover:border-[#13294b] px-3 py-1">${p[0]}</a>`).join('')||'<span class="text-slate-500">결과가 없습니다.</span>':''};
 $('searchRes').onclick=()=>$('searchBox').classList.add('hidden');
 
@@ -1093,7 +1093,7 @@ function showPage(id){
 }
 
 let tlStarted=false;
-const TABS=c=>[['info','학부 소개'],['depts','학과 안내'],...(c.id==='sumeru'?[['timeline','티바트 역사 연도별 정리']]:[])];
+const TABS=c=>[['info','학부 소개'],['depts','학과 안내'],...(c.id==='sumeru'?[['timeline','티바트 연표']]:[])];
 function showHome(){ $('view-home').classList.remove('hidden'); $('view-sub').classList.add('hidden'); }
 function showSub(id,tab){
   const c=COLLEGES.find(x=>x.id===id); if(!c){location.hash='#/';return}
@@ -1105,7 +1105,7 @@ function showSub(id,tab){
   const body=$('subBody'); $('tl-wrap').classList.toggle('hidden',tab!=='timeline'); body.classList.toggle('hidden',tab==='timeline');
   if(tab==='info'){
     body.innerHTML=`<div class="max-w-3xl"><h2 class="text-xl font-bold text-[#13294b] border-b-2 border-[#13294b] pb-2">학부 소개</h2><p class="mt-4 text-slate-600 leading-relaxed">${c.desc}</p>`+
-    (id==='sumeru'?`<a href="#/college/sumeru/timeline" class="mt-6 flex items-center justify-between gap-4 bg-gradient-to-r from-[#1d3e72] to-[#13294b] text-white p-5 hover:brightness-110"><span><b class="block text-lg">티바트 역사 연도별 정리</b><span class="text-sm text-slate-300">시대와 지역별로 사건을 기록하고 수정하는 학부 자료실</span></span><span class="text-[#e7c978] flex-none">열람하기 &gt;</span></a>`:'')+`</div>`;
+    (id==='sumeru'?`<a href="#/college/sumeru/timeline" class="mt-6 flex items-center justify-between gap-4 bg-gradient-to-r from-[#1d3e72] to-[#13294b] text-white p-5 hover:brightness-110"><span><b class="block text-lg">티바트 연표</b><span class="text-sm text-slate-300">시대와 지역별로 사건을 기록하고 수정하는 학부 자료실</span></span><span class="text-[#e7c978] flex-none">열람하기 &gt;</span></a>`:'')+`</div>`;
   } else if(tab==='depts'){
     body.innerHTML=`<h2 class="text-xl font-bold text-[#13294b] border-b-2 border-[#13294b] pb-2">학과 안내</h2><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">`+c.depts.map(d=>`<div class="border border-slate-200 border-l-[6px] p-4 font-medium" style="border-left-color:${c.c}">${d}</div>`).join('')+`</div>`;
   } else startTimeline();
