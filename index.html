@@ -19,7 +19,11 @@ input[type=color]::-webkit-color-swatch{border:none;border-radius:6px}
 a:focus-visible,button:focus-visible{outline:3px solid #6fa8ff;outline-offset:2px}
 .gnb-link{position:relative}
 .gnb-link::after{content:"";position:absolute;left:50%;right:50%;bottom:0;height:3px;background:#c9a24b;transition:left .2s,right .2s}
-.gnb-link:hover::after,.gnb-open .gnb-link::after{left:22%;right:22%}
+.gnb-item:hover .gnb-link::after,.gnb-item:focus-within .gnb-link::after{left:22%;right:22%}
+.gnb-sub{display:none}
+.gnb-item:hover .gnb-sub,.gnb-item:focus-within .gnb-sub{display:block}
+.gnb-shut .gnb-sub{display:none!important}
+style,script,head{display:none!important}
 .hero-title{color:#13294b;text-shadow:0 0 14px rgba(255,255,255,.95),0 0 4px rgba(255,255,255,.9)}
 :root{--hero:url(assets/hero.jpg)}
 .we-on{padding-bottom:64px}
@@ -69,12 +73,6 @@ a:focus-visible,button:focus-visible{outline:3px solid #6fa8ff;outline-offset:2p
       <nav id="gnb" class="hidden lg:grid grid-cols-5 w-[680px] text-[17px] font-bold text-[#13294b]" aria-label="주 메뉴"></nav>
     </div>
     <button id="menuBtn" class="lg:hidden p-2 text-2xl text-[#13294b]" aria-label="메뉴">☰</button>
-  </div>
-  <div id="mega" class="hidden absolute left-0 right-0 top-full bg-white border-t border-slate-200 shadow-xl">
-    <div class="max-w-[1280px] mx-auto px-4 py-6 flex justify-between gap-8">
-      <div class="hidden xl:block w-64 text-sm text-slate-500 leading-relaxed"><p class="text-[#13294b] font-black text-lg">모험의 지혜, 미래를 열다</p><p class="mt-2">개교 6주년을 맞은 원신대학교에서 당신의 모험을 이루어 보세요.</p></div>
-      <div id="megaCols" class="grid grid-cols-5 w-[680px] text-center text-sm"></div>
-    </div>
   </div>
   <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-slate-200 px-5 py-3 text-sm max-h-[70vh] overflow-y-auto"></div>
   <div id="searchBox" class="hidden bg-slate-50 border-t border-slate-200">
@@ -1113,6 +1111,10 @@ const COLLEGES=[
  {id:'natlan',name:'나타 체육·전투대학',tag:'전쟁의 학풍',c:'#ea580c',desc:'열정과 경쟁의 정신으로 체력과 전투 기술을 단련하는 대학입니다.',depts:['체육교육과','전투기술학과','고대이름계승학과','열소응용학과','나타용전문의학과']},
  {id:'snezhnaya',name:'스네즈나야 첨단과학대학',tag:'북국의 학풍',c:'#0284c7',desc:'혹한의 땅에서 발전한 첨단 과학 기술을 연구합니다.',depts:['저온공학과','정밀기계학과','외교·전략학과','우인군사학과','스네즈나야 문화·예술학과']}
 ];
+/* 입학자료실 파일: '자료 이름':'파일 경로' — 파일을 assets/docs/ 에 올리고 여기에 한 줄 추가하면 열람 버튼이 다운로드로 바뀝니다 */
+const DOCFILES={
+ '2027학년도 수시모집 요강':'assets/docs/2027-susi-mojip-yogang.pdf'
+};
 const G=[
  {n:'대학소개',items:[['status','대학현황'],['faculty','교수진'],['greeting','총장 인사말'],['history','개교 6주년 연혁'],['symbol','대학상징'],['map','캠퍼스맵']]},
  {n:'입학안내',items:[['adm','입학 메인'],['early','수시모집'],['regular','정시모집'],['transfer','편입학'],['docs','입학자료실']]},
@@ -1127,13 +1129,12 @@ const MENU=[
  [G[2].n,'#/page/calendar',pg(G[2])],
  [G[3].n,'#/page/results',[...pg(G[3]),['티바트 연표','#/college/sumeru/timeline']]]
 ];
-$('gnb').innerHTML=MENU.map(m=>`<a href="${m[1]}" class="gnb-link text-center py-4 hover:text-[#1d3e72]">${m[0]}</a>`).join('');
-$('megaCols').innerHTML=MENU.map(m=>`<ul class="space-y-2.5 text-slate-600">${m[2].map(i=>`<li><a href="${i[1]}" class="hover:text-[#1d3e72] hover:font-bold">${i[0]}</a></li>`).join('')}</ul>`).join('');
+$('gnb').innerHTML=MENU.map((m,k)=>`<div class="gnb-item relative"><a href="${m[1]}" class="gnb-link block text-center py-4 hover:text-[#1d3e72]">${m[0]}</a><div class="gnb-sub absolute top-full z-50 ${k===MENU.length-1?'right-0':'left-1/2 -translate-x-1/2'} min-w-[170px] w-max bg-white border border-slate-200 border-t-2 border-t-[#c9a24b] shadow-xl py-3 px-4"><ul class="space-y-2.5 text-center text-sm font-normal text-slate-600 whitespace-nowrap">${m[2].map(i=>`<li><a href="${i[1]}" class="block hover:text-[#1d3e72] hover:font-bold">${i[0]}</a></li>`).join('')}</ul></div></div>`).join('');
 $('mobileMenu').innerHTML=MENU.map(m=>`<details class="border-b border-slate-200"><summary class="py-3 font-bold text-[#13294b] cursor-pointer">${m[0]}</summary><div class="pb-2 pl-3">${m[2].map(i=>`<a href="${i[1]}" class="block py-1.5 text-slate-600">${i[0]}</a>`).join('')}</div></details>`).join('');
 const hdr=$('hdr');
-function megaOpen(o){ $('mega').classList.toggle('hidden',!o); hdr.classList.toggle('gnb-open',o); }
-$('gnb').addEventListener('mouseenter',()=>megaOpen(true)); $('gnb').addEventListener('focusin',()=>megaOpen(true));
-hdr.addEventListener('mouseleave',()=>megaOpen(false)); $('mega').addEventListener('click',()=>megaOpen(false));
+function megaOpen(o){ hdr.classList.toggle('gnb-shut',!o); if(!o&&document.activeElement&&$('gnb').contains(document.activeElement)) document.activeElement.blur(); }
+$('gnb').addEventListener('mousemove',()=>hdr.classList.remove('gnb-shut')); $('gnb').addEventListener('focusin',()=>hdr.classList.remove('gnb-shut'));
+$('gnb').addEventListener('click',e=>{ if(e.target.closest('.gnb-sub a')) megaOpen(false); });
 document.addEventListener('keydown',e=>{if(e.key==='Escape')megaOpen(false)});
 $('menuBtn').onclick=()=>$('mobileMenu').classList.toggle('hidden');
 $('mobileMenu').addEventListener('click',e=>{if(e.target.closest('a'))$('mobileMenu').classList.add('hidden')});
@@ -1221,7 +1222,7 @@ $('subBody').addEventListener('click',e=>{
   else if(t.dataset.mon){ calMon=t.dataset.mon; renderCal(); }
   else if(t.dataset.cf){ clubF=t.dataset.cf; renderClubs(); }
   else if(t.dataset.join){ const n=t.dataset.join; joined=joined.includes(n)?joined.filter(x=>x!==n):[...joined,n]; try{localStorage.setItem('gu_clubs',JSON.stringify(joined))}catch(x){} renderClubs(); }
-  else if(t.dataset.doc!==undefined){ openModal(t.dataset.doc,'입학자료실','이 자료는 현재 준비 중입니다. 입학처(UID 821789055)로 문의해 주세요.'); }
+  else if(t.dataset.doc!==undefined){ const f=DOCFILES[t.dataset.doc]; if(f){ const a=document.createElement('a'); a.href=f; a.download=f.split('/').pop(); document.body.appendChild(a); a.click(); a.remove(); } else openModal(t.dataset.doc,'입학자료실','이 자료는 현재 준비 중입니다. 입학처(UID 821789055)로 문의해 주세요.'); }
   else openModal('협력 문의','산학협력단','협력 제안은 (UID 821789055) 로 보내주세요. 담당자가 영업일 기준 3일 안에 회신합니다.');
 });
 document.addEventListener('click',e=>{
