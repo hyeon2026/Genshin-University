@@ -161,7 +161,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #6fa8ff;outline-offset:2p
 <footer class="bg-slate-100 text-slate-500 text-xs mt-16 border-t border-slate-200">
   <div class="max-w-[1180px] mx-auto px-4 py-8">
     <p class="flex flex-wrap gap-x-5 gap-y-1 text-slate-700 font-medium"><a href="#colleges">교내기관 안내</a><a href="#/page/status">대학소개</a><a href="#/page/adm">입학안내</a><a href="#/college/sumeru/timeline">티바트 연표</a><button id="imgReset" class="text-slate-400 hover:text-slate-700">사진 초기화</button><button id="dataDefault" class="text-slate-400 hover:text-slate-700">기본값으로 되돌리기</button><button id="dataExport" class="text-slate-400 hover:text-slate-700">데이터 백업</button><label class="cursor-pointer text-slate-400 hover:text-slate-700">데이터 복원<input id="dataImport" type="file" accept=".json" class="hidden"></label></p>
-    <div class="flex items-center gap-3 mt-5"><svg class="w-10 h-10" viewBox="0 0 100 100"><use href="#seal"/></svg><p>테바트 대륙 원신로 1 원신대학교<br>Copyright 2020–2026 Genshin University. All Rights Reserved.</p></div>
+    <div class="flex items-center gap-3 mt-5"><svg class="w-10 h-10" viewBox="0 0 100 100"><use href="#seal"/></svg><p>티바트 대륙 원신로 1 원신대학교<br>Copyright 2020–2026 Genshin University. All Rights Reserved.</p></div>
     <p class="mt-4 opacity-80">※ 본 페이지는 원신 개교 6주년을 기념해 만든 팬 패러디 페이지이며, 실제 대학이나 공식 사이트가 아닙니다.</p>
   </div>
 </footer>
@@ -1205,8 +1205,8 @@ $('subBody').addEventListener('click',e=>{
   else if(t.dataset.mon){ calMon=t.dataset.mon; renderCal(); }
   else if(t.dataset.cf){ clubF=t.dataset.cf; renderClubs(); }
   else if(t.dataset.join){ const n=t.dataset.join; joined=joined.includes(n)?joined.filter(x=>x!==n):[...joined,n]; try{localStorage.setItem('gu_clubs',JSON.stringify(joined))}catch(x){} renderClubs(); }
-  else if(t.dataset.doc!==undefined){ openModal(t.dataset.doc,'입학자료실','이 자료는 현재 준비 중입니다. 입학처(admission@genshin.example)로 문의해 주세요.'); }
-  else openModal('협력 문의','산학협력단','협력 제안은 industry@genshin.example 로 보내주세요. 담당자가 영업일 기준 3일 안에 회신합니다.');
+  else if(t.dataset.doc!==undefined){ openModal(t.dataset.doc,'입학자료실','이 자료는 현재 준비 중입니다. 입학처(UID 821789055)로 문의해 주세요.'); }
+  else openModal('협력 문의','산학협력단','협력 제안은 (UID 821789055) 로 보내주세요. 담당자가 영업일 기준 3일 안에 회신합니다.');
 });
 document.addEventListener('click',e=>{
   if(e.target.closest('.imgbtn')) return;
@@ -1319,7 +1319,7 @@ const SEED=()=>({"faculty": [{"id": "f1", "name": "종려", "title": "명예교�
 const PRES_IMG="assets/president-traveler.jpg";
 const OLD_PHOTO_SIG=["39119:6l/dKqNZxY4U96+q2ikMZLSd8M9eXWVpaESsf//Z", "41503:WeDUupdW3QeyqWyARQEXNDOzNkjB9KM12PcwP//Z", "39683:JNOupZ9K1FdThIwLOQcD8a9H2jlTSRyWtK5//9k=", "39527:KFWQfxiuZu5Iotc1AM+0RkfNXfgp2Z6c5Jwuf//Z", "40927:WVfh207NwMS5A2+tb/hdAJroDqFGa6IIymz/2Q==", "39307:wkkbP3eXckmtTSrm0ilkS6JwelfRy6nzS2P/2Q==", "40099:efP9mT7q8k1U1co8cVmnAl6+2K+fjuexLY//2Q==", "103111:AEGuj8S+KbXwhZLJdoZc8LHnBNfTuCijJVbo/9k=", "106299:wLqlwyKk4lijGESSQ4Uew7VMKDXvLc25/dsz/9k=", "100251:A/AV5Bo7GXSoLok7JFBU+td2UV0qCbOKvTbeh//Z", "101707:YL+50j4keInZtylCgXHB+Y01PlafY5+dTdu5/9k=", "105147:4TfwncNOrN9hlPCt0U1WuVQQJOmBG/TBzTIZ/9k=", "101499:fpXq/iSFCqFhkkc5rz2n7XU+3wdRToNRWx//2Q==", "102615:m07SbYEZht4mIPPqSGb8a9DD07vT+mcNV3Z//9k="];
 let PEOPLE=null; try{ PEOPLE=JSON.parse(localStorage.getItem('gu_people')); }catch(e){}
-const OLD_F=['한서린','오도윤','윤하람','강세연','백이안','서지후','문태오','류하은'];
+const OLD_F=['벤티','사이노','알베도','토마','다이루크','파루잔','모나'];
 if(PEOPLE&&PEOPLE.faculty&&PEOPLE.faculty.length===8&&PEOPLE.faculty.every((p,i)=>p.name===OLD_F[i])) PEOPLE=null; // 예전 예시 데이터는 새 예시로 교체
 if(!PEOPLE||!PEOPLE.faculty||!PEOPLE.leaders) PEOPLE=SEED();
 // 예전에 저장된 데이터에 남아 있는 잘못된 예시 학과를 현재 학과 목록에 맞게 바로잡음
