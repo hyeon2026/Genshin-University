@@ -182,6 +182,10 @@ style,script,head{display:none!important}
   <div class="bg-white max-w-2xl w-full shadow-2xl" role="dialog" aria-modal="true"><div class="bg-[#13294b] text-white px-5 py-3 flex justify-between items-center"><p id="eTitle" class="text-sm font-bold"></p><button data-eclose aria-label="닫기" class="text-xl leading-none">×</button></div><div id="eBody" class="p-6"></div></div>
 </div>
 <div id="weHover"></div>
+<div id="weItem" style="position:fixed;z-index:89;pointer-events:none;border:2px solid #3b82f6;background:rgba(59,130,246,.07);display:none"></div>
+<div id="weItemBar" class="hidden fixed z-[96] flex items-stretch bg-[#13294b] text-white text-xs shadow-lg border border-white/20">
+  <button data-wb="prev" title="앞으로" class="px-2.5 py-1.5 hover:bg-white/15">‹</button><button data-wb="next" title="뒤로" class="px-2.5 py-1.5 hover:bg-white/15">›</button><button data-wb="dup" title="복제해서 추가" class="px-2.5 py-1.5 hover:bg-white/15 border-l border-white/20">＋ 복제</button><button data-wb="edit" title="수정" class="hidden px-2.5 py-1.5 hover:bg-white/15">✎ 수정</button><button data-wb="del" title="삭제" class="px-2.5 py-1.5 hover:bg-red-500/70">🗑</button><button data-wb="up" title="상위 묶음 선택" class="px-2.5 py-1.5 hover:bg-white/15 border-l border-white/20">⤴</button>
+</div>
 <div id="wePop" class="hidden fixed z-[95] w-[min(340px,calc(100vw-16px))] bg-white shadow-2xl border border-slate-300">
   <div class="bg-[#13294b] text-white text-xs px-3 py-2 flex justify-between items-center"><span>문구 수정</span><button id="weX" aria-label="닫기" class="text-lg leading-none">×</button></div>
   <div class="p-3"><textarea id="weTa" rows="3" class="w-full border border-slate-300 p-2 text-sm leading-relaxed focus:outline-none focus:border-[#13294b]"></textarea>
@@ -189,7 +193,8 @@ style,script,head{display:none!important}
   <div class="flex gap-2 justify-end mt-2"><button id="weRev" class="border border-slate-300 px-3 py-1.5 text-xs hover:border-[#13294b]">원래대로</button><button id="weCancel" class="border border-slate-300 px-3 py-1.5 text-xs hover:border-[#13294b]">취소</button><button id="weSave" class="bg-[#13294b] text-white px-4 py-1.5 text-xs hover:bg-[#1d3e72]">저장</button></div></div>
 </div>
 <div id="webEditBar" class="hidden fixed bottom-0 inset-x-0 z-[90] bg-[#13294b] text-white text-xs sm:text-sm px-4 py-3 flex flex-wrap items-center gap-x-4 gap-y-2 shadow-[0_-4px_12px_rgba(0,0,0,.25)]">
-  <b>✏️ 웹 수정 모드</b><span class="text-slate-300 flex-1 min-w-[200px]">글자를 클릭하면 바로 수정 · 링크 이동은 <b>Alt+클릭</b> · 교수진·동아리·사진·연표는 각 화면의 기존 편집 기능 사용<span id="weCloudNote"></span></span>
+  <b>✏️ 웹 수정 모드</b><span class="text-slate-300 flex-1 min-w-[200px]">글자 클릭 = 문구 수정 · 항목에 마우스를 올리면 <b>순서 변경·복제·삭제</b> · 링크 이동은 <b>Alt+클릭</b> · 사진·연표는 각 화면의 기존 편집 기능<span id="weCloudNote"></span></span>
+  <button id="weResetSt" class="border border-slate-400 px-3 py-1 hover:bg-white/10">항목 구성 초기화</button>
   <button id="weResetAll" class="border border-slate-400 px-3 py-1 hover:bg-white/10">수정한 문구 모두 초기화</button><button id="weDone" class="bg-[#c9a24b] text-[#13294b] font-bold px-4 py-1 hover:bg-[#d9b25b]">완료</button>
 </div>
 <script type="text/plain" id="tlSrc">
@@ -1113,7 +1118,7 @@ const COLLEGES=[
 ];
 /* 입학자료실 파일: '자료 이름':'파일 경로' — 파일을 assets/docs/ 에 올리고 여기에 한 줄 추가하면 열람 버튼이 다운로드로 바뀝니다 */
 const DOCFILES={
- '2027학년도 수시모집 요강':'assets/docs/2027학년도 수시모집 요강.pdf'
+ '2027학년도 수시모집 요강':'assets/docs/2027-susi-mojip-yogang.pdf'
 };
 const G=[
  {n:'대학소개',items:[['status','대학현황'],['faculty','교수진'],['greeting','총장 인사말'],['history','개교 6주년 연혁'],['symbol','대학상징'],['map','캠퍼스맵']]},
@@ -1351,18 +1356,24 @@ function repairPeople(){
 if(repairPeople()){ try{ localStorage.setItem('gu_people',JSON.stringify(PEOPLE)); }catch(e){} }
 let facQ='', facCollege='all', facFixed='', clubFilter='all', ed=null;
 const colName=id=>(COLLEGES.find(c=>c.id===id)||{name:''}).name;
-const AV=(p,cls)=>p.photo?`<img src="${p.photo}" alt="${esc(p.name)}" class="${cls} object-cover">`:`<div class="${cls} flex items-center justify-center bg-gradient-to-br from-[#1d3e72] to-[#13294b] text-white font-black text-2xl">${esc((p.name||'?').slice(0,1))}</div>`;
+const phStyle=p=>{ const o=p.photoPos||{}, x=o.x==null?50:o.x, y=o.y==null?50:o.y, z=o.z||1; return `object-position:${x}% ${y}%;`+(z>1?`transform:scale(${z});transform-origin:${x}% ${y}%;`:''); };
+const AV=(p,cls)=>p.photo?`<span class="${cls} block overflow-hidden"><img src="${p.photo}" alt="${esc(p.name)}" class="w-full h-full object-cover block" style="${phStyle(p)}"></span>`:`<div class="${cls} flex items-center justify-center bg-gradient-to-br from-[#1d3e72] to-[#13294b] text-white font-black text-2xl">${esc((p.name||'?').slice(0,1))}</div>`;
 function persistPeople(){ try{ localStorage.setItem('gu_people',JSON.stringify(PEOPLE)); }catch(e){ alert('브라우저 저장 공간이 부족합니다. 사진 수를 줄여 주세요.'); } if(window.GU_SYNC) window.GU_SYNC.push('people',PEOPLE); }
 function refreshPeople(){ if($('facBox')) renderFaculty(); if($('clubBox')) renderClubs(); renderHomeFaculty(); }
-const personCard=p=>`<button data-prof="faculty:${p.id}" class="group text-left border border-slate-200 hover:shadow-md transition bg-white">${AV(p,'w-full aspect-square')}<div class="p-3"><p class="font-bold text-[#13294b]">${esc(p.name)} <span class="text-xs font-medium text-slate-500">${esc(p.title)}</span></p><p class="text-xs text-[#1d3e72] mt-0.5">${esc(colName(p.college))}${p.dept?' · '+esc(p.dept):''}</p><p class="text-xs text-slate-500 mt-1 line-clamp-2">${esc(p.field)}</p></div></button>`;
+const RANKS=['교수','부교수','조교수','명예교수','겸임교수','외래교수','특별강사']; // 교수진 직위 정렬 순서
+const rankOf=p=>{ const i=RANKS.indexOf(p.title); return i<0?RANKS.length:i; };
+const sortedFaculty=()=>PEOPLE.faculty.map((p,i)=>[p,i]).sort((a,b)=>rankOf(a[0])-rankOf(b[0])||a[1]-b[1]).map(x=>x[0]);
+const personCard=p=>`<button data-prof="faculty:${p.id}" class="group text-left border border-slate-200 hover:shadow-md transition bg-white flex flex-col justify-start items-stretch h-full">${AV(p,'w-full aspect-square shrink-0')}<div class="p-3 flex-1"><p class="font-bold text-[#13294b]">${esc(p.name)} <span class="text-xs font-medium text-slate-500">${esc(p.title)}</span></p><p class="text-xs text-[#1d3e72] mt-0.5">${esc(colName(p.college))}${p.dept?' · '+esc(p.dept):''}</p><p class="text-xs text-slate-500 mt-1 line-clamp-2">${esc(p.field)}</p></div></button>`;
 function renderFaculty(){
   const fixed=facFixed, q=facQ.trim().toLowerCase(), cur=fixed||facCollege;
   if($('facChips')) $('facChips').innerHTML=fixed?'':[['all','전체'],...COLLEGES.map(c=>[c.id,c.name])].map(c=>CHIP('data-fchip',c[0],c[1],facCollege===c[0])).join('');
   if($('facAdd')) $('facAdd').innerHTML=canEditNow()?'<button data-padd="faculty" class="bg-[#13294b] text-white text-sm px-4 py-2 hover:bg-[#1d3e72]">＋ 교수진 추가</button>':'';
-  const list=PEOPLE.faculty.filter(p=>(cur==='all'||p.college===cur)&&(!q||(p.name+p.dept+p.field+p.title).toLowerCase().includes(q)));
-  $('facBox').innerHTML=list.length?`<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${list.map(personCard).join('')}</div>`:'<p class="text-slate-400 py-10 text-center">해당하는 교수진이 없습니다.</p>';
+  const list=sortedFaculty().filter(p=>(cur==='all'||p.college===cur)&&(!q||(p.name+p.dept+p.field+p.title).toLowerCase().includes(q)));
+  const grp=[]; list.forEach(p=>{ let g=grp.find(x=>x.t===p.title); if(!g){ g={t:p.title,a:[]}; grp.push(g); } g.a.push(p); });
+  $('facBox').setAttribute('data-wefix','');
+  $('facBox').innerHTML=list.length?grp.map(g=>`<section class="mb-8"><h3 class="flex items-baseline gap-2 text-lg font-black text-[#13294b] border-b-2 border-[#13294b] pb-1.5 mb-4">${esc(g.t||'기타')}<span class="text-xs font-medium text-slate-400">${g.a.length}명</span></h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${g.a.map(personCard).join('')}</div></section>`).join(''):'<p class="text-slate-400 py-10 text-center">해당하는 교수진이 없습니다.</p>';
 }
-function renderHomeFaculty(){ const el=$('homeFac'); if(el) el.innerHTML=PEOPLE.faculty.slice(0,4).map(personCard).join(''); }
+function renderHomeFaculty(){ const el=$('homeFac'); if(el) el.innerHTML=sortedFaculty().slice(0,4).map(personCard).join(''); }
 function renderClubs(){
   $('clubTabs').innerHTML=['all','학술','체육','예술','레저'].map(c=>CHIP('data-cf',c,c==='all'?'전체':c,clubF===c)).join('')+(canEditNow()?'<button data-padd="leaders" class="ml-auto bg-[#13294b] text-white text-sm px-4 py-1.5 hover:bg-[#1d3e72]">＋ 동아리장 등록</button>':'');
   $('clubBox').innerHTML=`<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">${CL.filter(c=>clubF==='all'||c[1]===clubF).map(c=>{
@@ -1388,33 +1399,35 @@ function deptOpts(collegeId,cur){ const c=COLLEGES.find(x=>x.id===collegeId); co
 function majorOpts(cur){ let o=COLLEGES.map(c=>`<optgroup label="${esc(c.name)}">${c.depts.map(d=>`<option value="${esc(d)}"${d===cur?' selected':''}>${esc(d)}</option>`).join('')}</optgroup>`).join(''); if(cur&&!COLLEGES.some(c=>c.depts.includes(cur))) o=`<option value="${esc(cur)}" selected>${esc(cur)}</option>`+o; return o+'<option value="__custom">직접 입력…</option>'; }
 function openEdit(kind,id){
   const base=id?JSON.parse(JSON.stringify(PEOPLE[kind].find(x=>x.id===id))):(kind==='faculty'?{name:'',title:'교수',college:facFixed||COLLEGES[0].id,dept:'',field:'',email:'',office:'',bio:'',photo:'',career:[]}:{name:'',club:CL[0][0],role:'회장',major:'',year:'1학년',bio:'',photo:'',career:[]});
-  ed={kind,id:id||null,photo:base.photo||'',career:base.career||[]};
+  ed={kind,id:id||null,photo:base.photo||'',pos:Object.assign({x:50,y:50,z:1},base.photoPos||{}),career:base.career||[]};
   const isF=kind==='faculty';
   const I=(k,l,ph='')=>`<label class="block text-sm"><span class="text-slate-500">${l}</span><input id="e_${k}" value="${esc(base[k])}" placeholder="${ph}" class="mt-1 w-full border border-slate-300 px-3 py-2"></label>`;
   const S=(k,l,opts)=>`<label class="block text-sm"><span class="text-slate-500">${l}</span><select id="e_${k}" class="mt-1 w-full border border-slate-300 px-3 py-2">${opts.map(o=>`<option value="${esc(o[0])}"${o[0]===base[k]?' selected':''}>${esc(o[1])}</option>`).join('')}</select></label>`;
-  $('eBody').innerHTML=`<div class="flex items-center gap-4 mb-5"><div id="ePhoto">${AV({name:base.name||'?',photo:ed.photo},'w-24 h-24 rounded')}</div><div class="flex flex-col gap-2 text-sm"><button data-photo class="border border-slate-300 px-4 py-1.5 hover:border-[#13294b]">사진 선택</button><button data-photo-rm class="text-slate-500 hover:text-red-600">사진 삭제</button></div></div>
-  <div class="grid sm:grid-cols-2 gap-3">${I('name','이름','홍길동')}${isF?S('title','직위',['교수','부교수','조교수','명예교수','겸임교수'].map(x=>[x,x])):S('role','직책',['회장','부회장','총무','기장'].map(x=>[x,x]))}
-  ${isF?S('college','소속 단과대학',COLLEGES.map(c=>[c.id,c.name]))+`<label class="block text-sm"><span class="text-slate-500">학과 (선택한 단과대학의 학과)</span><select id="e_dept" class="${SEL_CLS}">${deptOpts(base.college,base.dept)}</select><input id="e_dept_x" placeholder="학과 이름 입력" class="hidden ${SEL_CLS}"></label>`+I('field','연구분야')+I('email','이메일')+I('office','연구실'):S('club','동아리',CL.map(c=>[c[0],c[0]]))+`<label class="block text-sm"><span class="text-slate-500">학과</span><select id="e_major" class="${SEL_CLS}">${majorOpts(base.major)}</select><input id="e_major_x" placeholder="학과 이름 입력" class="hidden ${SEL_CLS}"></label>`+S('year','학년',['1학년','2학년','3학년','4학년','대학원'].map(x=>[x,x]))}</div>
+  $('eBody').innerHTML=`<div class="mb-5"><div class="flex items-start gap-4"><div id="ePhoto" class="flex-none cursor-move select-none" style="touch-action:none" title="드래그해서 위치 조정">${AV({name:base.name||'?',photo:ed.photo,photoPos:ed.pos},'w-32 h-32 rounded')}</div><div class="flex-1 min-w-0 text-sm"><div class="flex flex-wrap gap-2"><button data-photo class="border border-slate-300 px-3 py-1.5 hover:border-[#13294b]">사진 선택</button><button data-photo-rm class="text-slate-500 hover:text-red-600 px-2">사진 삭제</button><button data-pos-reset class="text-slate-500 hover:text-[#13294b] px-2">위치 초기화</button></div>
+  <div class="mt-2 grid grid-cols-[3.5rem_1fr] items-center gap-x-2 gap-y-1 text-xs text-slate-500"><span>가로 위치</span><input id="e_px" type="range" min="0" max="100" value="${ed.pos.x}"><span>세로 위치</span><input id="e_py" type="range" min="0" max="100" value="${ed.pos.y}"><span>확대</span><input id="e_pz" type="range" min="1" max="3" step="0.05" value="${ed.pos.z}"></div></div></div><p class="text-[11px] text-slate-400 mt-1.5">미리보기를 드래그하거나 슬라이더로 사진 위치를 맞추세요. 카드와 프로필에 같은 위치로 보입니다. (가로·세로는 사진이 잘리는 방향에서, 확대하면 어느 방향이든 움직여요)</p></div>
+  <div class="grid sm:grid-cols-2 gap-3">${I('name','이름','여행자')}${isF?S('title','직위',['교수','부교수','조교수','명예교수','겸임교수','외래교수','특별강사'].map(x=>[x,x])):S('role','직책',['회장','부회장','총무','기장'].map(x=>[x,x]))}
+  ${isF?S('college','소속 단과대학',COLLEGES.map(c=>[c.id,c.name]))+`<label class="block text-sm"><span class="text-slate-500">학과 (선택한 단과대학의 학과)</span><select id="e_dept" class="${SEL_CLS}">${deptOpts(base.college,base.dept)}</select><input id="e_dept_x" placeholder="학과 이름 입력" class="hidden ${SEL_CLS}"></label>`+I('field','연구분야')+I('email','이메일')+I('office','연구실'):S('club','동아리',CL.map(c=>[c[0],c[0]]))+`<label class="block text-sm"><span class="text-slate-500">학과</span><select id="e_major" class="${SEL_CLS}">${majorOpts(base.major)}</select><input id="e_major_x" placeholder="학과 이름 입력" class="hidden ${SEL_CLS}"></label>`+S('year','학년',['1학년','2학년','3학년','4학년','대학원생'].map(x=>[x,x]))}</div>
   <label class="block text-sm mt-3"><span class="text-slate-500">소개</span><textarea id="e_bio" rows="3" class="mt-1 w-full border border-slate-300 px-3 py-2">${esc(base.bio)}</textarea></label>
   <div class="mt-4 flex items-center justify-between"><b class="text-sm text-[#13294b]">이력</b><button data-cadd class="text-sm text-[#1d3e72] hover:underline">＋ 이력 추가</button></div><div id="eCareer" class="mt-2"></div>
   <div class="mt-5 flex justify-end gap-2"><button data-eclose class="border border-slate-300 px-5 py-2 text-sm hover:border-[#13294b]">취소</button><button data-esave class="bg-[#13294b] text-white px-6 py-2 text-sm hover:bg-[#1d3e72]">저장</button></div>`;
   careerRows(); $('eTitle').textContent=(id?'프로필 수정':'새 프로필')+' · '+(isF?'교수진':'동아리장'); $('pmodal').classList.add('hidden'); $('emodal').classList.remove('hidden');
 }
+function ephoto(){ $('ePhoto').innerHTML=AV({name:($('e_name')&&$('e_name').value)||'?',photo:ed.photo,photoPos:ed.pos},'w-32 h-32 rounded'); ['x','y','z'].forEach(k=>{ const el=$('e_p'+k); if(el) el.value=ed.pos[k]; }); }
 function pickPhoto(){
   const i=document.createElement('input'); i.type='file'; i.accept='image/*';
-  i.onchange=()=>{ const f=i.files[0]; if(!f) return; const im=new Image(); im.onload=()=>{ const s=Math.min(im.width,im.height), c=document.createElement('canvas'); c.width=c.height=480; c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,480,480); ed.photo=c.toDataURL('image/jpeg',.9); URL.revokeObjectURL(im.src); $('ePhoto').innerHTML=AV({name:$('e_name').value||'?',photo:ed.photo},'w-24 h-24 rounded'); }; im.src=URL.createObjectURL(f); };
+  i.onchange=()=>{ const f=i.files[0]; if(!f) return; const im=new Image(); im.onload=()=>{ const sc=Math.min(1,720/Math.max(im.width,im.height)), c=document.createElement('canvas'); c.width=Math.round(im.width*sc); c.height=Math.round(im.height*sc); c.getContext('2d').drawImage(im,0,0,c.width,c.height); ed.photo=c.toDataURL('image/jpeg',.88); ed.pos={x:50,y:50,z:1}; URL.revokeObjectURL(im.src); ephoto(); }; im.src=URL.createObjectURL(f); };
   i.click();
 }
 function saveEdit(){
   const g=k=>($('e_'+k)?$('e_'+k).value.trim():''); const gv=k=>g(k)==='__custom'?g(k+'_x'):g(k); const name=g('name'); if(!name){ alert('이름을 입력해 주세요.'); return; }
   collectCareer(); const career=ed.career.filter(c=>(c.p||'').trim()||(c.x||'').trim());
-  const o=ed.kind==='faculty'?{name,title:g('title'),college:g('college'),dept:gv('dept'),field:g('field'),email:g('email'),office:g('office'),bio:g('bio'),photo:ed.photo,career}:{name,club:g('club'),role:g('role'),major:gv('major'),year:g('year'),bio:g('bio'),photo:ed.photo,career};
+  const o=ed.kind==='faculty'?{name,title:g('title'),college:g('college'),dept:gv('dept'),field:g('field'),email:g('email'),office:g('office'),bio:g('bio'),photo:ed.photo,photoPos:ed.pos,career}:{name,club:g('club'),role:g('role'),major:gv('major'),year:g('year'),bio:g('bio'),photo:ed.photo,photoPos:ed.pos,career};
   const arr=PEOPLE[ed.kind];
   if(ed.id){ const i=arr.findIndex(x=>x.id===ed.id); arr[i]={id:ed.id,...o}; } else arr.push({id:'p'+Date.now(),...o});
   persistPeople(); $('emodal').classList.add('hidden'); refreshPeople();
 }
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-prof],[data-fchip],[data-padd],[data-pedit],[data-pdel],[data-photo],[data-photo-rm],[data-cadd],[data-crm],[data-eclose],[data-esave],[data-pclose]'); if(!t) return;
+  const t=e.target.closest('[data-prof],[data-fchip],[data-padd],[data-pedit],[data-pdel],[data-photo],[data-photo-rm],[data-pos-reset],[data-cadd],[data-crm],[data-eclose],[data-esave],[data-pclose]'); if(!t) return;
   const d=t.dataset;
   if(d.prof){ const [k,id]=d.prof.split(':'); openProfile(k,id); }
   else if(d.fchip){ facCollege=d.fchip; renderFaculty(); }
@@ -1422,7 +1435,8 @@ document.addEventListener('click',e=>{
   else if(d.pedit){ const [k,id]=d.pedit.split(':'); openEdit(k,id); }
   else if(d.pdel){ const [k,id]=d.pdel.split(':'); if(confirm('이 프로필을 삭제할까요?')){ PEOPLE[k]=PEOPLE[k].filter(x=>x.id!==id); persistPeople(); $('pmodal').classList.add('hidden'); refreshPeople(); } }
   else if(t.hasAttribute('data-photo')) pickPhoto();
-  else if(t.hasAttribute('data-photo-rm')){ ed.photo=''; $('ePhoto').innerHTML=AV({name:$('e_name').value||'?',photo:''},'w-24 h-24 rounded'); }
+  else if(t.hasAttribute('data-photo-rm')){ ed.photo=''; ephoto(); }
+  else if(t.hasAttribute('data-pos-reset')){ ed.pos={x:50,y:50,z:1}; ephoto(); }
   else if(t.hasAttribute('data-cadd')){ collectCareer(); ed.career.push(CT('경력','','')); careerRows(); }
   else if(d.crm!==undefined){ collectCareer(); ed.career.splice(+d.crm,1); careerRows(); }
   else if(t.hasAttribute('data-eclose')) $('emodal').classList.add('hidden');
@@ -1434,7 +1448,13 @@ document.addEventListener('change',e=>{
   if(id==='e_college'){ $('e_dept').innerHTML=deptOpts(e.target.value,''); $('e_dept_x').classList.add('hidden'); }
   else if(id==='e_dept'||id==='e_major'){ $(id+'_x').classList.toggle('hidden',e.target.value!=='__custom'); }
 });
-document.addEventListener('input',e=>{ if(e.target.id==='facQ'){ facQ=e.target.value; renderFaculty(); } });
+document.addEventListener('input',e=>{ if(e.target.id==='facQ'){ facQ=e.target.value; renderFaculty(); }
+  else if(/^e_p[xyz]$/.test(e.target.id)&&ed){ ed.pos[e.target.id.slice(3)]=+e.target.value; const im=$('ePhoto').querySelector('img'); if(im) im.style.cssText=phStyle({photoPos:ed.pos}); } });
+(function(){ let d=null;
+  document.addEventListener('pointerdown',e=>{ const b=e.target.closest&&e.target.closest('#ePhoto'); if(!b||!ed||!ed.photo) return; e.preventDefault(); d={x:e.clientX,y:e.clientY,w:b.getBoundingClientRect().width}; try{ b.setPointerCapture(e.pointerId); }catch(x){} });
+  document.addEventListener('pointermove',e=>{ if(!d) return; const k=100/d.w/Math.max(ed.pos.z-1,.4); ed.pos.x=Math.max(0,Math.min(100,ed.pos.x-(e.clientX-d.x)*k)); ed.pos.y=Math.max(0,Math.min(100,ed.pos.y-(e.clientY-d.y)*k)); d.x=e.clientX; d.y=e.clientY; const im=$('ePhoto').querySelector('img'); if(im) im.style.cssText=phStyle({photoPos:ed.pos}); ['x','y'].forEach(a=>{ $('e_p'+a).value=ed.pos[a]; }); });
+  document.addEventListener('pointerup',()=>{ d=null; });
+})();
 ['pmodal','emodal'].forEach(id=>$(id).addEventListener('click',e=>{ if(e.target.id===id) $(id).classList.add('hidden'); }));
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ $('pmodal').classList.add('hidden'); $('emodal').classList.add('hidden'); } });
 R.faculty=()=>H('교수진')+`<div class="flex flex-wrap items-center gap-2 mb-5"><input id="facQ" placeholder="이름·학과·연구분야 검색" class="border border-slate-300 px-3 py-2 text-sm w-full sm:w-64"><div id="facChips" class="flex flex-wrap gap-2"></div><span id="facAdd" class="ml-auto"></span></div><div id="facBox"></div>`;
@@ -1504,7 +1524,7 @@ async function uploadAll(){
   if(tl){ docs.main.remoteJson=null; window.GU_SYNC.push('main',tl); }
 }
 $('syncUpload').onclick=uploadAll;
-$('dataDefault').onclick=()=>{ if(!confirm('이 브라우저에 저장된 연표·교수진·동아리 가입·바꾼 사진·수정한 문구를 모두 지우고 기본값으로 되돌릴까요?')) return; try{ ['gt_regions','gt_eras','gt_events','gu_people','gu_clubs','gu_imgs','gu_text'].forEach(x=>localStorage.removeItem(x)); }catch(e){} location.reload(); };
+$('dataDefault').onclick=()=>{ if(!confirm('이 브라우저에 저장된 연표·교수진·동아리 가입·바꾼 사진·수정한 문구·항목 구성을 모두 지우고 기본값으로 되돌릴까요?')) return; try{ ['gt_regions','gt_eras','gt_events','gu_people','gu_clubs','gu_imgs','gu_text','gu_struct'].forEach(x=>localStorage.removeItem(x)); }catch(e){} location.reload(); };
 $('dataExport').onclick=()=>{
   const o={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^(gt_|gu_)/.test(k)&&k!=='gu_code') o[k]=localStorage.getItem(k); } }catch(e){}
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'genshin-univ',v:1,data:o})],{type:'application/json'})); a.download='genshin-univ-backup.json'; a.click();
@@ -1522,8 +1542,9 @@ try{ Object.assign(TXT,JSON.parse(localStorage.getItem('gu_text')||'{}')); }catc
 const ovs=t=>{ const k=norm(t); return (k&&k in TXT)?TXT[k]:t; };
 const origMap=new WeakMap(), applied=new WeakMap();
 const WE={on:false,node:null,key:'',busy:false,q:false};
-const SKIPSEL='#tl-wrap,#wePop,#webEditBar,#weHover,.adm,#tlSrc,svg defs';
+const SKIPSEL='#tl-wrap,#wePop,#webEditBar,#weHover,#weItem,#weItemBar,.adm,#tlSrc,svg defs';
 const textOK=n=>{ if(!n||n.nodeType!==3||!n.nodeValue.trim()) return false; const p=n.parentElement; if(!p) return false; if(/^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT|OPTION|TITLE)$/.test(p.tagName)) return false; return !p.closest(SKIPSEL); };
+const applyOK=n=>textOK(n)&&!n.parentElement.closest('[data-we-add]');
 const wrapWs=(o,t)=>{ const a=o.match(/^\s*/)[0], b=o.match(/\s*$/)[0]; return a+t+b; };
 function saveTXT(){ try{ if(Object.keys(TXT).length) localStorage.setItem('gu_text',JSON.stringify(TXT)); else localStorage.removeItem('gu_text'); }catch(e){} }
 function weApply(){
@@ -1531,7 +1552,7 @@ function weApply(){
   try{
     const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT); let n;
     while((n=w.nextNode())){
-      if(!textOK(n)) continue;
+      if(!applyOK(n)) continue;
       const cur=n.nodeValue;
       if(!origMap.has(n)) origMap.set(n,cur);
       else if(applied.get(n)!==cur&&origMap.get(n)!==cur){ origMap.set(n,cur); applied.delete(n); }
@@ -1540,9 +1561,111 @@ function weApply(){
       if(n.nodeValue!==want){ n.nodeValue=want; applied.set(n,want); } else if(want===o) applied.delete(n);
     }
   }catch(e){}
+  try{ weStruct(); }catch(e){}
   WE.busy=false; mo.observe(document.body,{childList:true,subtree:true,characterData:true});
 }
 const mo=new MutationObserver(()=>{ if(WE.q) return; WE.q=true; requestAnimationFrame(()=>{ WE.q=false; weApply(); }); });
+
+/* ===== 웹 수정하기: 항목 순서 변경 · 복제(추가) · 삭제 ===== */
+let SX={}; try{ SX=JSON.parse(localStorage.getItem('gu_struct')||'{}')||{}; }catch(e){}
+const saveSX=()=>{ try{ if(Object.keys(SX).length) localStorage.setItem('gu_struct',JSON.stringify(SX)); else localStorage.removeItem('gu_struct'); }catch(e){ alert('브라우저 저장 공간이 부족해 이번 방문에만 적용됩니다.'); } };
+const XEXCL='#hdr,header,footer,#tl-wrap,#modal,#pmodal,#emodal,#wePop,#webEditBar,#weItemBar,#weHover,#weItem,#syncBar,#searchBox,#mobileMenu,svg';
+const routeKey=()=>location.hash.replace(/^#\/?/,'')||'home';
+function pathKey(el){ const parts=[]; for(let n=el;n&&n!==document.body;n=n.parentElement){ if(n.id){ parts.push('#'+n.id); break; } parts.push(n.tagName.toLowerCase()+':'+[...n.parentElement.children].indexOf(n)); } return routeKey()+'|'+parts.reverse().join('>'); }
+function resolveKey(k){
+  const path=k.split('|').slice(1).join('|').split('>'); let n=null;
+  if(path[0]&&path[0][0]==='#'){ n=document.getElementById(path.shift().slice(1)); } else n=document.body;
+  for(const part of path){ if(!n) return null; const [t,i]=part.split(':'); n=n.children[+i]; if(!n||n.tagName.toLowerCase()!==t) return null; }
+  return n;
+}
+const elKids=c=>[...c.children].filter(x=>!/^(SCRIPT|STYLE)$/.test(x.tagName));
+function isContainer(c){
+  if(!c||c.nodeType!==1||c.closest(XEXCL)||c.hasAttribute('data-wefix')) return false;
+  const k=elKids(c); if(k.length<1) return false;
+  if(k.length<2&&!SX[pathKey(c)]) return false;
+  const f=k[0]; if(/^(TD|TH|OPTION|BR|LI_)$/.test(f.tagName)) return false;
+  return k.every(x=>x.tagName===f.tagName&&x.className===f.className);
+}
+const isItem=n=>n&&n.nodeType===1&&n.parentElement&&isContainer(n.parentElement)&&n.textContent.trim().length>0;
+function origText(el){ const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT); let t='',n; while((n=w.nextNode())){ if(/^(SCRIPT|STYLE)$/.test(n.parentElement.tagName)) continue; t+=' '+(origMap.has(n)?origMap.get(n):n.nodeValue); } return norm(t).slice(0,160); }
+function keyed(c){ const seen={}; return elKids(c).map(el=>{ let k=el.getAttribute('data-we-add')?'add:'+el.getAttribute('data-we-add'):el.tagName+':'+origText(el); seen[k]=(seen[k]||0)+1; return [el,k+'#'+(seen[k]-1)]; }); }
+function weStruct(){
+  const rk=routeKey()+'|'; const ks=Object.keys(SX).filter(k=>k.startsWith(rk)); if(!ks.length) return;
+  const targets=ks.map(k=>[resolveKey(k),SX[k]]).filter(x=>x[0]);
+  targets.forEach(([c,rec])=>{
+    (rec.add||[]).forEach(a=>{ if(!elKids(c).some(x=>x.getAttribute('data-we-add')===a.id)){ const t=document.createElement('template'); t.innerHTML=a.html.trim(); const n=t.content.firstElementChild; if(n){ n.setAttribute('data-we-add',a.id); c.appendChild(n); } } });
+    const plain=elKids(c).filter(x=>!x.hasAttribute('data-we-add'));
+    if(plain.length&&plain.every(x=>!x.hasAttribute('data-we-s'))){
+      if(rec.del&&rec.del.length) keyed(c).forEach(([el,k])=>{ if(rec.del.includes(k)) el.remove(); });
+      elKids(c).forEach(x=>{ if(!x.hasAttribute('data-we-add')) x.setAttribute('data-we-s','1'); });
+    }
+    if(rec.order&&rec.order.length){
+      const items=keyed(c), pos=k=>rec.order.indexOf(k), groups=[]; let lead=[],cur=null;
+      items.forEach(([el,k])=>{ if(pos(k)>=0){ cur={p:pos(k),els:[el]}; groups.push(cur); } else if(cur) cur.els.push(el); else lead.push(el); });
+      groups.sort((a,b)=>a.p-b.p);
+      const fin=[...lead,...groups.flatMap(g=>g.els)], now=elKids(c);
+      if(fin.some((el,i)=>el!==now[i])) fin.forEach(el=>c.appendChild(el));
+    }
+  });
+}
+function recFor(c){ const k=pathKey(c); if(!SX[k]){ elKids(c).forEach(x=>{ if(!x.hasAttribute('data-we-add')) x.setAttribute('data-we-s','1'); }); SX[k]={}; } return SX[k]; }
+function recOrder(c){ recFor(c).order=keyed(c).map(x=>x[1]); }
+const toast=m=>{ let t=$('weToast'); if(!t){ t=document.createElement('div'); t.id='weToast'; t.className='fixed left-1/2 -translate-x-1/2 bottom-20 z-[97] bg-black/85 text-white text-sm px-4 py-2'; document.body.appendChild(t); } t.textContent=m; t.style.display='block'; clearTimeout(t._t); t._t=setTimeout(()=>{ t.style.display='none'; },2600); };
+/* 선택된 항목 */
+let WI=null, WL=0, WI0=null;
+function weItemHide(){ WI=null; WI0=null; WL=0; $('weItem').style.display='none'; $('weItemBar').classList.add('hidden'); }
+function weItemShow(){
+  if(!WI||!WI.isConnected){ weItemHide(); return; }
+  const r=WI.getBoundingClientRect(), o=$('weItem'), b=$('weItemBar');
+  o.style.cssText='display:block;left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;height:'+r.height+'px';
+  const isP=!!WI.dataset.prof; b.querySelector('[data-wb=edit]').classList.toggle('hidden',!isP);
+  b.classList.remove('hidden'); const bw=b.offsetWidth;
+  b.style.left=Math.max(4,Math.min(r.right-bw-4,innerWidth-bw-4))+'px'; b.style.top=Math.max(4,Math.min(r.top+4,innerHeight-b.offsetHeight-4))+'px';
+}
+function weItemHover(x,y){
+  const el=document.elementFromPoint(x,y); if(!el||el.closest('#weItemBar')) return;
+  const chain=[]; for(let n=el;n&&n!==document.body;n=n.parentElement){ if(isItem(n)) chain.push(n); }
+  if(!chain.length){ weItemHide(); return; }
+  if(chain[0]!==WI0){ WI0=chain[0]; WL=0; }
+  WI=chain[Math.min(WL,chain.length-1)]; WI._chain=chain.length; weItemShow();
+}
+addEventListener('scroll',()=>{ if(WE.on&&WI) weItemShow(); },{passive:true});
+function wbMove(it,dir){
+  const sib=dir<0?it.previousElementSibling:it.nextElementSibling;
+  if(!sib){ toast(dir<0?'맨 앞입니다.':'맨 뒤입니다.'); return; }
+  if(it.dataset.prof){
+    const [k,id]=it.dataset.prof.split(':'), oid=(sib.dataset.prof||'').split(':')[1]; if(!oid){ toast('같은 직위 안에서만 순서를 바꿀 수 있어요.'); return; }
+    const A=PEOPLE[k], i=A.findIndex(p=>p.id===id), j=A.findIndex(p=>p.id===oid); if(i<0||j<0) return; [A[i],A[j]]=[A[j],A[i]]; persistPeople(); refreshPeople();
+    const nu=document.querySelector('[data-prof="'+k+':'+id+'"]'); if(nu){ WI=nu; WI0=nu; } weItemShow(); return;
+  }
+  const c=it.parentElement; if(dir<0) c.insertBefore(it,sib); else c.insertBefore(sib,it);
+  recOrder(c); saveSX(); weItemShow();
+}
+function wbDup(it){
+  if(it.dataset.prof){
+    const [k,id]=it.dataset.prof.split(':'), A=PEOPLE[k], i=A.findIndex(p=>p.id===id); if(i<0) return;
+    const cp=JSON.parse(JSON.stringify(A[i])); cp.id='p'+Date.now(); cp.name=cp.name+' (복사)'; A.splice(i+1,0,cp); persistPeople(); refreshPeople(); toast('복제했습니다. ✎ 수정에서 이름·정보를 바꿔 주세요.'); return;
+  }
+  const c=it.parentElement, cl=it.cloneNode(true); cl.removeAttribute('data-we-add'); cl.removeAttribute('data-we-s'); cl.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id')); cl.removeAttribute('id');
+  const id='a'+Date.now(); cl.setAttribute('data-we-add',id); const html=cl.outerHTML;
+  it.after(cl); const rec=recFor(c); (rec.add=rec.add||[]).push({id,html}); recOrder(c); saveSX(); WI=cl; WI0=cl; weItemShow(); toast('복제했습니다. 새 항목의 글자를 클릭해서 내용을 바꿔 주세요.');
+}
+function wbDel(it){
+  if(it.dataset.prof){ const [k,id]=it.dataset.prof.split(':'); if(confirm('이 프로필을 삭제할까요?')){ PEOPLE[k]=PEOPLE[k].filter(x=>x.id!==id); persistPeople(); refreshPeople(); weItemHide(); } return; }
+  if(!confirm('이 항목을 삭제할까요? ("항목 구성 초기화"로 되돌릴 수 있어요)')) return;
+  const c=it.parentElement, rec=recFor(c), ad=it.getAttribute('data-we-add');
+  if(ad){ rec.add=(rec.add||[]).filter(a=>a.id!==ad); it.remove(); }
+  else { const k=(keyed(c).find(x=>x[0]===it)||[])[1]; if(k){ (rec.del=rec.del||[]).push(k); } it.remove(); }
+  recOrder(c); saveSX(); weItemHide();
+}
+$('weItemBar').addEventListener('click',e=>{
+  const b=e.target.closest('[data-wb]'); if(!b||!WI) return; e.preventDefault(); e.stopPropagation(); const it=WI, w=b.dataset.wb;
+  if(w==='prev') wbMove(it,-1); else if(w==='next') wbMove(it,1); else if(w==='dup') wbDup(it); else if(w==='del') wbDel(it);
+  else if(w==='edit'){ const [k,id]=it.dataset.prof.split(':'); openEdit(k,id); weItemHide(); }
+  else if(w==='up'){ let n=it.parentElement; while(n&&n!==document.body&&!isItem(n)) n=n.parentElement; if(n&&n!==document.body){ WL++; WI=n; weItemShow(); toast('상위 묶음을 선택했어요.'); } else toast('더 위 단계가 없어요.'); }
+});
+$('weResetSt').onclick=()=>{ if(!Object.keys(SX).length){ alert('바꾼 항목 구성이 없습니다.'); return; } if(!confirm('복제·삭제·순서 변경한 항목 구성을 모두 원래대로 되돌릴까요? (페이지를 새로고침합니다)')) return; SX={}; saveSX(); location.reload(); };
+addEventListener('hashchange',()=>{ weItemHide(); requestAnimationFrame(weApply); });
 function weNodeAt(x,y){
   let n=null;
   try{
@@ -1559,7 +1682,10 @@ let hovQ=false;
 document.addEventListener('mousemove',e=>{
   if(!WE.on||hovQ) return; hovQ=true; const x=e.clientX,y=e.clientY;
   requestAnimationFrame(()=>{ hovQ=false;
-    if(!WE.on||e.target.closest&&e.target.closest('#wePop,#webEditBar')){ weHideHover(); return; }
+    if(!WE.on){ weHideHover(); return; }
+    if(e.target.closest&&e.target.closest('#weItemBar')){ weHideHover(); return; }
+    if(e.target.closest&&e.target.closest('#wePop,#webEditBar,#emodal,#pmodal')){ weHideHover(); weItemHide(); return; }
+    weItemHover(x,y);
     const n=weNodeAt(x,y); if(!n){ weHideHover(); return; }
     const rg=document.createRange(); rg.selectNodeContents(n); const b=rg.getBoundingClientRect(), h=$('weHover');
     h.style.cssText='display:block;left:'+(b.left-3)+'px;top:'+(b.top-2)+'px;width:'+(b.width+6)+'px;height:'+(b.height+4)+'px';
@@ -1578,16 +1704,18 @@ function weClose(){ $('wePop').classList.add('hidden'); WE.node=null; }
 function weSave(){
   if(!WE.node) return; const v=norm($('weTa').value);
   if(!v){ alert('빈 문구로는 저장할 수 없어요. 원래대로 되돌리려면 "원래대로"를 눌러 주세요.'); return; }
+  const ad=WE.node.parentElement&&WE.node.parentElement.closest('[data-we-add]');
+  if(ad){ WE.node.nodeValue=wrapWs(WE.node.nodeValue,v); const c=ad.parentElement, rec=SX[pathKey(c)], a=rec&&(rec.add||[]).find(x=>x.id===ad.getAttribute('data-we-add')); if(a){ a.html=ad.outerHTML; saveSX(); } weClose(); return; }
   if(v===WE.key) delete TXT[WE.key]; else TXT[WE.key]=v;
   saveTXT(); weClose(); weApply();
 }
 $('weSave').onclick=weSave;
-$('weRev').onclick=()=>{ if(!WE.node) return; delete TXT[WE.key]; saveTXT(); weClose(); weApply(); };
+$('weRev').onclick=()=>{ if(!WE.node) return; if(WE.node.parentElement.closest('[data-we-add]')){ weClose(); return; } delete TXT[WE.key]; saveTXT(); weClose(); weApply(); };
 $('weCancel').onclick=weClose; $('weX').onclick=weClose;
 $('weResetAll').onclick=()=>{ if(!Object.keys(TXT).length){ alert('수정한 문구가 없습니다.'); return; } if(!confirm('수정한 문구를 모두 원래대로 되돌릴까요? (교수진·동아리·사진·연표는 그대로입니다)')) return; TXT=Object.create(null); saveTXT(); weClose(); weApply(); };
 document.addEventListener('click',e=>{
   if(!WE.on||e.altKey) return;
-  if(e.target.closest('#wePop,#webEditBar,#tl-wrap,.adm,#emodal,#pmodal,#syncBar')) return;
+  if(e.target.closest('#wePop,#webEditBar,#weItemBar,#tl-wrap,.adm,#emodal,#pmodal,#syncBar')) return;
   const n=weNodeAt(e.clientX,e.clientY); if(!n) return;
   e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); weOpen(n);
 },true);
@@ -1606,7 +1734,7 @@ function weStart(){
 }
 function weStop(){
   WE.on=false; document.body.classList.remove('we-on'); $('webEditBar').classList.add('hidden');
-  $('webEditBtn').textContent='✏️ 웹 수정하기'; weClose(); weHideHover();
+  $('webEditBtn').textContent='✏️ 웹 수정하기'; weClose(); weHideHover(); weItemHide();
 }
 $('weDone').onclick=weStop;
 $('webEditBtn').onclick=async()=>{
