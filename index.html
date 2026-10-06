@@ -1246,7 +1246,7 @@ const TM_IMG='data:image/webp;base64,UklGRkxHAQBXRUJQVlA4WAoAAAAQAAAABAMAlQMAQUx
 const TM_REGN={mond:'몬드',liyue:'리월',ina:'이나즈마',sum:'수메르',fon:'폰타인',natlan:'나타',snez:'스네즈나야'};
 const TM_RN=id=>TM_REGN[id]||id;
 /* [x, y, 분류, 지역]  ※ 좌표는 지도 이미지(773×918) 기준. '핀 위치 편집'으로 옮긴 뒤 '좌표 복사'로 여기 붙여넣으면 고정됩니다. */
-const TM_POS0=[[445,332,'행정','mond'],[415,305,'캠퍼스','mond'],[520,405,'캠퍼스','fon'],[175,410,'캠퍼스','ina'],[480,535,'캠퍼스','liyue'],[372,605,'도서관','sum'],[470,355,'생활','mond'],[395,350,'생활','mond'],[550,568,'체육','natlan'],[300,110,'캠퍼스','snez'],[430,378,'출입구','mond']];
+const TM_POS0=[[634,404,'행정','mond'],[677,420,'캠퍼스','mond'],[425,361,'캠퍼스','fon'],[737,657,'캠퍼스','ina'],[618,553,'캠퍼스','liyue'],[487,573,'도서관','sum'],[620,572,'생활','mond'],[48,492,'생활','mond'],[211,618,'체육','natlan'],[380,47,'캠퍼스','snez'],[694,432,'출입구','mond']];
 const TM_CATS=['전체','캠퍼스','행정','도서관','생활','체육','출입구'];
 let TM_POS=TM_POS0.map(p=>p.slice());
 try{const sv=JSON.parse(localStorage.getItem('gu_tmpos')||'null'); if(Array.isArray(sv)&&sv.length===TM_POS.length) TM_POS=sv;}catch(e){}
