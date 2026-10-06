@@ -1220,7 +1220,7 @@ const R={
  greeting:()=>H('총장 인사말')+`<div class="grid md:grid-cols-[220px_1fr] gap-8"><div class="self-start"><div class="relative group border-4 border-[#c9a24b] overflow-hidden"><img id="presImg" data-ipk="pres" style="${ipos('pres')}" src="${SAVED.pres||PRES_IMG}" alt="명예총장 여행자" class="w-full aspect-[3/4] object-cover block"><button data-ipos="pres" data-ratio="3/4" class="iposbtn absolute right-2 top-9 text-xs bg-black/50 text-white px-2.5 py-1 rounded md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition">✥ 위치·확대</button><button data-img="pres" class="imgbtn absolute right-2 top-2 text-xs bg-black/50 text-white px-2.5 py-1 rounded md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition">🖼 변경</button></div><div class="bg-[#13294b] text-white text-center py-3"><p class="font-bold">명예총장 여행자</p><p class="text-xs text-slate-300 tracking-widest">TRAVELER</p></div></div><div class="space-y-4 text-slate-600 leading-relaxed"><p class="text-2xl font-black text-[#13294b]">모험의 지혜로, 미래를 열다</p><p>낯선 땅에서 시작한 여정이 어느덧 여섯 해가 되었습니다. 그동안 함께 걷고, 함께 싸우고, 함께 웃어준 모든 학우 여러분께 깊이 감사드립니다.</p><p>원신대학교는 일곱 국가의 학문이 서로 만나는 곳입니다. 서로 다른 학풍이 어우러질 때 더 넓은 세상을 볼 수 있다고 믿습니다.</p><p>우리의 이야기는 아직 끝나지 않았습니다. 앞으로의 여정도 변함없이 함께해 주시기 바랍니다.</p><p class="text-right font-bold text-slate-800">원신대학교 명예총장 여행자</p></div></div>`,
  history:()=>H('개교 6주년 연혁')+`<ol class="border-l-2 border-[#c9a24b] ml-2">${[['2020','개교','몬드캠퍼스에서 첫 입학식을 열고 리월대학을 개설했습니다.'],['2021','이나즈마대학 신설','번개와 영원의 땅에 새 캠퍼스를 열었습니다.'],['2022','수메르 아카데미아 신설','사막과 열대우림을 아우르는 지혜의 캠퍼스가 문을 열었습니다.'],['2023','폰타인대학 신설','물의 도시에 정의와 재판을 가르치는 캠퍼스가 들어섰습니다.'],['2024','나타대학 신설','불꽃의 땅에 여섯 번째 캠퍼스를 개교했습니다.'],['2025','스네즈나야대학 신설','달빛 아래 새로운 캠퍼스가 문을 열었습니다.'],['2026','개교 6주년','모든 학우와 함께 여섯 번째 생일을 맞이했습니다.']].map(i=>`<li class="relative pl-6 pb-6"><span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-[#c9a24b]"></span><b class="text-lg text-[#13294b]">${i[0]}</b> <span class="text-sm font-bold text-[#1d3e72] ml-1">${i[1]}</span><p class="text-sm text-slate-600 mt-0.5">${i[2]}</p></li>`).join('')}</ol>`,
  symbol:()=>H('대학상징')+`<div class="grid md:grid-cols-[220px_1fr] gap-8"><div class="text-center"><svg class="w-48 h-48 mx-auto" viewBox="0 0 100 100"><use href="#seal"/></svg><p class="text-sm text-slate-500 mt-2">교표</p></div><div><h3 class="font-bold text-[#13294b] mb-2">교색</h3><div class="flex gap-3 mb-6">${[['#13294b','원신 네이비'],['#c9a24b','원신 골드'],['#f6f2e6','아이보리']].map(c=>`<div class="text-center text-xs text-slate-500"><div class="w-20 h-14 border border-slate-200" style="background:${c[0]}"></div>${c[1]}<br>${c[0]}</div>`).join('')}</div><h3 class="font-bold text-[#13294b] mb-2">교훈</h3><p class="mb-6 text-slate-600">모험의 지혜로, 미래를 열다</p><h3 class="font-bold text-[#13294b] mb-2">문양의 의미</h3>${ACC([['별','끝없는 여정과 탐구심을 상징합니다.'],['책','학문과 기록, 지혜를 상징합니다.'],['탑','전통과 일곱 국가의 연대를 상징합니다.'],['불꽃','도전과 열정을 상징합니다.'],['월계수','학문적 성취와 명예를 상징합니다.']])}</div></div>`,
- map:()=>H('캠퍼스맵')+`<div class="grid lg:grid-cols-[1fr_300px] gap-6"><div class="relative aspect-[16/10] bg-[#dcebd6] border border-slate-300 overflow-hidden"><div class="absolute left-0 right-0 top-[80%] h-[4%] bg-[#e9ecef]"></div><div class="absolute top-0 bottom-0 left-[48%] w-[4%] bg-[#e9ecef]"></div>${BLD.map((b,i)=>`<button data-bld="${i}" class="absolute text-white text-[10px] sm:text-xs font-bold leading-tight flex items-center justify-center text-center p-1 shadow hover:brightness-110 ring-offset-1" style="left:${b[1]}%;top:${b[2]}%;width:${b[3]}%;height:${b[4]}%;background:${b[5]}">${b[0]}</button>`).join('')}</div><div id="bldInfo" class="border border-slate-200 p-5 self-start"><h3 class="font-bold text-[#13294b]">건물을 선택하세요</h3><p class="text-sm text-slate-600 mt-2">지도 위 건물을 누르면 설명이 표시됩니다.</p></div></div>`,
+ map:()=>tmPage(),
  adm:()=>H('입학 메인')+P('원신대학교는 티바트 어디서든 배움을 향한 열정이 있는 모험가를 기다립니다. 자주 묻는 질문을 확인해 보세요.')+`<div class="mt-6">${ACC([['지원 자격이 어떻게 되나요?','고등 과정을 마쳤거나 이에 준하는 모험 경력이 있는 분이면 지원할 수 있습니다.'],['모험가 경력은 어떻게 반영되나요?','서류 평가에서 활동 기록을 가점으로 반영합니다.'],['기숙사 입사는 가능한가요?','합격자는 입학 전 별도 신청으로 입사할 수 있습니다.'],['장학금이 있나요?','성적, 모험 활동, 지역 균형 장학 등 다양한 제도가 있습니다.']])}</div>`,
  early:()=>H('수시모집')+T(['단계','일정'],[['원서 접수','2026.10.12 ~ 10.16'],['서류 평가','2026.10.19 ~ 11.01'],['면접','2026.11.07 ~ 11.08'],['합격자 발표','2026.12.10']])+`<div class="mt-6">${ACC([['모집 단위','일곱 개 단과대학 전 학과'],['전형 방법','서류 70% + 면접 30%'],['제출 서류','지원서, 활동 기록서, 추천서']])}</div>`,
  regular:()=>H('정시모집')+T(['단계','일정'],[['원서 접수','2026.12.29 ~ 2027.01.02'],['합격자 발표','2027.01.20'],['등록','2027.02.01 ~ 02.05']])+`<div class="mt-6">${ACC([['전형 방법','학업 성적 100%로 선발합니다.'],['추가 모집','등록 후 결원이 생기면 2월 중 추가 합격자를 발표합니다.']])}</div>`,
@@ -1240,7 +1240,106 @@ function renderCal(){
   $('calTabs').innerHTML=mons.map(m=>CHIP('data-mon',m,m==='all'?'전체':Number(m)+'월',calMon===m)).join('');
   $('calBox').innerHTML=EV.filter(e=>calMon==='all'||e[0]===calMon).map(e=>`<li class="flex items-center gap-4 py-3 border-b border-slate-200"><span class="flex-none w-14 text-center border border-slate-200"><span class="block bg-[#13294b] text-white text-[10px] py-0.5">${Number(e[0])}월</span><span class="block text-xl font-black text-[#13294b]">${e[1]}</span></span><span class="flex-1">${e[2]}</span><span class="text-xs text-slate-500 border border-slate-300 px-2 py-0.5">${e[3]}</span></li>`).join('');
 }
-const INIT={calendar:renderCal,clubs:renderClubs};
+/* ===== 티바트 캠퍼스맵 (SNU 캠퍼스맵 스타일) ===== */
+const TM_W=1000, TM_H=620;
+const TM_REG=[
+ {id:'snez',name:'스네즈나야',c1:'#e8f1f8',c2:'#c5d9ea',lab:[505,42],d:'M250 25 C350 10 600 12 760 30 C790 55 760 100 700 108 C600 120 400 118 300 105 C240 95 215 50 250 25Z'},
+ {id:'mond',name:'몬드',c1:'#cfe8b0',c2:'#9fcf7a',lab:[262,168],d:'M130 190 C140 150 200 130 260 140 C330 130 390 150 395 200 C405 250 385 300 340 325 C290 345 200 340 160 310 C120 280 120 230 130 190Z'},
+ {id:'fon',name:'폰타인',c1:'#cfe6f2',c2:'#8fc6de',lab:[497,185],d:'M410 150 C450 130 540 135 588 160 C606 200 598 260 575 300 C540 330 470 325 430 295 C400 260 395 190 410 150Z'},
+ {id:'liyue',name:'리월',c1:'#efd9a8',c2:'#d9b878',lab:[715,232],d:'M612 200 C660 180 760 190 810 230 C840 280 835 350 800 395 C750 430 670 420 630 380 C604 340 600 250 612 200Z'},
+ {id:'ina',name:'이나즈마',c1:'#dccbf0',c2:'#b497dc',lab:[912,205],d:'M860 180 C900 150 960 170 975 220 C985 270 960 320 930 340 C890 350 860 320 850 270 C845 230 845 200 860 180Z'},
+ {id:'sum',name:'수메르',c1:'#bfe3b0',c2:'#e6cf8f',lab:[290,385],d:'M160 360 C200 345 300 350 400 360 C430 400 425 470 390 520 C330 555 230 550 180 510 C140 470 135 395 160 360Z'},
+ {id:'natlan',name:'나타',c1:'#f6c9a8',c2:'#e48c5e',lab:[585,455],d:'M450 430 C500 410 620 415 700 440 C740 480 735 550 690 585 C620 610 520 605 470 575 C430 540 425 460 450 430Z'}
+];
+const TM_ISL=['M880 380 C910 365 950 375 955 405 C950 430 910 440 885 425 C870 410 870 392 880 380Z','M930 100 C950 90 970 100 965 118 C950 128 930 120 930 100Z'];
+const TM_POS=[[320,215,'행정','mond'],[215,225,'캠퍼스','mond'],[500,235,'캠퍼스','fon'],[910,255,'캠퍼스','ina'],[715,300,'캠퍼스','liyue'],[290,445,'도서관','sum'],[360,285,'생활','mond'],[195,290,'생활','mond'],[585,510,'체육','natlan'],[510,68,'캠퍼스','snez'],[270,322,'출입구','mond']];
+const TM_CATS=['전체','캠퍼스','행정','도서관','생활','체육','출입구'];
+const TM_ROUTES=[[10,0,2,4,3],[10,5,8],[2,9]];
+const TM_RN=id=>TM_REG.find(r=>r.id===id).name;
+const TM_MT=(x,y,s)=>`M${x} ${y}l${6*s} ${-12*s}l${6*s} ${12*s}z`;
+function tmDeco(){
+  let o='';
+  [[300,60],[330,75],[620,50],[650,70],[420,85],[700,80]].forEach(p=>o+=`<path d="${TM_MT(p[0],p[1],1.2)}" fill="#ffffff" stroke="#9db8d0" stroke-width="1"/>`);
+  [[680,360],[700,375],[760,350],[740,385],[650,330]].forEach(p=>o+=`<path d="${TM_MT(p[0],p[1],1.4)}" fill="#c9a06a" stroke="#8c6a3a" stroke-width="1"/>`);
+  [[180,200],[165,250],[240,300],[390,230],[150,230],[300,170],[350,320],[200,320]].forEach(p=>o+=`<circle cx="${p[0]}" cy="${p[1]}" r="6" fill="#6fae52" opacity=".8"/>`);
+  [[200,400],[230,470],[330,500],[190,440],[260,520],[350,420]].forEach(p=>o+=`<circle cx="${p[0]}" cy="${p[1]}" r="7" fill="#3f8f45" opacity=".85"/>`);
+  [[560,440],[640,450],[690,490],[520,560],[620,570]].forEach(p=>o+=`<path d="${TM_MT(p[0],p[1],1.3)}" fill="#b5502d" stroke="#7d2f16" stroke-width="1"/>`);
+  [[520,160],[480,280],[550,270]].forEach(p=>o+=`<path d="M${p[0]} ${p[1]}q8 -8 16 0t16 0" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/>`);
+  [[60,100],[70,420],[90,560],[820,520],[820,580],[960,520],[40,260],[800,60],[130,50]].forEach(p=>o+=`<path d="M${p[0]} ${p[1]}q8 -8 16 0t16 0t16 0" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>`);
+  return o;
+}
+function tmSvg(){
+  const defs=TM_REG.map(r=>`<linearGradient id="tmg_${r.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${r.c1}"/><stop offset="1" stop-color="${r.c2}"/></linearGradient>`).join('');
+  const grid=Array.from({length:19},(_,i)=>`<line x1="${(i+1)*50}" y1="0" x2="${(i+1)*50}" y2="${TM_H}"/>`).join('')+Array.from({length:12},(_,i)=>`<line x1="0" y1="${(i+1)*50}" x2="${TM_W}" y2="${(i+1)*50}"/>`).join('');
+  const land=TM_REG.map(r=>`<path d="${r.d}" fill="url(#tmg_${r.id})" stroke="#fff" stroke-width="5" stroke-linejoin="round" opacity=".55" transform="translate(0 4)" filter="url(#tmsh)"/><path d="${r.d}" fill="url(#tmg_${r.id})" stroke="#7a6a4a" stroke-width="2" stroke-linejoin="round"/>`).join('')+TM_ISL.map(d=>`<path d="${d}" fill="url(#tmg_ina)" stroke="#7a6a4a" stroke-width="2" stroke-linejoin="round"/>`).join('');
+  const labels=TM_REG.map(r=>`<text x="${r.lab[0]}" y="${r.lab[1]}" text-anchor="middle" font-size="22" font-weight="800" fill="#4a3d22" opacity=".28" letter-spacing="4">${r.name}</text>`).join('');
+  const routes=TM_ROUTES.map(rt=>{const pts=rt.map(i=>TM_POS[i]);let d=`M${pts[0][0]} ${pts[0][1]}`;for(let k=1;k<pts.length;k++){const a=pts[k-1],b=pts[k];d+=` Q${(a[0]+b[0])/2} ${(a[1]+b[1])/2-28} ${b[0]} ${b[1]}`}return `<path d="${d}" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".8"/><path d="${d}" fill="none" stroke="#c9a24b" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>`}).join('');
+  const compass=`<g transform="translate(70 540)" opacity=".85"><circle r="34" fill="#fff8e1" stroke="#7a6a4a" stroke-width="2"/><path d="M0 -30L7 0L0 30L-7 0Z" fill="#c9a24b"/><path d="M-30 0L0 -7L30 0L0 7Z" fill="#13294b" opacity=".6"/><text y="-38" text-anchor="middle" font-size="13" font-weight="800" fill="#13294b">N</text></g>`;
+  const pins=BLD.map((b,i)=>`<g class="tmpin" data-tm="${i}" transform="translate(${TM_POS[i][0]} ${TM_POS[i][1]})" style="cursor:pointer"><g class="tmin"><circle class="tmhalo" r="22" fill="${b[5]}" opacity="0"/><path d="M0 0 C-4 -9 -15 -17 -15 -29 A15 15 0 1 1 15 -29 C15 -17 4 -9 0 0Z" fill="${b[5]}" stroke="#fff" stroke-width="2.5"/><text y="-24" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">${i+1}</text><text class="tmname" y="14" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1b2438" stroke="#fff" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round">${b[0]}</text></g></g>`).join('');
+  return `<svg id="tmSvg" viewBox="0 0 ${TM_W} ${TM_H}" class="w-full h-full block select-none touch-none" style="cursor:grab"><defs>${defs}<filter id="tmsh"><feGaussianBlur stdDeviation="3"/></filter><pattern id="tmwave" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#bfe3ee"/></pattern></defs><rect width="${TM_W}" height="${TM_H}" fill="url(#tmwave)"/><g stroke="#a7d3e2" stroke-width="1">${grid}</g>${land}<g>${tmDeco()}</g><g>${labels}</g><g>${routes}</g>${compass}<g id="tmPins">${pins}</g><rect x="3" y="3" width="${TM_W-6}" height="${TM_H-6}" fill="none" stroke="#7a6a4a" stroke-width="5" pointer-events="none"/></svg>`;
+}
+function tmPage(){
+  return H('캠퍼스맵')+`<div id="tmRoot" class="grid lg:grid-cols-[300px_1fr] border border-slate-300 bg-white lg:h-[640px]">
+  <aside class="flex flex-col border-b lg:border-b-0 lg:border-r border-slate-300 min-h-0">
+    <div class="p-3 border-b border-slate-200 bg-[#13294b]">
+      <div class="flex"><input id="tmQ" type="search" placeholder="건물명 · 지역 · 설명 검색" class="flex-1 min-w-0 px-3 py-2 text-sm outline-none"><span class="bg-[#c9a24b] text-[#13294b] font-black px-3 grid place-items-center text-sm">검색</span></div>
+      <div id="tmChips" class="flex flex-wrap gap-1.5 mt-2.5"></div>
+    </div>
+    <div id="tmCount" class="px-4 py-2 text-xs text-slate-500 border-b border-slate-200 bg-slate-50"></div>
+    <ul id="tmList" class="overflow-y-auto flex-1 max-h-72 lg:max-h-none"></ul>
+  </aside>
+  <div class="relative bg-[#bfe3ee] overflow-hidden min-h-[360px]" id="tmMapBox" style="aspect-ratio:${TM_W}/${TM_H}">
+    ${tmSvg()}
+    <div class="absolute right-3 top-3 flex flex-col shadow-md">
+      <button data-tmz="in" class="w-9 h-9 bg-white border border-slate-300 text-xl font-bold hover:bg-slate-50" aria-label="확대">＋</button>
+      <button data-tmz="out" class="w-9 h-9 bg-white border border-t-0 border-slate-300 text-xl font-bold hover:bg-slate-50" aria-label="축소">－</button>
+      <button data-tmz="reset" class="w-9 h-9 bg-white border border-t-0 border-slate-300 text-[11px] font-bold hover:bg-slate-50" aria-label="전체보기">전체</button>
+    </div>
+    <div class="absolute left-3 bottom-3 bg-white/90 border border-slate-300 px-2.5 py-1.5 text-[11px] text-slate-600 flex items-center gap-2"><span class="inline-block w-6 border-t-[3px] border-dotted border-[#c9a24b]"></span>캠퍼스 버스 노선</div>
+    <div id="tmInfo" class="hidden absolute left-3 right-3 sm:right-auto sm:w-80 top-3 bg-white border border-slate-300 shadow-xl"></div>
+  </div></div>`;
+}
+function initTMap(){
+  const wrap=$('subBody').firstElementChild; if(wrap) wrap.classList.replace('max-w-4xl','max-w-6xl');
+  const root=$('tmRoot'), svg=$('tmSvg');
+  let z=1,vx=0,vy=0,cat='전체',q='',sel=-1,moved=0,anim=0;
+  const clamp=()=>{const w=TM_W/z,h=TM_H/z;vx=Math.max(0,Math.min(TM_W-w,vx));vy=Math.max(0,Math.min(TM_H-h,vy));};
+  const apply=()=>{clamp();svg.setAttribute('viewBox',`${vx} ${vy} ${TM_W/z} ${TM_H/z}`);const s=1/Math.pow(z,0.75);svg.querySelectorAll('.tmin').forEach(g=>g.setAttribute('transform',`scale(${s})`));};
+  const zoomAt=(nz,cx,cy)=>{nz=Math.max(1,Math.min(5,nz));const fx=(cx-vx)/(TM_W/z),fy=(cy-vy)/(TM_H/z);z=nz;vx=cx-fx*TM_W/z;vy=cy-fy*TM_H/z;apply();};
+  const flyTo=(tx,ty,tz)=>{cancelAnimationFrame(anim);const z0=z,x0=vx+TM_W/z/2,y0=vy+TM_H/z/2,t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);z=z0+(tz-z0)*e;const cx=x0+(tx-x0)*e,cy=y0+(ty-y0)*e;vx=cx-TM_W/z/2;vy=cy-TM_H/z/2;apply();if(k<1)anim=requestAnimationFrame(step)};anim=requestAnimationFrame(step);};
+  const match=(b,i)=>(cat==='전체'||TM_POS[i][2]===cat)&&(!q||(b[0]+b[6]+TM_RN(TM_POS[i][3])+TM_POS[i][2]).toLowerCase().includes(q));
+  function refresh(){
+    $('tmChips').innerHTML=TM_CATS.map(c=>`<button data-tmc="${c}" class="px-2.5 py-1 text-xs border ${c===cat?'bg-[#c9a24b] text-[#13294b] border-[#c9a24b] font-bold':'border-white/40 text-white hover:bg-white/10'}">${c}</button>`).join('');
+    const hits=BLD.map((b,i)=>[b,i]).filter(x=>match(x[0],x[1]));
+    $('tmCount').textContent=`검색 결과 ${hits.length}건`;
+    $('tmList').innerHTML=hits.map(([b,i])=>`<li data-tm="${i}" class="flex gap-3 items-start px-4 py-3 border-b border-slate-100 cursor-pointer ${i===sel?'bg-amber-50':'hover:bg-slate-50'}"><span class="flex-none w-6 h-6 rounded-full text-white text-xs font-bold grid place-items-center" style="background:${b[5]}">${i+1}</span><span class="min-w-0"><b class="block text-sm text-[#13294b]">${b[0]}</b><span class="block text-xs text-slate-500">${TM_RN(TM_POS[i][3])} · ${TM_POS[i][2]}</span></span></li>`).join('')||'<li class="px-4 py-10 text-center text-sm text-slate-400">검색 결과가 없습니다.</li>';
+    svg.querySelectorAll('.tmpin').forEach(p=>{const i=+p.dataset.tm,on=match(BLD[i],i);p.style.opacity=on?1:.12;p.style.pointerEvents=on?'auto':'none';p.querySelector('.tmhalo').setAttribute('opacity',i===sel?.35:0);});
+    const ps=$('tmPins'); if(sel>=0){const el=ps.querySelector(`[data-tm="${sel}"]`); if(el) ps.appendChild(el);}
+  }
+  function select(i,fly){
+    sel=i;const b=BLD[i],p=TM_POS[i];
+    $('tmInfo').classList.remove('hidden');
+    $('tmInfo').innerHTML=`<div class="h-1.5" style="background:${b[5]}"></div><div class="p-4"><div class="flex justify-between items-start gap-2"><div><p class="text-xs font-bold" style="color:${b[5]}">${i+1}번 · ${TM_RN(p[3])} · ${p[2]}</p><h3 class="font-black text-lg text-[#13294b]">${b[0]}</h3></div><button data-tmx class="text-slate-400 hover:text-slate-700 text-xl leading-none" aria-label="닫기">×</button></div><p class="text-sm text-slate-600 mt-2 leading-relaxed">${b[6]}</p></div>`;
+    if(fly) flyTo(p[0],p[1]-14,Math.max(z,2.2));
+    refresh();
+  }
+  root.addEventListener('click',e=>{
+    const x=e.target.closest('[data-tmx]'); if(x){sel=-1;$('tmInfo').classList.add('hidden');refresh();return;}
+    const c=e.target.closest('[data-tmc]'); if(c){cat=c.dataset.tmc;refresh();return;}
+    const zb=e.target.closest('[data-tmz]'); if(zb){const k=zb.dataset.tmz,cx=vx+TM_W/z/2,cy=vy+TM_H/z/2;if(k==='reset'){flyTo(TM_W/2,TM_H/2,1);}else zoomAt(z*(k==='in'?1.5:1/1.5),cx,cy);return;}
+    const t=e.target.closest('[data-tm]'); if(t&&moved<5) select(+t.dataset.tm,true);
+  });
+  $('tmQ').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();refresh();});
+  const pt=ev=>{const r=svg.getBoundingClientRect();return [vx+(ev.clientX-r.left)/r.width*TM_W/z,vy+(ev.clientY-r.top)/r.height*TM_H/z,r];};
+  svg.addEventListener('wheel',ev=>{ev.preventDefault();cancelAnimationFrame(anim);const p=pt(ev);zoomAt(z*(ev.deltaY<0?1.2:1/1.2),p[0],p[1]);},{passive:false});
+  let drag=null;
+  svg.addEventListener('pointerdown',ev=>{cancelAnimationFrame(anim);moved=0;drag={x:ev.clientX,y:ev.clientY,vx,vy};svg.style.cursor='grabbing';});
+  window.addEventListener('pointermove',ev=>{if(!drag||!document.body.contains(svg))return;const r=svg.getBoundingClientRect(),dx=ev.clientX-drag.x,dy=ev.clientY-drag.y;moved=Math.max(moved,Math.abs(dx)+Math.abs(dy));vx=drag.vx-dx/r.width*TM_W/z;vy=drag.vy-dy/r.height*TM_H/z;apply();});
+  window.addEventListener('pointerup',()=>{drag=null;if(svg.isConnected)svg.style.cursor='grab';});
+  apply();refresh();
+}
+
+const INIT={calendar:renderCal,clubs:renderClubs,map:initTMap};
 function openModal(t,meta,body){ $('mTitle').textContent=t; $('mMeta').textContent=meta; $('mText').textContent=body; $('modal').classList.remove('hidden'); }
 $('modal').addEventListener('click',e=>{ if(e.target.id==='modal'||e.target.closest('[data-close]')) $('modal').classList.add('hidden'); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('modal').classList.add('hidden'); });
