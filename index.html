@@ -12,7 +12,1863 @@
 html{scroll-behavior:smooth}
 body{font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#fff;color:#1e293b;letter-spacing:-.01em}
 .anchor{scroll-margin-top:100px}
+.dragging{opacity:.4}<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>원신대학교 | 개교 6주년</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#fff;color:#1e293b;letter-spacing:-.01em}
+.anchor{scroll-margin-top:100px}
 .dragging{opacity:.4}
+.drag-over{border-color:#1d3e72!important;background-color:rgba(29,62,114,.08)!important}
+input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+input[type=color]::-webkit-color-swatch{border:none;border-radius:6px}
+a:focus-visible,button:focus-visible{outline:3px solid #6fa8ff;outline-offset:2px}
+.gnb-link{position:relative}
+.gnb-link::after{content:"";position:absolute;left:50%;right:50%;bottom:0;height:3px;background:#c9a24b;transition:left .2s,right .2s}
+.gnb-item:hover .gnb-link::after,.gnb-item:focus-within .gnb-link::after{left:22%;right:22%}
+.gnb-sub{display:none}
+.gnb-item:hover .gnb-sub,.gnb-item:focus-within .gnb-sub{display:block}
+.gnb-item.we-open .gnb-sub{display:block}
+.gnb-shut .gnb-sub{display:none!important}
+style,script,head{display:none!important}
+.hero-title{color:#13294b;text-shadow:0 0 14px rgba(255,255,255,.95),0 0 4px rgba(255,255,255,.9)}
+:root{--hero:url(assets/hero.jpg)}
+.we-on{padding-bottom:64px}
+.we-on a,.we-on button,.we-on summary,.we-on label,.we-on [data-bld],.we-on [data-join]{cursor:text}
+.we-on .imgbtn,.we-on .iposbtn{opacity:1!important;cursor:pointer}
+.we-on .adm,.we-on .adm *,.we-on #tl-wrap *,.we-on #webEditBar *,.we-on #wePop *{cursor:pointer}
+.we-on #wePop textarea{cursor:text}
+#weHover{position:fixed;z-index:90;pointer-events:none;border:2px dashed #c9a24b;background:rgba(201,162,75,.15);display:none}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="seal" viewBox="0 0 100 100">
+ <path id="arcT" d="M50 50 m-39 0 a39 39 0 0 1 78 0" fill="none"/>
+ <path id="arcB" d="M50 50 m-45 0 a45 45 0 0 0 90 0" fill="none"/>
+ <circle cx="50" cy="50" r="49" fill="#13294b" stroke="#c9a24b" stroke-width="1.4"/>
+ <circle cx="50" cy="50" r="46.5" fill="none" stroke="#e7c978" stroke-width=".5"/>
+ <circle cx="50" cy="50" r="35" fill="none" stroke="#e7c978" stroke-width=".6"/>
+ <circle cx="50" cy="50" r="33" fill="#1b3a6b"/>
+ <text font-family="Georgia,'Times New Roman',serif" font-size="7.2" font-weight="700" fill="#f4e7bd" letter-spacing="1.1"><textPath href="#arcT" startOffset="50%" text-anchor="middle">GENSHIN UNIVERSITY</textPath></text>
+ <text font-family="Georgia,'Times New Roman',serif" font-size="6.2" font-weight="700" fill="#f4e7bd" letter-spacing="1.4" dy="4.2"><textPath href="#arcB" startOffset="50%" text-anchor="middle">TEYVAT · 2020</textPath></text>
+ <circle cx="9.5" cy="50" r="1.5" fill="#e7c978"/><circle cx="90.5" cy="50" r="1.5" fill="#e7c978"/>
+ <ellipse cx="37.3" cy="77.2" rx="1.1" ry="3.4" transform="rotate(115.0 37.3 77.2)" fill="#d9b866"/><ellipse cx="62.7" cy="77.2" rx="1.1" ry="3.4" transform="rotate(65.0 62.7 77.2)" fill="#d9b866"/><ellipse cx="31.5" cy="73.6" rx="1.1" ry="3.4" transform="rotate(128.0 31.5 73.6)" fill="#d9b866"/><ellipse cx="68.5" cy="73.6" rx="1.1" ry="3.4" transform="rotate(52.0 68.5 73.6)" fill="#d9b866"/><ellipse cx="26.7" cy="68.9" rx="1.1" ry="3.4" transform="rotate(141.0 26.7 68.9)" fill="#d9b866"/><ellipse cx="73.3" cy="68.9" rx="1.1" ry="3.4" transform="rotate(39.0 73.3 68.9)" fill="#d9b866"/><ellipse cx="23.0" cy="63.2" rx="1.1" ry="3.4" transform="rotate(154.0 23.0 63.2)" fill="#d9b866"/><ellipse cx="77.0" cy="63.2" rx="1.1" ry="3.4" transform="rotate(26.0 77.0 63.2)" fill="#d9b866"/><ellipse cx="20.8" cy="56.7" rx="1.1" ry="3.4" transform="rotate(167.0 20.8 56.7)" fill="#d9b866"/><ellipse cx="79.2" cy="56.7" rx="1.1" ry="3.4" transform="rotate(13.0 79.2 56.7)" fill="#d9b866"/><ellipse cx="20.0" cy="50.0" rx="1.1" ry="3.4" transform="rotate(180.0 20.0 50.0)" fill="#d9b866"/><ellipse cx="80.0" cy="50.0" rx="1.1" ry="3.4" transform="rotate(0.0 80.0 50.0)" fill="#d9b866"/><ellipse cx="20.8" cy="43.3" rx="1.1" ry="3.4" transform="rotate(193.0 20.8 43.3)" fill="#d9b866"/><ellipse cx="79.2" cy="43.3" rx="1.1" ry="3.4" transform="rotate(-13.0 79.2 43.3)" fill="#d9b866"/><ellipse cx="23.0" cy="36.8" rx="1.1" ry="3.4" transform="rotate(206.0 23.0 36.8)" fill="#d9b866"/><ellipse cx="77.0" cy="36.8" rx="1.1" ry="3.4" transform="rotate(-26.0 77.0 36.8)" fill="#d9b866"/><ellipse cx="26.7" cy="31.1" rx="1.1" ry="3.4" transform="rotate(219.0 26.7 31.1)" fill="#d9b866"/><ellipse cx="73.3" cy="31.1" rx="1.1" ry="3.4" transform="rotate(-39.0 73.3 31.1)" fill="#d9b866"/>
+ <path d="M50 28 L66 33 V51 C66 62 58 69 50 73 C42 69 34 62 34 51 V33 Z" fill="#f6f2e6" stroke="#c9a24b" stroke-width="1"/>
+ <path d="M50 28 V73 M34 47 H66" stroke="#13294b" stroke-width=".9"/>
+ <path d="M42 32.5l1.4 3 3.2.4-2.4 2.2.7 3.2-2.9-1.7-2.9 1.7.7-3.2-2.4-2.2 3.2-.4z" fill="#c9a24b" transform="translate(1.5 0)"/>
+ <path d="M54 40 q4-4 8 0 v-5 q-4-3-8 0z M62 40 v-5" fill="#13294b" stroke="#13294b" stroke-width=".6"/>
+ <path d="M38 50 h8 v13 l-4-3 -4 3z M36.5 50 l1.5-3 h8 l1.5 3z" fill="#13294b" opacity=".9"/>
+ <path d="M58 64 c-5-3-5-8 0-12 c1 3 5 4 3 9 c3-1 3-5 2-7 c4 4 2 10-5 10z" fill="#c9a24b"/>
+ <path d="M30 77 q20 8 40 0 l2.5 4 q-22.5 8-45 0z" fill="#c9a24b"/>
+ <text x="50" y="79.6" text-anchor="middle" font-family="Georgia,serif" font-size="5" font-weight="700" fill="#13294b">· 6TH ·</text>
+</symbol></defs></svg>
+
+<header id="hdr" class="bg-white sticky top-0 z-50 border-b border-slate-200">
+  <div class="max-w-[1280px] mx-auto px-4 flex items-center justify-between h-[76px]">
+    <a href="#/" class="flex items-center gap-3" aria-label="원신대학교 홈">
+      <svg class="w-[58px] h-[58px]" viewBox="0 0 100 100"><use href="#seal"/></svg>
+      <span class="leading-tight"><span class="block text-[27px] font-black text-[#13294b] tracking-tight">원신대학교</span><span class="block text-[10px] tracking-[.22em] text-slate-500">GENSHIN UNIVERSITY</span></span>
+    </a>
+    <div class="flex flex-col items-end">
+      <div class="hidden md:flex items-center gap-4 text-xs text-slate-500 mb-1">
+        <a href="#/college/sumeru/timeline" class="hover:text-[#13294b]">티바트 연표</a>
+        <a href="#colleges" class="hover:text-[#13294b]">교내기관 안내</a>
+        <a href="#/page/map" class="hover:text-[#13294b]">캠퍼스맵</a>
+        <a href="#" class="hover:text-[#13294b]">ENG</a>
+        <button id="searchBtn" aria-label="검색" class="text-slate-600 hover:text-[#13294b]"><svg class="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M13 13l5 5"/></svg></button>
+      </div>
+      <nav id="gnb" class="hidden lg:grid grid-cols-5 w-[680px] text-[17px] font-bold text-[#13294b]" aria-label="주 메뉴"></nav>
+    </div>
+    <button id="menuBtn" class="lg:hidden p-2 text-2xl text-[#13294b]" aria-label="메뉴">☰</button>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-slate-200 px-5 py-3 text-sm max-h-[70vh] overflow-y-auto"></div>
+  <div id="searchBox" class="hidden bg-slate-50 border-t border-slate-200">
+    <div class="max-w-[1280px] mx-auto px-4 py-3">
+      <input id="searchInput" placeholder="학부, 연표 등을 검색하세요" class="w-full md:w-96 px-3 py-2 text-sm border border-slate-300 rounded-sm">
+      <div id="searchRes" class="mt-2 flex flex-wrap gap-2 text-sm"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HOME ================= -->
+<div id="view-home">
+  <section class="group relative max-w-[1180px] mx-auto px-4 pt-4">
+    <div id="heroImg" role="img" aria-label="원신대학교 개교 6주년 – 모험의 지혜, 미래를 열다" class="w-full aspect-[1010/374] bg-cover bg-center" style="background-image:var(--hero)"></div>
+    <button data-img="hero" class="imgbtn absolute right-7 bottom-3 text-xs bg-black/50 text-white px-3 py-1.5 rounded md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition">🖼 배너 이미지 변경</button>
+  </section>
+  <h1 class="sr-only">원신대학교 개교 6주년 – 모험의 지혜, 미래를 열다</h1>
+
+  <main class="max-w-[1180px] mx-auto px-4">
+    <section class="pt-14">
+      <h2 class="text-[28px] font-black text-[#13294b]">지금 원신대학교에서는</h2>
+      <div id="newsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 mt-6"></div>
+    </section>
+
+    <a href="#/college/sumeru/timeline" class="mt-14 flex items-center justify-between gap-4 bg-gradient-to-r from-[#13294b] via-[#1d3e72] to-[#13294b] text-white px-6 sm:px-10 py-7 hover:brightness-110 transition">
+      <span><b class="block text-xl sm:text-2xl font-black">수메르 아카데미아 · 티바트 연표</b><span class="text-sm text-slate-300">시대와 지역별 사건을 기록하고 수정하는 학부 자료실</span></span>
+      <span class="flex-none text-[#e7c978] font-bold">바로가기 &gt;</span>
+    </a>
+
+    <section class="mt-16 grid lg:grid-cols-2 gap-10" id="notices">
+      <div class="anchor">
+        <div class="flex items-baseline justify-between border-b-2 border-[#13294b] pb-2"><h2 class="text-2xl font-black text-[#13294b]">원신 캘린더</h2><a href="#/page/calendar" class="text-xs text-slate-500">더보기 +</a></div>
+        <ul id="calList" class="divide-y divide-slate-200"></ul>
+      </div>
+      <div>
+        <div class="flex items-baseline justify-between border-b-2 border-[#13294b] pb-2"><h2 class="text-2xl font-black text-[#13294b]">공지사항</h2><a href="#notices" class="text-xs text-slate-500">더보기 +</a></div>
+        <ul id="noticeList" class="divide-y divide-slate-200 text-[15px]"></ul>
+      </div>
+    </section>
+
+    <section id="colleges" class="anchor mt-16">
+      <h2 class="text-2xl font-black text-[#13294b] border-b-2 border-[#13294b] pb-2">학부/대학원</h2>
+      <div id="collegeGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5"></div>
+    </section>
+
+    <section id="facultyHome" class="anchor mt-16">
+      <div class="flex items-baseline justify-between border-b-2 border-[#13294b] pb-2"><h2 class="text-2xl font-black text-[#13294b]">교수진</h2><a href="#/page/faculty" class="text-xs text-slate-500">전체 보기 +</a></div>
+      <div id="homeFac" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5"></div>
+    </section>
+
+    <section id="about" class="anchor mt-16">
+      <h2 class="text-2xl font-black text-[#13294b] border-b-2 border-[#13294b] pb-2">대학소개</h2>
+      <p class="mt-4 text-slate-600 leading-relaxed max-w-3xl">원신대학교는 티바트 일곱 국가의 학문과 철학을 한자리에 모은 학술 기관입니다. 2020년 9월 28일 첫 입학식 이후 여섯 해 동안 새로운 단과대학을 하나씩 더하며 성장해 왔습니다.</p>
+      <dl class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 text-center">
+        <div class="bg-slate-50 border border-slate-200 py-5"><dd class="text-2xl font-black text-[#1d3e72]">2020.09.28</dd><dt class="text-xs text-slate-500">개교일</dt></div>
+        <div class="bg-slate-50 border border-slate-200 py-5"><dd class="text-2xl font-black text-[#1d3e72]">6주년</dd><dt class="text-xs text-slate-500">2026년 기준</dt></div>
+        <div class="bg-slate-50 border border-slate-200 py-5"><dd class="text-2xl font-black text-[#1d3e72]">7개</dd><dt class="text-xs text-slate-500">단과대학</dt></div>
+        <div class="bg-slate-50 border border-slate-200 py-5"><dd class="text-2xl font-black text-[#1d3e72]">티바트 전역</dd><dt class="text-xs text-slate-500">캠퍼스</dt></div>
+      </dl>
+      <div class="flex flex-wrap gap-2 mt-5 text-sm"><a href="#/page/status" class="border border-slate-300 px-4 py-1.5 hover:border-[#13294b] hover:text-[#13294b]">대학현황</a><a href="#/page/greeting" class="border border-slate-300 px-4 py-1.5 hover:border-[#13294b] hover:text-[#13294b]">총장 인사말</a><a href="#/page/history" class="border border-slate-300 px-4 py-1.5 hover:border-[#13294b] hover:text-[#13294b]">개교 6주년 연혁</a><a href="#/page/symbol" class="border border-slate-300 px-4 py-1.5 hover:border-[#13294b] hover:text-[#13294b]">대학상징</a><a href="#/page/map" class="border border-slate-300 px-4 py-1.5 hover:border-[#13294b] hover:text-[#13294b]">캠퍼스맵</a></div>
+    </section>
+
+    <section class="mt-14 grid md:grid-cols-3 gap-4">
+      <a id="admissions" href="#/page/adm" class="anchor block border border-slate-200 p-5 hover:shadow-md hover:bg-slate-50 transition"><h3 class="font-bold text-lg text-[#13294b]">입학안내</h3><p class="text-sm text-slate-600 mt-2">2027학년도 수시모집 일정과 지원 자격을 안내합니다. 모험가 경력 우대.</p><span class="inline-block mt-3 text-xs font-bold text-[#1d3e72]">자세히 보기 &gt;</span></a>
+      <a id="campus" href="#/page/calendar" class="anchor block border border-slate-200 p-5 hover:shadow-md hover:bg-slate-50 transition"><h3 class="font-bold text-lg text-[#13294b]">대학생활</h3><p class="text-sm text-slate-600 mt-2">동아리, 학식, 기숙사, 캠퍼스 버스 등 학교생활 정보를 모았습니다.</p><span class="inline-block mt-3 text-xs font-bold text-[#1d3e72]">자세히 보기 &gt;</span></a>
+      <a id="research" href="#/page/results" class="anchor block border border-slate-200 p-5 hover:shadow-md hover:bg-slate-50 transition"><h3 class="font-bold text-lg text-[#13294b]">연구/산학</h3><p class="text-sm text-slate-600 mt-2">수메르 아카데미아를 중심으로 한 연구소와 산학 협력 프로그램입니다.</p><span class="inline-block mt-3 text-xs font-bold text-[#1d3e72]">자세히 보기 &gt;</span></a>
+    </section>
+  </main>
+</div>
+
+<!-- ================= SUB PAGE ================= -->
+<div id="view-sub" class="hidden">
+  <div class="relative bg-gradient-to-r from-[#13294b] to-[#1d3e72] text-white overflow-hidden">
+    <span class="absolute right-10 -top-6 text-[180px] text-white/5 leading-none select-none">✦</span>
+    <div class="relative max-w-[1180px] mx-auto px-4 py-10">
+      <p id="crumbs" class="text-xs text-slate-300"></p>
+      <h1 id="subTitle" class="text-3xl font-black mt-2"></h1>
+      <p id="subTag" class="text-sm text-slate-300 mt-1"></p>
+    </div>
+  </div>
+  <div class="border-b border-slate-200"><div id="subTabs" class="max-w-[1180px] mx-auto px-4 flex overflow-x-auto text-[15px] font-bold"></div></div>
+  <div class="max-w-[1180px] mx-auto px-4 py-8 min-h-[50vh]">
+    <div id="syncBar" class="hidden flex flex-wrap items-center justify-between gap-2 mb-5 px-4 py-2.5 text-sm border border-slate-200 bg-slate-50"><span id="syncStatus" class="text-slate-700"></span><span class="flex gap-2"><button id="syncUpload" class="hidden border border-slate-300 px-3 py-1 hover:border-[#13294b]">내 데이터 서버에 올리기</button><button id="syncReload" class="hidden border border-slate-300 px-3 py-1 hover:border-[#13294b]">최신 내용 불러오기</button><button id="syncEdit" class="hidden bg-[#13294b] text-white px-3 py-1 hover:bg-[#1d3e72]">편집 모드 입장</button></span></div>
+    <div id="subBody"></div>
+    <div id="tl-wrap" class="hidden"><div id="tl-root"><p class="text-center text-slate-400 py-16">연표를 불러오는 중입니다...</p></div></div>
+  </div>
+</div>
+
+<footer class="bg-slate-100 text-slate-500 text-xs mt-16 border-t border-slate-200">
+  <div class="max-w-[1180px] mx-auto px-4 py-8">
+    <p class="flex flex-wrap gap-x-5 gap-y-1 text-slate-700 font-medium"><a href="#colleges">교내기관 안내</a><a href="#/page/status">대학소개</a><a href="#/page/adm">입학안내</a><a href="#/college/sumeru/timeline">티바트 연표</a><button id="imgReset" class="adm text-slate-400 hover:text-slate-700">사진 초기화</button><button id="dataDefault" class="adm text-slate-400 hover:text-slate-700">기본값으로 되돌리기</button><button id="dataExport" class="adm text-slate-400 hover:text-slate-700">데이터 백업</button><label class="adm cursor-pointer text-slate-400 hover:text-slate-700">데이터 복원<input id="dataImport" type="file" accept=".json" class="hidden"></label><button id="webEditBtn" class="adm text-[#1d3e72] font-bold hover:text-[#13294b]">✏️ 웹 수정하기</button></p>
+    <div class="flex items-center gap-3 mt-5"><svg class="w-10 h-10" viewBox="0 0 100 100"><use href="#seal"/></svg><p>티바트 대륙 원신로 1 원신대학교<br>Copyright 2020–2026 Genshin University. All Rights Reserved.</p></div>
+    <p class="mt-4 opacity-80">※ 본 페이지는 원신 개교 6주년을 기념해 만든 팬 패러디 페이지이며, 실제 대학이나 공식 사이트가 아닙니다.</p>
+  </div>
+</footer>
+
+<div id="modal" class="hidden fixed inset-0 z-[80] bg-black/50 flex items-center justify-center p-4">
+  <div class="bg-white max-w-md w-full shadow-2xl" role="dialog" aria-modal="true">
+    <div class="bg-[#13294b] text-white px-5 py-3 flex justify-between items-center"><p id="mMeta" class="text-xs text-slate-300"></p><button data-close aria-label="닫기" class="text-xl leading-none">×</button></div>
+    <div class="p-6"><h3 id="mTitle" class="text-lg font-bold text-[#13294b]"></h3><p id="mText" class="text-sm text-slate-600 mt-3 leading-relaxed"></p><button data-close class="mt-6 bg-[#13294b] text-white px-5 py-2 text-sm hover:bg-[#1d3e72]">확인</button></div>
+  </div>
+</div>
+<div id="pmodal" class="hidden fixed inset-0 z-[80] bg-black/50 flex items-start sm:items-center justify-center p-4 overflow-y-auto">
+  <div class="bg-white max-w-3xl w-full shadow-2xl" role="dialog" aria-modal="true"><div class="bg-[#13294b] text-white px-5 py-3 flex justify-between items-center"><p class="text-sm font-bold">프로필</p><button data-pclose aria-label="닫기" class="text-xl leading-none">×</button></div><div id="pBody" class="p-6"></div></div>
+</div>
+<div id="emodal" class="hidden fixed inset-0 z-[85] bg-black/50 flex items-start sm:items-center justify-center p-4 overflow-y-auto">
+  <div class="bg-white max-w-2xl w-full shadow-2xl" role="dialog" aria-modal="true"><div class="bg-[#13294b] text-white px-5 py-3 flex justify-between items-center"><p id="eTitle" class="text-sm font-bold"></p><button data-eclose aria-label="닫기" class="text-xl leading-none">×</button></div><div id="eBody" class="p-6"></div></div>
+</div>
+<div id="ipModal" class="hidden fixed inset-0 z-[88] bg-black/50 flex items-center justify-center p-4">
+  <div class="bg-white w-full max-w-sm shadow-2xl"><div class="bg-[#13294b] text-white px-5 py-3 flex justify-between items-center"><p class="text-sm font-bold">사진 위치·확대</p><button data-ipx aria-label="닫기" class="text-xl leading-none">×</button></div>
+  <div class="p-5"><div id="ipBox" class="mx-auto overflow-hidden border border-slate-300 bg-slate-200 cursor-move select-none" style="touch-action:none;width:240px"><img id="ipImg" alt="" class="w-full h-full object-cover block pointer-events-none"></div>
+  <div class="mt-4 grid grid-cols-[3.5rem_1fr] items-center gap-x-2 gap-y-1.5 text-xs text-slate-500"><span>가로 위치</span><input id="ip_x" type="range" min="0" max="100"><span>세로 위치</span><input id="ip_y" type="range" min="0" max="100"><span>확대</span><input id="ip_z" type="range" min="1" max="3" step="0.05"></div>
+  <p class="text-[11px] text-slate-400 mt-2">사진을 드래그하거나 슬라이더로 맞추세요.</p>
+  <div class="mt-4 flex justify-between"><button data-ipreset class="text-sm text-slate-500 hover:text-[#13294b]">위치 초기화</button><span class="flex gap-2"><button data-ipx class="border border-slate-300 px-4 py-1.5 text-sm hover:border-[#13294b]">취소</button><button data-ipsave class="bg-[#13294b] text-white px-5 py-1.5 text-sm hover:bg-[#1d3e72]">저장</button></span></div></div></div>
+</div>
+<div id="weHover"></div>
+<div id="weItem" style="position:fixed;z-index:89;pointer-events:none;border:2px solid #3b82f6;background:rgba(59,130,246,.07);display:none"></div>
+<div id="weItemBar" class="hidden fixed z-[96] flex items-stretch bg-[#13294b] text-white text-xs shadow-lg border border-white/20">
+  <button data-wb="prev" title="앞으로" class="px-2.5 py-1.5 hover:bg-white/15">‹</button><button data-wb="next" title="뒤로" class="px-2.5 py-1.5 hover:bg-white/15">›</button><button data-wb="dup" title="복제해서 추가" class="px-2.5 py-1.5 hover:bg-white/15 border-l border-white/20">＋ 복제</button><button data-wb="edit" title="수정" class="hidden px-2.5 py-1.5 hover:bg-white/15">✎ 수정</button><button data-wb="del" title="삭제" class="px-2.5 py-1.5 hover:bg-red-500/70">🗑</button><button data-wb="up" title="상위 묶음 선택" class="px-2.5 py-1.5 hover:bg-white/15 border-l border-white/20">⤴</button>
+</div>
+<div id="wePop" class="hidden fixed z-[95] w-[min(340px,calc(100vw-16px))] bg-white shadow-2xl border border-slate-300">
+  <div class="bg-[#13294b] text-white text-xs px-3 py-2 flex justify-between items-center"><span>문구 수정</span><button id="weX" aria-label="닫기" class="text-lg leading-none">×</button></div>
+  <div class="p-3"><textarea id="weTa" rows="3" class="w-full border border-slate-300 p-2 text-sm leading-relaxed focus:outline-none focus:border-[#13294b]"></textarea>
+  <p class="text-[11px] text-slate-500 mt-1">같은 문구는 사이트 전체에서 함께 바뀝니다 · Ctrl/⌘+Enter 저장</p>
+  <div class="flex gap-2 justify-end mt-2"><button id="weRev" class="border border-slate-300 px-3 py-1.5 text-xs hover:border-[#13294b]">원래대로</button><button id="weCancel" class="border border-slate-300 px-3 py-1.5 text-xs hover:border-[#13294b]">취소</button><button id="weSave" class="bg-[#13294b] text-white px-4 py-1.5 text-xs hover:bg-[#1d3e72]">저장</button></div></div>
+</div>
+<div id="webEditBar" class="hidden fixed bottom-0 inset-x-0 z-[90] bg-[#13294b] text-white text-xs sm:text-sm px-4 py-3 flex flex-wrap items-center gap-x-4 gap-y-2 shadow-[0_-4px_12px_rgba(0,0,0,.25)]">
+  <b>✏️ 웹 수정 모드</b><span class="text-slate-300 flex-1 min-w-[200px]">글자 클릭 = 문구 수정 · 항목에 마우스를 올리면 <b>순서 변경·복제·삭제</b> · 링크 이동은 <b>Alt+클릭</b> · 사진·연표는 각 화면의 기존 편집 기능<span id="weCloudNote"></span></span>
+  <button id="weResetSt" class="border border-slate-400 px-3 py-1 hover:bg-white/10">항목 구성 초기화</button>
+  <button id="weResetAll" class="border border-slate-400 px-3 py-1 hover:bg-white/10">수정한 문구 모두 초기화</button><button id="weDone" class="bg-[#c9a24b] text-[#13294b] font-bold px-4 py-1 hover:bg-[#d9b25b]">완료</button>
+</div>
+<script type="text/plain" id="tlSrc">
+    const { useState, useEffect, useRef } = React;
+
+    // 원소 및 주요 테마 컬러 팔레트
+    const ELEMENT_COLORS = [
+      { name: '기본 (진회색)', color: '#1e293b' },
+      { name: '불 (Pyro)', color: '#dc2626' },
+      { name: '물 (Hydro)', color: '#0891b2' },
+      { name: '풀 (Dendro)', color: '#059669' },
+      { name: '번개 (Electro)', color: '#9333ea' },
+      { name: '얼음 (Cryo)', color: '#0284c7' },
+      { name: '바위 (Geo)', color: '#d97706' },
+      { name: '바람 (Anemo)', color: '#0d9488' },
+      { name: '황금', color: '#b7791f' },
+      { name: '장미', color: '#e11d48' },
+      { name: '연회색', color: '#64748b' },
+    ];
+
+    const INITIAL_REGIONS = [
+  {
+    "id": "r1",
+    "name": "몬드",
+    "color": "#53c6ad"
+  },
+  {
+    "id": "r2",
+    "name": "리월",
+    "color": "#dfbd58"
+  },
+  {
+    "id": "r3",
+    "name": "이나즈마",
+    "color": "#aa5bd2"
+  },
+  {
+    "id": "r4",
+    "name": "수메르",
+    "color": "#46a00d"
+  },
+  {
+    "id": "r5",
+    "name": "폰타인",
+    "color": "#266de8"
+  },
+  {
+    "id": "r6",
+    "name": "나타",
+    "color": "#cf5107"
+  },
+  {
+    "id": "r7",
+    "name": "노드크라이&스네즈나야",
+    "color": "#80c8f4"
+  },
+  {
+    "id": "r8",
+    "name": "켄리아",
+    "color": "#666666"
+  },
+  {
+    "id": "r_1790536438669",
+    "name": "셀레스티아",
+    "color": "#b5b8ba"
+  },
+  {
+    "id": "r_1790536942060",
+    "name": "서리달",
+    "color": "#b2dbf0"
+  }
+];
+
+    const INITIAL_ERAS = [
+  {
+    "id": "e0",
+    "name": "원시 티바트 시대",
+    "period": "",
+    "note": "",
+    "color": "#b7791f"
+  },
+  {
+    "id": "e1",
+    "name": "용들의 문명",
+    "period": "",
+    "note": "나타란티아 건국",
+    "color": "#b7791f"
+  },
+  {
+    "id": "e_1790981968053",
+    "name": "새 시대",
+    "period": "시기 미정",
+    "note": "",
+    "color": "#b7791f"
+  },
+  {
+    "id": "e2",
+    "name": "파네스의 강림",
+    "period": "",
+    "note": "",
+    "color": "#b7791f"
+  },
+  {
+    "id": "e3",
+    "name": "",
+    "period": "",
+    "note": "",
+    "color": "#b7791f"
+  },
+  {
+    "id": "e4",
+    "name": "창세의 전쟁",
+    "period": "",
+    "note": "",
+    "color": "#b7791f"
+  },
+  {
+    "id": "e_1790537177950",
+    "name": "창세의 전쟁 40년 후",
+    "period": "",
+    "note": "",
+    "color": "#b7791f"
+  },
+  {
+    "id": "e_1790537417968",
+    "name": "창세의 전쟁 400년 후",
+    "period": "",
+    "note": "",
+    "color": "#b7791f"
+  }
+];
+
+    const INITIAL_EVENTS = {
+  "e1_r5": {
+    "id": "e1_r5",
+    "content": "최초의 물의 용이 원시모태바다를 지배",
+    "color": "#1e293b"
+  },
+  "e2_r8": {
+    "id": "e2_r8",
+    "content": "파네스가 외우주에서 강림",
+    "color": "#1e293b"
+  },
+  "e0_r6": {
+    "id": "e0_r6",
+    "content": "니벨룽겐 대왕과 일곱 용왕이 고대 용 문명 건설",
+    "color": "#1e293b"
+  },
+  "e1_r6": {
+    "id": "e1_r6",
+    "content": "불의 용왕 슈코아틀이 근원의 불과 열소를 사용하는 \n나타란티아 제국을 만들고, 신성한 산에 수도 툴란을 세움\n\n슈코아틀이 열소를 이용해서 쿠쿨칸(불을 훔친 현자)를 만들고, 치첸우토카(이후에 오치카나타)를 건설\n\n13명의 용 영주와 3명의 친왕을 세움\n\n외우주에서 최초의 여행가가 티바트에 도착해 니벨룽겐을 만났고, 니벨룽겐은 심연이 오기 전 티바트 생명들을 이끌로 뭇별로 나아가겠다고 말함\n\n니벨룽겐이 공월(달의 세자매)을 창조하고, \n티바트의 권한을 맡기고 자신은 심연에 대항할 방법을 찾기위해 우주로 떠남",
+    "color": "#1e293b"
+  }
+};
+
+    function App() {
+      const [canEdit, setCanEdit] = useState(() => !window.GU_SYNC || window.GU_SYNC.canEdit());
+      const ro = canEdit ? '' : ' hidden';
+      const [regions, setRegions] = useState(() => {
+        try { return JSON.parse(localStorage.getItem('gt_regions')) || INITIAL_REGIONS; } catch(e) { return INITIAL_REGIONS; }
+      });
+      const [eras, setEras] = useState(() => {
+        try { return JSON.parse(localStorage.getItem('gt_eras')) || INITIAL_ERAS; } catch(e) { return INITIAL_ERAS; }
+      });
+      const [events, setEvents] = useState(() => {
+        try { return JSON.parse(localStorage.getItem('gt_events')) || INITIAL_EVENTS; } catch(e) { return INITIAL_EVENTS; }
+      });
+
+      const [viewMode, setViewMode] = useState('matrix'); // 'matrix' | 'timeline'
+      const [searchQuery, setSearchQuery] = useState('');
+      const [selectedRegionFilter, setSelectedRegionFilter] = useState('ALL');
+
+      // Drag & Drop State
+      const dragItem = useRef(null);
+      const dragOverItem = useRef(null);
+      const [dragType, setDragType] = useState(null); // 'era' | 'region'
+
+      // 셀(사건) 모달 상태
+      const [editingCell, setEditingCell] = useState(null);
+      const [editContent, setEditContent] = useState('');
+      const [editTextColor, setEditTextColor] = useState('#1e293b');
+
+      // 연대(행) 모달 상태
+      const [editingEra, setEditingEra] = useState(null);
+      const [eraName, setEraName] = useState('');
+      const [eraPeriod, setEraPeriod] = useState('');
+      const [eraNote, setEraNote] = useState('');
+      const [eraColor, setEraColor] = useState('#b7791f');
+
+      // 지역(열) 모달 상태
+      const [editingRegion, setEditingRegion] = useState(null);
+      const [regionName, setRegionName] = useState('');
+      const [regionColor, setRegionColor] = useState('#d97706');
+
+      useEffect(() => {
+        const onMode = () => setCanEdit(!window.GU_SYNC || window.GU_SYNC.canEdit());
+        const onData = () => { const d = window.GU_SYNC && window.GU_SYNC.data(); if (d) { setRegions(d.regions); setEras(d.eras); setEvents(d.events); } };
+        window.addEventListener('gu-mode', onMode); window.addEventListener('gu-data', onData);
+        return () => { window.removeEventListener('gu-mode', onMode); window.removeEventListener('gu-data', onData); };
+      }, []);
+
+      useEffect(() => {
+        try {
+          localStorage.setItem('gt_regions', JSON.stringify(regions));
+          localStorage.setItem('gt_eras', JSON.stringify(eras));
+          localStorage.setItem('gt_events', JSON.stringify(events));
+        } catch(e) {}
+        if (window.GU_SYNC) window.GU_SYNC.push({ regions, eras, events });
+      }, [regions, eras, events]);
+
+      // Drag & Drop Handlers for Eras
+      const handleEraDragStart = (e, index) => {
+        if (!canEdit) return;
+        dragItem.current = index;
+        setDragType('era');
+        e.dataTransfer.effectAllowed = 'move';
+      };
+
+      const handleEraDragEnter = (e, index) => {
+        if (dragType !== 'era') return;
+        dragOverItem.current = index;
+        e.preventDefault();
+      };
+
+      const handleEraDragEnd = () => {
+        if (dragType !== 'era' || dragItem.current === null || dragOverItem.current === null) {
+          dragItem.current = null;
+          dragOverItem.current = null;
+          setDragType(null);
+          return;
+        }
+
+        const _eras = [...eras];
+        const draggedItemContent = _eras[dragItem.current];
+        _eras.splice(dragItem.current, 1);
+        _eras.splice(dragOverItem.current, 0, draggedItemContent);
+
+        dragItem.current = null;
+        dragOverItem.current = null;
+        setDragType(null);
+        setEras(_eras);
+      };
+
+      // Drag & Drop Handlers for Regions
+      const handleRegionDragStart = (e, index) => {
+        if (!canEdit) return;
+        dragItem.current = index;
+        setDragType('region');
+        e.dataTransfer.effectAllowed = 'move';
+      };
+
+      const handleRegionDragEnter = (e, index) => {
+        if (dragType !== 'region') return;
+        dragOverItem.current = index;
+        e.preventDefault();
+      };
+
+      const handleRegionDragEnd = () => {
+        if (dragType !== 'region' || dragItem.current === null || dragOverItem.current === null) {
+          dragItem.current = null;
+          dragOverItem.current = null;
+          setDragType(null);
+          return;
+        }
+
+        const _regions = [...regions];
+        const draggedItemContent = _regions[dragItem.current];
+        _regions.splice(dragItem.current, 1);
+        _regions.splice(dragOverItem.current, 0, draggedItemContent);
+
+        dragItem.current = null;
+        dragOverItem.current = null;
+        setDragType(null);
+        setRegions(_regions);
+      };
+
+      // 사건 편집
+      const openCellEdit = (eraId, regionId) => {
+        if (!canEdit) return;
+        const key = `${eraId}_${regionId}`;
+        const ev = events[key];
+        setEditingCell({ eraId, regionId });
+        setEditContent(ev ? ev.content : '');
+        setEditTextColor(ev && ev.color ? ev.color : '#1e293b');
+      };
+
+      const saveCell = () => {
+        if (!editingCell) return;
+        const key = `${editingCell.eraId}_${editingCell.regionId}`;
+        
+        if (!editContent.trim()) {
+          const newEvents = { ...events };
+          delete newEvents[key];
+          setEvents(newEvents);
+        } else {
+          setEvents({
+            ...events,
+            [key]: { id: key, content: editContent, color: editTextColor }
+          });
+        }
+        setEditingCell(null);
+      };
+
+      const deleteCell = () => {
+        if (!editingCell) return;
+        const key = `${editingCell.eraId}_${editingCell.regionId}`;
+        const newEvents = { ...events };
+        delete newEvents[key];
+        setEvents(newEvents);
+        setEditingCell(null);
+      };
+
+      // 시대(행) 편집 및 중간 삽입
+      const addEra = (targetIndex = null) => {
+        if (!canEdit) return;
+        const newEra = { id: 'e_' + Date.now(), name: '새 시대', period: '시기 미정', note: '', color: '#b7791f' };
+        if (targetIndex !== null && targetIndex >= 0) {
+          const newEras = [...eras];
+          newEras.splice(targetIndex, 0, newEra);
+          setEras(newEras);
+        } else {
+          setEras([...eras, newEra]);
+        }
+        openEraEdit(newEra);
+      };
+
+      const openEraEdit = (era) => {
+        if (!canEdit) return;
+        setEditingEra(era);
+        setEraName(era.name);
+        setEraPeriod(era.period || '');
+        setEraNote(era.note || '');
+        setEraColor(era.color || '#b7791f');
+      };
+
+      const saveEra = () => {
+        if (!editingEra) return;
+        setEras(eras.map(e => e.id === editingEra.id ? { ...e, name: eraName, period: eraPeriod, note: eraNote, color: eraColor } : e));
+        setEditingEra(null);
+      };
+
+      const deleteEra = (id) => {
+        setEras(eras.filter(e => e.id !== id));
+        setEditingEra(null);
+      };
+
+      // 지역(열) 편집
+      const addRegion = () => {
+        if (!canEdit) return;
+        const colors = ['#d97706', '#9333ea', '#059669', '#0891b2', '#ea580c', '#0284c7', '#e11d48'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const newRegion = { id: 'r_' + Date.now(), name: '새 지역', color: randomColor };
+        setRegions([...regions, newRegion]);
+        openRegionEdit(newRegion);
+      };
+
+      const openRegionEdit = (region) => {
+        if (!canEdit) return;
+        setEditingRegion(region);
+        setRegionName(region.name);
+        setRegionColor(region.color || '#d97706');
+      };
+
+      const saveRegion = () => {
+        if (!editingRegion) return;
+        setRegions(regions.map(r => r.id === editingRegion.id ? { ...r, name: regionName, color: regionColor } : r));
+        setEditingRegion(null);
+      };
+
+      const deleteRegion = (id) => {
+        setRegions(regions.filter(r => r.id !== id));
+        setEditingRegion(null);
+      };
+
+      // 백업/불러오기
+      const exportJSON = () => {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ regions, eras, events }, null, 2));
+        const anchor = document.createElement('a');
+        anchor.setAttribute("href", dataStr);
+        anchor.setAttribute("download", `genshin_timeline_${new Date().toISOString().slice(0,10)}.json`);
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+      };
+
+      const importJSON = (e) => {
+        if (!canEdit) return;
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const data = JSON.parse(event.target.result);
+            if (data.regions && data.eras && data.events) {
+              setRegions(data.regions);
+              setEras(data.eras);
+              setEvents(data.events);
+            }
+          } catch (err) {}
+        };
+        reader.readAsText(file);
+      };
+
+      const filteredRegions = selectedRegionFilter === 'ALL' 
+        ? regions 
+        : regions.filter(r => r.id === selectedRegionFilter);
+
+      return (
+        <div className="w-full">
+          {/* 상단 헤더 */}
+          <div className="mb-5 pb-4 border-b border-slate-200"><h3 className="text-xl font-bold text-[#13294b]">티바트 연표</h3><p className="text-sm text-slate-500 mt-1">허수의 나무에서 원신의 배경이 되는 우주가 탄생(140억 년 전)</p></div>
+
+          {/* 상단 컨트롤러 */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200 backdrop-blur">
+            <div className="flex items-center gap-3 flex-1 min-w-[260px]">
+              <input 
+                type="text" 
+                placeholder="사건 및 기록 검색..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-[#1d3e72]"
+              />
+            </div>
+
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* 뷰 모드 전환 버튼 */}
+              <div className="flex bg-white p-1 rounded-lg border border-slate-200 mr-2">
+                <button 
+                  onClick={() => setViewMode('matrix')}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition ${viewMode === 'matrix' ? 'bg-[#1d3e72] text-white' : 'text-slate-500 hover:text-slate-800'}`}
+                >
+                  📊 매트릭스 뷰
+                </button>
+                <button 
+                  onClick={() => setViewMode('timeline')}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition ${viewMode === 'timeline' ? 'bg-[#1d3e72] text-white' : 'text-slate-500 hover:text-slate-800'}`}
+                >
+                  ⏳ 연대기 뷰
+                </button>
+              </div>
+
+              <select 
+                value={selectedRegionFilter}
+                onChange={(e) => setSelectedRegionFilter(e.target.value)}
+                className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none"
+              >
+                <option value="ALL">전체 지역 보기</option>
+                {regions.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
+              </select>
+
+              <button onClick={() => addEra(null)} className={"bg-[#1d3e72] hover:bg-[#254b8c] text-white text-sm font-semibold px-3 py-2 rounded-lg transition flex items-center gap-1"+ro}>
+                <span>+</span> 시대(행) 추가
+              </button>
+              <button onClick={addRegion} className={"bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold px-3 py-2 rounded-lg transition flex items-center gap-1"+ro}>
+                <span>+</span> 지역(열) 추가
+              </button>
+
+              <button onClick={exportJSON} className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold px-3 py-2 rounded-lg transition">
+                백업
+              </button>
+              <label className={"bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold px-3 py-2 rounded-lg transition cursor-pointer"+ro}>
+                복원
+                <input type="file" accept=".json" onChange={importJSON} className="hidden" />
+              </label>
+            </div>
+          </div>
+
+          {/* 1. 매트릭스 표 뷰 */}
+          {viewMode === 'matrix' && (
+            <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-2xl bg-slate-50">
+              <table className="w-full text-left border-collapse min-w-[1000px]">
+                <thead>
+                  <tr className="bg-white border-b border-slate-200">
+                    <th className="p-4 w-64 min-w-[250px] text-slate-500 font-semibold text-sm sticky left-0 bg-white z-20 border-r border-slate-200">
+                      시대 / 지역명
+                    </th>
+                    {filteredRegions.map((r, index) => (
+                      <th 
+                        key={r.id} 
+                        draggable={canEdit && selectedRegionFilter === 'ALL'}
+                        onDragStart={(e) => handleRegionDragStart(e, index)}
+                        onDragEnter={(e) => handleRegionDragEnter(e, index)}
+                        onDragEnd={handleRegionDragEnd}
+                        onDragOver={(e) => e.preventDefault()}
+                        className={`p-4 font-bold text-sm border-r border-slate-200 min-w-[180px] text-center whitespace-nowrap select-none ${
+                          selectedRegionFilter === 'ALL' ? 'cursor-grab active:cursor-grabbing hover:bg-slate-100/50' : ''
+                        }`}
+                        style={{ color: r.color }}
+                      >
+                        <div className="flex items-center justify-center gap-2 group">
+                          {selectedRegionFilter === 'ALL' && <span className="text-slate-400 text-xs cursor-grab">⋮⋮</span>}
+                          <span>{r.name}</span>
+                          <button 
+                            onClick={() => openRegionEdit(r)}
+                            className={"text-xs text-slate-500 hover:text-slate-700 opacity-0 group-hover:opacity-100 transition"+ro}
+                            title="지역 설정 수정"
+                          >
+                            ⚙️
+                          </button>
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200">
+                  {eras.map((era, eraIndex) => (
+                    <React.Fragment key={era.id}>
+                      {/* 중간 삽입 가이드 바 */}
+                      <tr className="group/insert">
+                        <td colSpan={filteredRegions.length + 1} className="p-0 border-none relative h-0">
+                          <div className="absolute inset-x-0 -top-2 z-30 flex justify-center opacity-0 group-hover/insert:opacity-100 transition duration-200">
+                            <button 
+                              onClick={() => addEra(eraIndex)}
+                              className={"bg-[#1d3e72] hover:bg-[#254b8c] text-white text-xs px-3 py-1 rounded-full shadow-lg border border-blue-300 font-bold transition transform -translate-y-1/2 flex items-center gap-1"+ro}
+                            >
+                              <span>+</span> 여기에 시대 중간 삽입
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr 
+                        draggable={canEdit}
+                        onDragStart={(e) => handleEraDragStart(e, eraIndex)}
+                        onDragEnter={(e) => handleEraDragEnter(e, eraIndex)}
+                        onDragEnd={handleEraDragEnd}
+                        onDragOver={(e) => e.preventDefault()}
+                        className="hover:bg-slate-100/20 transition group/row"
+                      >
+                        {/* 날짜 / 시대 셀 */}
+                        <td 
+                          className="p-4 bg-white sticky left-0 z-10 border-r border-slate-200 align-top group/era select-none"
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex items-start gap-2 flex-1">
+                              <span className="text-slate-400 text-xs cursor-grab hover:text-slate-500 mt-0.5">⋮⋮</span>
+                              <div className="flex-1 cursor-pointer" onClick={() => openEraEdit(era)}>
+                                <div className="font-bold text-sm break-keep" style={{ color: era.color || '#b7791f' }}>{era.name}</div>
+                                {era.period && <div className="text-xs text-sky-700 font-mono mt-1">{era.period}</div>}
+                                {era.note && <div className="text-xs text-slate-500 mt-2 leading-relaxed">{era.note}</div>}
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-1 opacity-0 group-hover/row:opacity-100 transition">
+                              <button 
+                                onClick={() => openEraEdit(era)}
+                                className={"text-xs text-slate-500 hover:text-slate-700"+ro}
+                                title="시대 수정"
+                              >
+                                ✏️
+                              </button>
+                              <button 
+                                onClick={() => addEra(eraIndex + 1)}
+                                className={"text-xs text-[#1d3e72] hover:text-[#13294b]"+ro}
+                                title="아래에 시대 삽입"
+                              >
+                                ➕
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* 사건 기록 셀 */}
+                        {filteredRegions.map(r => {
+                          const key = `${era.id}_${r.id}`;
+                          const ev = events[key];
+                          const isMatched = searchQuery && ev && ev.content.includes(searchQuery);
+
+                          return (
+                            <td 
+                              key={r.id} 
+                              onClick={() => openCellEdit(era.id, r.id)}
+                              className={`p-3.5 align-top border-r border-slate-200 cursor-pointer transition relative group/cell min-h-[90px] ${
+                                isMatched ? 'bg-amber-100 border-amber-400' : 'hover:bg-slate-100/40'
+                              }`}
+                            >
+                              {ev ? (
+                                <p className="text-xs md:text-sm whitespace-pre-wrap leading-relaxed break-keep font-medium" style={{ color: ev.color || '#1e293b' }}>
+                                  {ev.content}
+                                </p>
+                              ) : (
+                                <div className="h-full min-h-[60px] flex items-center justify-center opacity-0 group-hover/cell:opacity-100 transition">
+                                  <span className="text-xs text-slate-400">+ 작성</span>
+                                </div>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+
+              {/* 맨 하단 중간 삽입 버튼 */}
+              <div className="p-3 text-center border-t border-slate-200 bg-slate-50">
+                <button 
+                  onClick={() => addEra(eras.length)}
+                  className={"text-xs text-[#1d3e72] hover:text-[#13294b] font-semibold py-1.5 px-4 rounded-lg border border-dashed border-blue-300 hover:border-blue-400 transition"+ro}
+                >
+                  + 맨 끝에 새 시대 추가
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* 2. 연대기(타임라인) 뷰 */}
+          {viewMode === 'timeline' && (
+            <div className="relative border-l-2 border-blue-300 ml-4 md:ml-32 my-8 space-y-12">
+              {eras.map((era, eraIndex) => {
+                const eraEvents = filteredRegions.map(r => {
+                  const ev = events[`${era.id}_${r.id}`];
+                  return ev ? { region: r, content: ev.content, color: ev.color } : null;
+                }).filter(Boolean);
+
+                return (
+                  <React.Fragment key={era.id}>
+                    {/* 타임라인 사이 시대 중간 삽입 버튼 */}
+                    <div className="relative group/timeline-insert -my-6 py-2">
+                      <div className="absolute -left-[17px] top-1/2 -translate-y-1/2 opacity-0 group-hover/timeline-insert:opacity-100 transition">
+                        <button 
+                          onClick={() => addEra(eraIndex)}
+                          className={"bg-[#1d3e72] hover:bg-[#254b8c] text-white text-xs px-2.5 py-1 rounded-full shadow-lg border border-blue-300 font-bold flex items-center gap-1"+ro}
+                          title="이 위치에 시대 삽입"
+                        >
+                          + 시대 삽입
+                        </button>
+                      </div>
+                    </div>
+
+                    <div 
+                      draggable={canEdit}
+                      onDragStart={(e) => handleEraDragStart(e, eraIndex)}
+                      onDragEnter={(e) => handleEraDragEnter(e, eraIndex)}
+                      onDragEnd={handleEraDragEnd}
+                      onDragOver={(e) => e.preventDefault()}
+                      className="relative pl-6 md:pl-8 group/timeline-item"
+                    >
+                      {/* 타임라인 노드 정점 */}
+                      <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-[#1d3e72] border-4 border-slate-200 group-hover/timeline-item:scale-125 transition cursor-grab"></div>
+
+                      {/* 시대 헤더 */}
+                      <div className="mb-4">
+                        <div className="flex items-center gap-3">
+                          <span className="text-slate-400 text-sm cursor-grab">⋮⋮</span>
+                          <h2 className="text-xl font-bold cursor-pointer" onClick={() => openEraEdit(era)} style={{ color: era.color || '#b7791f' }}>{era.name}</h2>
+                          {era.period && <span className="text-xs bg-blue-50 text-[#1d3e72] border border-blue-200 px-2.5 py-0.5 rounded-full font-mono">{era.period}</span>}
+                          <button onClick={() => openEraEdit(era)} className={"text-xs text-slate-500 hover:text-slate-700"+ro}>✏️ 수정</button>
+                          <button onClick={() => addEra(eraIndex + 1)} className={"text-xs text-[#1d3e72] hover:text-[#13294b]"+ro}>+ 아래에 시대 추가</button>
+                        </div>
+                        {era.note && <p className="text-sm text-slate-500 mt-1 pl-7">{era.note}</p>}
+                      </div>
+
+                      {/* 해당 시대의 지역별 사건 카드리스트 */}
+                      {eraEvents.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pl-7">
+                          {eraEvents.map((item, idx) => (
+                            <div 
+                              key={idx} 
+                              onClick={() => openCellEdit(era.id, item.region.id)}
+                              className="bg-white border border-slate-200 rounded-xl p-4 hover:border-slate-300 transition cursor-pointer shadow-lg"
+                            >
+                              <div className="text-xs font-bold mb-2 flex items-center justify-between" style={{ color: item.region.color }}>
+                                <span>{item.region.name}</span>
+                                <span className="text-[10px] text-slate-500">클릭하여 수정</span>
+                              </div>
+                              <p className="text-sm whitespace-pre-wrap leading-relaxed break-keep font-medium" style={{ color: item.color || '#1e293b' }}>
+                                {item.content}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-xs text-slate-400 italic pl-7">이 시대에 기록된 사건이 없습니다. (클릭하여 추가 가능)</p>
+                      )}
+                    </div>
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          )}
+
+          {/* 1. 사건 작성/수정 모달 */}
+          {editingCell && (
+            <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+              <div className="bg-slate-50 border border-slate-200 w-full max-w-lg rounded-2xl p-6 shadow-2xl">
+                <h3 className="text-lg font-bold text-slate-800 mb-4">사건 기록 편집</h3>
+                
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1">사건 / 기록 내용</label>
+                    <textarea 
+                      rows="6"
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                      placeholder="해당 연대 및 지역의 역사적인 사건을 입력하세요..."
+                      className="w-full bg-white border border-slate-200 rounded-lg p-3 text-sm text-slate-800 focus:outline-none focus:border-[#1d3e72] leading-relaxed"
+                    ></textarea>
+                  </div>
+
+                  {/* 글자 색상 선택 팔레트 */}
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-2">글자 색상 선택</label>
+                    <div className="flex flex-wrap gap-2 items-center mb-3">
+                      {ELEMENT_COLORS.map((item, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setEditTextColor(item.color)}
+                          className={`w-7 h-7 rounded-full border-2 transition transform hover:scale-110 flex items-center justify-center ${
+                            editTextColor.toLowerCase() === item.color.toLowerCase() ? 'border-slate-300 scale-110 shadow-lg' : 'border-slate-200'
+                          }`}
+                          style={{ backgroundColor: item.color }}
+                          title={item.name}
+                        >
+                          {editTextColor.toLowerCase() === item.color.toLowerCase() && (
+                            <span className="text-[10px] text-black font-bold">✓</span>
+                          )}
+                        </button>
+                      ))}
+
+                      {/* 사용자 지정 커스텀 컬러 피커 */}
+                      <div className="flex items-center gap-1 ml-auto bg-white px-2 py-1 rounded-lg border border-slate-200">
+                        <span className="text-xs text-slate-500">커스텀:</span>
+                        <input 
+                          type="color" 
+                          value={editTextColor}
+                          onChange={(e) => setEditTextColor(e.target.value)}
+                          className="w-6 h-6 bg-transparent border-0 cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center mt-6">
+                  <button 
+                    onClick={deleteCell}
+                    className="bg-rose-600/80 hover:bg-rose-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
+                  >
+                    삭제
+                  </button>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => setEditingCell(null)} 
+                      className="px-4 py-2 text-sm text-slate-500 hover:text-slate-800 transition"
+                    >
+                      취소
+                    </button>
+                    <button 
+                      onClick={saveCell} 
+                      className="bg-[#1d3e72] hover:bg-[#254b8c] text-white text-sm font-semibold px-5 py-2 rounded-lg transition"
+                    >
+                      저장하기
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 2. 시대(날짜/연대) 편집 모달 */}
+          {editingEra && (
+            <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+              <div className="bg-slate-50 border border-slate-200 w-full max-w-md rounded-2xl p-6 shadow-2xl">
+                <h3 className="text-lg font-bold text-slate-800 mb-4">시대 / 연대 정보 수정</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1">시대 제목</label>
+                    <input 
+                      type="text" 
+                      value={eraName}
+                      onChange={(e) => setEraName(e.target.value)}
+                      placeholder="예: 파네스의 강림, 마신 전쟁"
+                      className="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-sm text-slate-800 focus:outline-none focus:border-[#1d3e72]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1">시대 제목 대표 색상</label>
+                    <div className="flex items-center gap-2">
+                      <input 
+                        type="color" 
+                        value={eraColor}
+                        onChange={(e) => setEraColor(e.target.value)}
+                        className="w-10 h-10 bg-white border border-slate-200 rounded-lg cursor-pointer"
+                      />
+                      <span className="text-sm font-mono text-slate-700">{eraColor}</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1">시기 / 날짜 표기</label>
+                    <input 
+                      type="text" 
+                      value={eraPeriod}
+                      onChange={(e) => setEraPeriod(e.target.value)}
+                      placeholder="예: ~4000년 전, 140억년 전"
+                      className="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-sm text-slate-800 focus:outline-none focus:border-[#1d3e72]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1">시대 관련 비고 / 설명</label>
+                    <textarea 
+                      rows="3"
+                      value={eraNote}
+                      onChange={(e) => setEraNote(e.target.value)}
+                      placeholder="시대 배경이나 주요 핵심 설명을 입력하세요..."
+                      className="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-sm text-slate-800 focus:outline-none focus:border-[#1d3e72]"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center mt-6">
+                  <button 
+                    onClick={() => deleteEra(editingEra.id)}
+                    className="bg-rose-600/80 hover:bg-rose-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
+                  >
+                    삭제
+                  </button>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => setEditingEra(null)} 
+                      className="px-4 py-2 text-sm text-slate-500 hover:text-slate-800 transition"
+                    >
+                      취소
+                    </button>
+                    <button 
+                      onClick={saveEra} 
+                      className="bg-[#1d3e72] hover:bg-[#254b8c] text-white text-sm font-semibold px-5 py-2 rounded-lg transition"
+                    >
+                      저장
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 3. 지역(열) 편집 모달 */}
+          {editingRegion && (
+            <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+              <div className="bg-slate-50 border border-slate-200 w-full max-w-md rounded-2xl p-6 shadow-2xl">
+                <h3 className="text-lg font-bold text-slate-800 mb-4">지역 헤더 정보 수정</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1">지역 이름</label>
+                    <input 
+                      type="text" 
+                      value={regionName}
+                      onChange={(e) => setRegionName(e.target.value)}
+                      className="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-sm text-slate-800 focus:outline-none focus:border-[#1d3e72]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1">지역 헤더 색상</label>
+                    <div className="flex items-center gap-2">
+                      <input 
+                        type="color" 
+                        value={regionColor}
+                        onChange={(e) => setRegionColor(e.target.value)}
+                        className="w-10 h-10 bg-white border border-slate-200 rounded-lg cursor-pointer"
+                      />
+                      <span className="text-sm font-mono text-slate-700">{regionColor}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center mt-6">
+                  <button 
+                    onClick={() => deleteRegion(editingRegion.id)}
+                    className="bg-rose-600/80 hover:bg-rose-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
+                  >
+                    삭제
+                  </button>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => setEditingRegion(null)} 
+                      className="px-4 py-2 text-sm text-slate-500 hover:text-slate-800 transition"
+                    >
+                      취소
+                    </button>
+                    <button 
+                      onClick={saveRegion} 
+                      className="bg-[#1d3e72] hover:bg-[#254b8c] text-white text-sm font-semibold px-5 py-2 rounded-lg transition"
+                    >
+                      저장
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    try {
+      const root = ReactDOM.createRoot(document.getElementById('tl-root'));
+      root.render(<App />);
+    } catch(err) {
+      document.getElementById('tl-root').innerHTML = '<div style="color:red; padding: 20px;">로딩 실패: ' + err.message + '</div>';
+    }
+  </script>
+<script>
+/* ▼▼ 공유 설정: Supabase 의 Project URL 과 anon public key 를 붙여 넣으세요 (비워 두면 이 브라우저에만 저장) ▼▼ */
+const GU_CLOUD={url:'',key:''};
+/* ▲▲ ----------------------------------------------------------------------------------------- ▲▲ */
+const $=id=>document.getElementById(id);
+const COLLEGES=[
+ {id:'mond',name:'몬드 인문대학',tag:'자유의 학풍',c:'#0d9488',desc:'바람의 도시에서 시작된 인문 교육의 터전입니다. 자유로운 토론과 창작을 중시합니다.',depts:['시문학과','양조문화학과','자유철학과','점성술학과','몬드종교학과']},
+ {id:'liyue',name:'리월 상경대학',tag:'계약의 학풍',c:'#d97706',desc:'계약과 교역의 정신을 배우는 상경 계열 대학입니다.',depts:['무역학과','계약법학과','광물경제학과','항만물류학과','슬라임응용조리학과']},
+ {id:'inazuma',name:'이나즈마 공과대학',tag:'영원의 학풍',c:'#9333ea',desc:'번개의 에너지와 장인 정신을 바탕으로 한 공학 중심 대학입니다.',depts:['전기공학과','단조·금속공학과','기계장치학과','전통건축학과','탐정추론학과']},
+ {id:'sumeru',name:'수메르 아카데미아',tag:'지혜의 학풍',c:'#059669',desc:'티바트 최대의 지식 기관입니다. 역사, 언어, 원소학 등 학술 연구를 이끌며, 티바트 연표 정리를 학부 자료로 관리합니다.',depts:['원소학과','역사·고고학과','식물학과','천문학과','실용건축학과']},
+ {id:'fontaine',name:'폰타인 법학·예술대학',tag:'정의의 학풍',c:'#0891b2',desc:'재판과 무대 예술을 함께 가르치는 대학입니다.',depts:['법학과','연극영화학과','기계공학과','수상생태학과','교도관양성학과']},
+ {id:'natlan',name:'나타 체육·전투대학',tag:'전쟁의 학풍',c:'#ea580c',desc:'열정과 경쟁의 정신으로 체력과 전투 기술을 단련하는 대학입니다.',depts:['체육교육과','전투기술학과','고대이름계승학과','열소응용학과','나타용전문의학과']},
+ {id:'snezhnaya',name:'스네즈나야 첨단과학대학',tag:'북국의 학풍',c:'#0284c7',desc:'혹한의 땅에서 발전한 첨단 과학 기술을 연구합니다.',depts:['저온공학과','정밀기계학과','외교·전략학과','우인군사학과','스네즈나야 문화·예술학과']}
+];
+/* 입학자료실 파일: '자료 이름':'파일 경로' — 파일을 assets/docs/ 에 올리고 여기에 한 줄 추가하면 열람 버튼이 다운로드로 바뀝니다 */
+const DOCFILES={
+ '2027학년도 수시모집 요강':'assets/docs/2027-susi-mojip-yogang.pdf'
+};
+const G=[
+ {n:'대학소개',items:[['status','대학현황'],['faculty','교수진'],['greeting','총장 인사말'],['history','개교 6주년 연혁'],['symbol','대학상징'],['map','캠퍼스맵']]},
+ {n:'입학안내',items:[['adm','입학 메인'],['early','수시모집'],['regular','정시모집'],['transfer','편입학'],['docs','입학자료실']]},
+ {n:'대학생활',items:[['calendar','학사일정'],['library','도서관'],['clubs','동아리'],['dorm','기숙사'],['bus','캠퍼스 버스']]},
+ {n:'연구/산학',items:[['results','연구성과'],['institutes','연구기관'],['industry','산학협력단']]}
+];
+let MENUOV={}; try{ MENUOV=JSON.parse(localStorage.getItem('gu_menu')||'{}')||{}; }catch(e){}
+const mkCustomPage=(id,lbl)=>{ R[id]=()=>H(lbl)+`<div class="space-y-4 text-slate-600 leading-relaxed"><p>${lbl} 페이지입니다. 웹 수정하기에서 글자를 클릭해 내용을 바꾸세요.</p><p>문단에 마우스를 올리고 ＋ 복제를 누르면 문단을 늘릴 수 있어요.</p></div>`; };
+function loadMenuOv(){
+  G.forEach((g,i)=>{ if(!g._base) g._base=g.items.slice(); const o=MENUOV['g'+i]; if(!o){ g.items=g._base.slice(); return; }
+    const out=[]; o.forEach(it=>{ const k=g._base.find(x=>x[0]===it[0]); if(k) out.push(k); else if(String(it[0]).startsWith('c_')){ out.push([it[0],it[1]]); } });
+    g._base.forEach(k=>{ if(!out.some(x=>x[0]===k[0])) out.push(k); }); g.items=out; });
+  G.forEach(g=>g.items.forEach(it=>{ if(String(it[0]).startsWith('c_')) mkCustomPage(it[0],it[1]); }));
+}
+function saveMenuOv(){ MENUOV={}; G.forEach((g,i)=>{ if(g.items.some((x,k)=>g._base[k]!==x)||g.items.length!==g._base.length) MENUOV['g'+i]=g.items.map(x=>[x[0],x[1]]); }); try{ if(Object.keys(MENUOV).length) localStorage.setItem('gu_menu',JSON.stringify(MENUOV)); else localStorage.removeItem('gu_menu'); }catch(e){} }
+const pg=g=>g.items.map(i=>[i[1],'#/page/'+i[0]]);
+let MENU=[];
+function buildMenu(){
+  MENU=[
+   [G[0].n,'#/page/'+G[0].items[0][0],pg(G[0])],
+   ['학부/대학원','#colleges',COLLEGES.map(c=>[c.name,'#/college/'+c.id])],
+   [G[1].n,'#/page/'+G[1].items[0][0],pg(G[1])],
+   [G[2].n,'#/page/'+G[2].items[0][0],pg(G[2])],
+   [G[3].n,'#/page/'+G[3].items[0][0],[...pg(G[3]),['티바트 연표','#/college/sumeru/timeline']]]
+  ];
+$('gnb').innerHTML=MENU.map((m,k)=>`<div class="gnb-item relative"><a href="${m[1]}" class="gnb-link block text-center py-4 hover:text-[#1d3e72]">${m[0]}</a><div class="gnb-sub absolute top-full z-50 ${k===MENU.length-1?'right-0':'left-1/2 -translate-x-1/2'} min-w-[170px] w-max bg-white border border-slate-200 border-t-2 border-t-[#c9a24b] shadow-xl py-3 px-4"><ul class="space-y-2.5 text-center text-sm font-normal text-slate-600 whitespace-nowrap">${m[2].map(i=>`<li><a href="${i[1]}" class="block hover:text-[#1d3e72] hover:font-bold">${i[0]}</a></li>`).join('')}</ul></div></div>`).join('');
+$('mobileMenu').innerHTML=MENU.map(m=>`<details class="border-b border-slate-200"><summary class="py-3 font-bold text-[#13294b] cursor-pointer">${m[0]}</summary><div class="pb-2 pl-3">${m[2].map(i=>`<a href="${i[1]}" class="block py-1.5 text-slate-600">${i[0]}</a>`).join('')}</div></details>`).join('');
+}
+const hdr=$('hdr');
+function megaOpen(o){ hdr.classList.toggle('gnb-shut',!o); if(!o&&document.activeElement&&$('gnb').contains(document.activeElement)) document.activeElement.blur(); }
+$('gnb').addEventListener('mousemove',()=>hdr.classList.remove('gnb-shut')); $('gnb').addEventListener('focusin',()=>hdr.classList.remove('gnb-shut'));
+$('gnb').addEventListener('click',e=>{ if(e.target.closest('.gnb-sub a')) megaOpen(false); });
+document.addEventListener('keydown',e=>{if(e.key==='Escape')megaOpen(false)});
+$('menuBtn').onclick=()=>$('mobileMenu').classList.toggle('hidden');
+$('mobileMenu').addEventListener('click',e=>{if(e.target.closest('a'))$('mobileMenu').classList.add('hidden')});
+$('searchBtn').onclick=()=>{$('searchBox').classList.toggle('hidden');$('searchInput').focus()};
+const PAGES=[['교수진','#/page/faculty'],...COLLEGES.map(c=>[c.name,'#/college/'+c.id]),['티바트 역사 연표','#/college/sumeru/timeline']];
+$('searchInput').oninput=e=>{const q=e.target.value.trim();$('searchRes').innerHTML=q?PAGES.filter(p=>p[0].includes(q)).map(p=>`<a href="${p[1]}" class="bg-white border border-slate-300 hover:border-[#13294b] px-3 py-1">${p[0]}</a>`).join('')||'<span class="text-slate-500">결과가 없습니다.</span>':''};
+$('searchRes').onclick=()=>$('searchBox').classList.add('hidden');
+
+const IMG0=["assets/news-1.jpg","assets/news-2.jpg","assets/news-3.jpg","assets/news-4.jpg","assets/news-5.jpg","assets/news-6.jpg"];
+const NEWS=[
+ ['행사','개교 6주년 기념식, 일곱 캠퍼스에서 동시 개최','모험의 지혜로 미래를 열자는 주제로 열린 기념식 현장을 소개합니다.','2026.09.28','#1d3e72'],
+ ['아카데미아','수메르 아카데미아, 티바트 역사 연표 열람 시작','시대와 지역별로 정리한 역사 연표를 학부 자료실에서 볼 수 있습니다.','2026.09.24','#059669'],
+ ['신입생','노드크라이대학 신입생 환영 오리엔테이션','가장 최근 문을 연 캠퍼스의 첫 신입생을 맞이했습니다.','2026.10.01','#0284c7'],
+ ['체육','일곱 대학 합동 체육대회 우승팀 발표 예정','나타 체육·전투대학이 올해도 우승 후보로 꼽힙니다.','2026.10.10','#ea580c'],
+ ['학술','개교 6주년 기념 학술제 개최','학부별 연구 발표와 포스터 전시가 열립니다.','2026.09.28','#9333ea'],
+ ['캠퍼스','가을 캠퍼스 산책: 몬드 정문에서 수메르 도서관까지','셔틀 1호선 10분 간격 운행 소식과 가을 풍경을 전합니다.','2026.09.20','#0d9488']
+];
+let SAVED={}; try{SAVED=JSON.parse(localStorage.getItem('gu_imgs')||'{}')}catch(e){}
+let IPOS={}; try{IPOS=JSON.parse(localStorage.getItem('gu_imgpos')||'{}')||{}}catch(e){}
+const ipos=k=>{ const o=IPOS[k]; if(!o) return ''; const x=o.x==null?50:o.x, y=o.y==null?50:o.y, z=o.z||1; return `object-position:${x}% ${y}%;`+(z>1?`scale:${z};transform-origin:${x}% ${y}%;`:''); };
+function renderNews(){
+ $('newsGrid').innerHTML=NEWS.map((n,i)=>`<article class="group cursor-pointer" data-news="${i}"><div class="relative aspect-[4/3] overflow-hidden bg-slate-200"><img src="${SAVED['n'+i]||IMG0[i]}" alt="" data-ipk="n${i}" style="${ipos('n'+i)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"><button data-ipos="n${i}" data-ratio="4/3" class="iposbtn absolute right-2 top-9 text-xs bg-black/50 text-white px-2.5 py-1 rounded md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition">✥ 위치·확대</button><button data-img="n${i}" class="imgbtn absolute right-2 top-2 text-xs bg-black/50 text-white px-2.5 py-1 rounded md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition">🖼 변경</button></div><p class="mt-3 text-xs font-bold" style="color:${n[4]}">${n[0]}</p><h3 class="font-bold text-lg leading-snug text-slate-900 group-hover:underline">${n[1]}</h3><p class="text-sm text-slate-500 mt-1">${n[2]}</p><time class="text-xs text-slate-400">${n[3]}</time></article>`).join('');
+}
+function refreshImgs(){ applyHero(); renderNews(); const el=$('presImg'); if(el) el.src=SAVED.pres||PRES_IMG; }
+function applyHero(){ if(SAVED.hero) document.documentElement.style.setProperty('--hero',`url(${SAVED.hero})`); else document.documentElement.style.removeProperty('--hero'); }
+function pickImage(key){
+ const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
+ inp.onchange=()=>{const f=inp.files[0]; if(!f) return; const img=new Image(); img.onload=()=>{
+   const max=key==='hero'?2000:900, s=Math.min(1,max/img.width), c=document.createElement('canvas'); c.width=Math.round(img.width*s); c.height=Math.round(img.height*s);
+   c.getContext('2d').drawImage(img,0,0,c.width,c.height); SAVED[key]=c.toDataURL('image/jpeg',.9); URL.revokeObjectURL(img.src);
+   try{localStorage.setItem('gu_imgs',JSON.stringify(SAVED))}catch(e){alert('브라우저 저장 공간이 부족해 이번 방문에만 적용됩니다.')}
+   refreshImgs(); }; img.src=URL.createObjectURL(f); };
+ inp.click();
+}
+document.addEventListener('click',e=>{const b=e.target.closest('.imgbtn'); if(b){e.preventDefault(); pickImage(b.dataset.img)}});
+$('imgReset').onclick=()=>{ if(!confirm('바꾼 사진을 모두 처음 상태로 되돌릴까요?')) return; SAVED={}; IPOS={}; try{localStorage.removeItem('gu_imgs'); localStorage.removeItem('gu_imgpos')}catch(e){} refreshImgs(); applyIpos(); };
+renderNews(); applyHero();
+const CAL=[['10','01','신입생 환영 오리엔테이션 (노드크라이)'],['10','06','학부별 연구 발표 세미나'],['10','10','일곱 대학 합동 체육대회'],['10','17','총장배 낚시 대회']];
+$('calList').innerHTML=CAL.map((c,i)=>`<li data-cal="${i}" class="flex items-center gap-4 py-3 cursor-pointer hover:bg-slate-50"><span class="flex-none w-14 text-center border border-slate-200"><span class="block bg-[#13294b] text-white text-[10px] py-0.5">${c[0]}월</span><span class="block text-xl font-black text-[#13294b]">${c[1]}</span></span><span>${c[2]}</span></li>`).join('');
+const NOTI=[['개교 6주년 기념 학식 무료 제공 안내','2026.09.28'],['2026학년도 2학기 일일 의뢰 수강신청 안내','2026.09.25'],['도서관 이용 시간 변경 안내','2026.09.12'],['캠퍼스 내 슬라임 출몰 주의 안내','2026.09.20'],['분실물 센터: 반짝이는 조각 습득','2026.09.05']];
+$('noticeList').innerHTML=NOTI.map((n,i)=>`<li data-noti="${i}" class="flex justify-between gap-3 py-3 cursor-pointer hover:bg-slate-50"><span>${n[0]}</span><time class="text-slate-400 text-xs flex-none pt-1">${n[1]}</time></li>`).join('');
+$('collegeGrid').innerHTML=COLLEGES.map(c=>`<a href="#/college/${c.id}" class="block border border-slate-200 border-l-[6px] p-4 hover:shadow-md hover:bg-slate-50 transition" style="border-left-color:${c.c}"><h3 class="font-bold text-[#13294b]">${c.name}</h3><p class="text-xs text-slate-500 mt-0.5">${c.tag}</p><p class="text-sm text-slate-600 mt-2">${c.desc}</p></a>`).join('');
+
+/* ===== info pages ===== */
+const H=t=>`<h2 class="text-xl font-bold text-[#13294b] border-b-2 border-[#13294b] pb-2 mb-5">${t}</h2>`;
+const P=t=>`<p class="text-slate-600 leading-relaxed">${t}</p>`;
+const T=(h,rows)=>`<div class="overflow-x-auto"><table class="w-full text-sm border-t-2 border-[#13294b]"><thead class="bg-slate-50"><tr>${h.map(x=>`<th class="text-left px-3 py-2.5 font-bold border-b border-slate-200">${x}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr class="border-b border-slate-200">${r.map(x=>`<td class="px-3 py-2.5">${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+const ACC=a=>`<div class="border-t-2 border-[#13294b]">${a.map(i=>`<details class="border-b border-slate-200"><summary class="py-3.5 cursor-pointer font-bold text-slate-800 hover:text-[#1d3e72]">${i[0]}</summary><div class="pb-4 text-sm text-slate-600 leading-relaxed">${i[1]}</div></details>`).join('')}</div>`;
+const CARDS=a=>`<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">${a.map(i=>`<div class="border border-slate-200 p-5"><h3 class="font-bold text-[#13294b]">${i[0]}</h3><p class="text-sm text-slate-600 mt-1.5">${i[1]}</p>${i[2]||''}</div>`).join('')}</div>`;
+const CHIP=(attr,v,label,on)=>`<button ${attr}="${v}" class="px-4 py-1.5 text-sm border ${on?'bg-[#13294b] text-white border-[#13294b]':'border-slate-300 text-slate-600 hover:border-[#13294b]'}">${label}</button>`;
+const BLD=[['본관 (시계탑)',38,38,24,24,'#1d3e72','대학 본부와 총장실이 있는 상징 건물입니다. 정각마다 시계탑 종이 울립니다.'],['몬드 인문대학',14,8,18,14,'#0d9488','시문학과, 음유시인학과 등이 있는 인문 계열 건물입니다.'],['폰타인 법학·예술대학',40,8,20,14,'#0891b2','모의재판장과 극장을 함께 쓰는 건물입니다.'],['이나즈마 공과대학',68,8,18,14,'#9333ea','공방과 실험동이 모여 있는 공학 계열 건물입니다.'],['리월 상경대학',14,24,18,12,'#d97706','무역학과와 계약법학과가 있는 상경 계열 건물입니다.'],['수메르 도서관',68,34,18,20,'#059669','수메르 아카데미아가 관리하는 중앙 도서관. 티바트 역사 연표 자료를 보관합니다.'],['학생식당',14,40,16,13,'#b45309','매일 바뀌는 학식과 카페가 있습니다.'],['기숙사',8,62,20,18,'#7c3aed','1인실과 2인실이 있는 학생 기숙사입니다.'],['나타 체육관',72,64,18,16,'#ea580c','체육대회가 열리는 실내 체육관과 연습장입니다.'],['스네즈나야 첨단과학대학',38,68,24,11,'#0284c7','연금술과 저온공학 실험실이 있습니다.'],['몬드 정문',42,86,16,8,'#475569','캠퍼스 버스 1호선이 출발하는 정문입니다.']];
+const EV=[['09','28','개교 6주년 기념식','행사'],['10','01','신입생 환영 오리엔테이션 (노드크라이)','행사'],['10','06','학부별 연구 발표 세미나','학술'],['10','10','일곱 대학 합동 체육대회','행사'],['10','17','총장배 낚시 대회','행사'],['10','24','교내 음악 축제','행사'],['11','07','수시모집 면접','입시'],['11','14','중간 점검 기간','학사'],['12','10','수시모집 합격자 발표','입시'],['12','20','2학기 종강','학사']];
+const CL=[['바람 시낭송회','예술','몬드 광장에서 매주 시를 낭송합니다.'],['썰렁 개그 연구','예술','바자르 한복판에서 마이크를 잡고 스탠드업 코미디를 진행합니다'],['연금술 연구회','학술','안전한 범위에서 조합을 연구합니다.'],['낚시 동호회','레저','총장배 낚시 대회를 준비합니다.'],['전투 훈련부','체육','나타 체육관에서 매주 훈련합니다.'],['고대문헌 탐독회','학술','수메르 도서관 고서를 함께 읽습니다.'],['야간 별구경부','레저','맑은 날 밤 옥상에서 별을 봅니다.']];
+let calMon='all', clubF='all', joined=[]; try{joined=JSON.parse(localStorage.getItem('gu_clubs')||'[]')}catch(e){}
+const R={
+ status:()=>H('대학현황')+`<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-8">${[['2020.09.28','개교일'],['6주년','2026년 기준'],[COLLEGES.length+'개','단과대학'],[COLLEGES.reduce((a,c)=>a+c.depts.length,0)+'개','학과']].map(s=>`<div class="bg-slate-50 border border-slate-200 py-5"><b class="block text-2xl font-black text-[#1d3e72]">${s[0]}</b><span class="text-xs text-slate-500">${s[1]}</span></div>`).join('')}</div>`+T(['단과대학','학풍','학과 수'],COLLEGES.map(c=>[`<a class="text-[#1d3e72] font-medium hover:underline" href="#/college/${c.id}">${c.name}</a>`,c.tag,c.depts.length+'개'])),
+ greeting:()=>H('총장 인사말')+`<div class="grid md:grid-cols-[220px_1fr] gap-8"><div class="self-start"><div class="relative group border-4 border-[#c9a24b] overflow-hidden"><img id="presImg" data-ipk="pres" style="${ipos('pres')}" src="${SAVED.pres||PRES_IMG}" alt="명예총장 여행자" class="w-full aspect-[3/4] object-cover block"><button data-ipos="pres" data-ratio="3/4" class="iposbtn absolute right-2 top-9 text-xs bg-black/50 text-white px-2.5 py-1 rounded md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition">✥ 위치·확대</button><button data-img="pres" class="imgbtn absolute right-2 top-2 text-xs bg-black/50 text-white px-2.5 py-1 rounded md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition">🖼 변경</button></div><div class="bg-[#13294b] text-white text-center py-3"><p class="font-bold">명예총장 여행자</p><p class="text-xs text-slate-300 tracking-widest">TRAVELER</p></div></div><div class="space-y-4 text-slate-600 leading-relaxed"><p class="text-2xl font-black text-[#13294b]">모험의 지혜로, 미래를 열다</p><p>낯선 땅에서 시작한 여정이 어느덧 여섯 해가 되었습니다. 그동안 함께 걷고, 함께 싸우고, 함께 웃어준 모든 학우 여러분께 깊이 감사드립니다.</p><p>원신대학교는 일곱 국가의 학문이 서로 만나는 곳입니다. 서로 다른 학풍이 어우러질 때 더 넓은 세상을 볼 수 있다고 믿습니다.</p><p>우리의 이야기는 아직 끝나지 않았습니다. 앞으로의 여정도 변함없이 함께해 주시기 바랍니다.</p><p class="text-right font-bold text-slate-800">원신대학교 명예총장 여행자</p></div></div>`,
+ history:()=>H('개교 6주년 연혁')+`<ol class="border-l-2 border-[#c9a24b] ml-2">${[['2020','개교','몬드캠퍼스에서 첫 입학식을 열고 리월대학을 개설했습니다.'],['2021','이나즈마대학 신설','번개와 영원의 땅에 새 캠퍼스를 열었습니다.'],['2022','수메르 아카데미아 신설','사막과 열대우림을 아우르는 지혜의 캠퍼스가 문을 열었습니다.'],['2023','폰타인대학 신설','물의 도시에 정의와 재판을 가르치는 캠퍼스가 들어섰습니다.'],['2024','나타대학 신설','불꽃의 땅에 여섯 번째 캠퍼스를 개교했습니다.'],['2025','노드크라이대학 신설','달빛 아래 새로운 캠퍼스가 문을 열었습니다.'],['2026','개교 6주년','모든 학우와 함께 여섯 번째 생일을 맞이했습니다.']].map(i=>`<li class="relative pl-6 pb-6"><span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-[#c9a24b]"></span><b class="text-lg text-[#13294b]">${i[0]}</b> <span class="text-sm font-bold text-[#1d3e72] ml-1">${i[1]}</span><p class="text-sm text-slate-600 mt-0.5">${i[2]}</p></li>`).join('')}</ol>`,
+ symbol:()=>H('대학상징')+`<div class="grid md:grid-cols-[220px_1fr] gap-8"><div class="text-center"><svg class="w-48 h-48 mx-auto" viewBox="0 0 100 100"><use href="#seal"/></svg><p class="text-sm text-slate-500 mt-2">교표</p></div><div><h3 class="font-bold text-[#13294b] mb-2">교색</h3><div class="flex gap-3 mb-6">${[['#13294b','원신 네이비'],['#c9a24b','원신 골드'],['#f6f2e6','아이보리']].map(c=>`<div class="text-center text-xs text-slate-500"><div class="w-20 h-14 border border-slate-200" style="background:${c[0]}"></div>${c[1]}<br>${c[0]}</div>`).join('')}</div><h3 class="font-bold text-[#13294b] mb-2">교훈</h3><p class="mb-6 text-slate-600">모험의 지혜로, 미래를 열다</p><h3 class="font-bold text-[#13294b] mb-2">문양의 의미</h3>${ACC([['별','끝없는 여정과 탐구심을 상징합니다.'],['책','학문과 기록, 지혜를 상징합니다.'],['탑','전통과 일곱 국가의 연대를 상징합니다.'],['불꽃','도전과 열정을 상징합니다.'],['월계수','학문적 성취와 명예를 상징합니다.']])}</div></div>`,
+ map:()=>H('캠퍼스맵')+`<div class="grid lg:grid-cols-[1fr_300px] gap-6"><div class="relative aspect-[16/10] bg-[#dcebd6] border border-slate-300 overflow-hidden"><div class="absolute left-0 right-0 top-[80%] h-[4%] bg-[#e9ecef]"></div><div class="absolute top-0 bottom-0 left-[48%] w-[4%] bg-[#e9ecef]"></div>${BLD.map((b,i)=>`<button data-bld="${i}" class="absolute text-white text-[10px] sm:text-xs font-bold leading-tight flex items-center justify-center text-center p-1 shadow hover:brightness-110 ring-offset-1" style="left:${b[1]}%;top:${b[2]}%;width:${b[3]}%;height:${b[4]}%;background:${b[5]}">${b[0]}</button>`).join('')}</div><div id="bldInfo" class="border border-slate-200 p-5 self-start"><h3 class="font-bold text-[#13294b]">건물을 선택하세요</h3><p class="text-sm text-slate-600 mt-2">지도 위 건물을 누르면 설명이 표시됩니다.</p></div></div>`,
+ adm:()=>H('입학 메인')+P('원신대학교는 티바트 어디서든 배움을 향한 열정이 있는 모험가를 기다립니다. 자주 묻는 질문을 확인해 보세요.')+`<div class="mt-6">${ACC([['지원 자격이 어떻게 되나요?','고등 과정을 마쳤거나 이에 준하는 모험 경력이 있는 분이면 지원할 수 있습니다.'],['모험가 경력은 어떻게 반영되나요?','서류 평가에서 활동 기록을 가점으로 반영합니다.'],['기숙사 입사는 가능한가요?','합격자는 입학 전 별도 신청으로 입사할 수 있습니다.'],['장학금이 있나요?','성적, 모험 활동, 지역 균형 장학 등 다양한 제도가 있습니다.']])}</div>`,
+ early:()=>H('수시모집')+T(['단계','일정'],[['원서 접수','2026.10.12 ~ 10.16'],['서류 평가','2026.10.19 ~ 11.01'],['면접','2026.11.07 ~ 11.08'],['합격자 발표','2026.12.10']])+`<div class="mt-6">${ACC([['모집 단위','일곱 개 단과대학 전 학과'],['전형 방법','서류 70% + 면접 30%'],['제출 서류','지원서, 활동 기록서, 추천서']])}</div>`,
+ regular:()=>H('정시모집')+T(['단계','일정'],[['원서 접수','2026.12.29 ~ 2027.01.02'],['합격자 발표','2027.01.20'],['등록','2027.02.01 ~ 02.05']])+`<div class="mt-6">${ACC([['전형 방법','학업 성적 100%로 선발합니다.'],['추가 모집','등록 후 결원이 생기면 2월 중 추가 합격자를 발표합니다.']])}</div>`,
+ transfer:()=>H('편입학')+P('2학년 이상 수료(예정)자를 대상으로 매년 1월 편입생을 선발합니다. 전적 대학 성적과 면접을 평가합니다.')+`<div class="mt-6">${T(['구분','내용'],[['지원 자격','2학년 이상 수료(예정)자'],['접수 기간','2027.01.10 ~ 01.14'],['전형','성적 60% + 면접 40%']])}</div>`,
+ docs:()=>H('입학자료실')+`<ul class="border-t-2 border-[#13294b]">${['2027학년도 수시모집 요강','2026학년도 입시 결과','입학원서 및 활동기록서 양식','장학금 안내 책자'].map((d,i)=>`<li class="flex justify-between items-center gap-3 py-3 border-b border-slate-200"><span>${d}</span><button data-doc="${d}" class="text-sm border border-slate-300 px-3 py-1 hover:border-[#13294b]">열람</button></li>`).join('')}</ul>`,
+ calendar:()=>H('학사일정')+`<div id="calTabs" class="flex flex-wrap gap-2 mb-4"></div><ul id="calBox" class="border-t-2 border-[#13294b]"></ul>`,
+ library:()=>H('도서관')+T(['구분','이용 시간'],[['수메르 도서관 (중앙)','연중 24시간 (열람실 지식 보호를 위해 일부 구역 제한)'],['단과대학 도서관','평일 09:00 ~ 22:00'],['디지털 자료실','평일 09:00 ~ 18:00']])+`<h3 class="font-bold text-[#13294b] mt-8 mb-3">열람실 현황</h3><div class="space-y-3 max-w-xl">${[['제1열람실',72],['제2열람실',45],['스터디룸',90],['디지털 자료실',30]].map(r=>`<div><div class="flex justify-between text-sm"><span>${r[0]}</span><span class="text-slate-500">${r[1]}% 사용 중</span></div><div class="h-2.5 bg-slate-200"><div class="h-full ${r[1]>=85?'bg-red-500':'bg-[#1d3e72]'}" style="width:${r[1]}%"></div></div></div>`).join('')}</div>`,
+ clubs:()=>H('동아리')+`<div id="clubTabs" class="flex flex-wrap gap-2 mb-5"></div><div id="clubBox"></div>`,
+ dorm:()=>H('기숙사')+ACC([['몬드 생활관 (1인실)','정문 인근에 있는 1인실 중심 기숙사입니다. 바람이 잘 드는 창가가 인기입니다.'],['리월 생활관 (2인실)','식당과 가까운 2인실 기숙사입니다. 룸메이트와 계약서를 작성하는 전통이 있습니다.'],['수메르 생활관 (4인실)','도서관과 연결된 통로가 있어 시험 기간에 인기가 높습니다.']]),
+ bus:()=>H('캠퍼스 버스')+T(['노선','경로','배차'],[['1호선','정문 ↔ 본관 ↔ 수메르 도서관','10분'],['2호선','기숙사 순환','15분'],['3호선','체육관 ↔ 첨단과학대학','20분']])+`<p class="text-sm text-slate-500 mt-3">운행 시간: 평일 07:30 ~ 22:00</p>`,
+ results:()=>H('연구성과')+ACC([['티바트 원소 순환 연구','원소 반응이 지역 생태계에 미치는 영향을 7개 국가에서 비교 조사했습니다.'],['고대 문헌 디지털 아카이브','수메르 도서관 고서 1만 권의 디지털화를 진행 중입니다.'],['심층 수계 생태 조사','폰타인 수역의 생물 다양성을 조사했습니다.'],['전통 공예와 에너지 공학','이나즈마 장인 기술을 현대 공학에 접목한 연구입니다.']]),
+ institutes:()=>H('연구기관')+CARDS([['원소학연구소','원소 반응과 에너지 순환을 연구합니다.'],['고대문헌연구소','수메르 도서관 고서를 연구합니다.'],['심연탐사센터','미지의 지하 구역을 안전하게 탐사합니다.'],['약초·식물연구소','티바트 전역의 식물 자원을 연구합니다.']]),
+ industry:()=>H('산학협력단')+CARDS([['현장 실습','일곱 국가 상회와 연계한 학기 중 실습 프로그램입니다.'],['공동 연구','기업과 함께 하는 연구 과제를 운영합니다.'],['창업 지원','학생 창업 동아리에 공간과 자금을 지원합니다.']])+`<button data-contact class="mt-6 bg-[#13294b] text-white px-5 py-2.5 hover:bg-[#1d3e72]">협력 문의하기</button>`
+};
+function renderCal(){
+  const mons=['all','09','10','11','12'];
+  $('calTabs').innerHTML=mons.map(m=>CHIP('data-mon',m,m==='all'?'전체':Number(m)+'월',calMon===m)).join('');
+  $('calBox').innerHTML=EV.filter(e=>calMon==='all'||e[0]===calMon).map(e=>`<li class="flex items-center gap-4 py-3 border-b border-slate-200"><span class="flex-none w-14 text-center border border-slate-200"><span class="block bg-[#13294b] text-white text-[10px] py-0.5">${Number(e[0])}월</span><span class="block text-xl font-black text-[#13294b]">${e[1]}</span></span><span class="flex-1">${e[2]}</span><span class="text-xs text-slate-500 border border-slate-300 px-2 py-0.5">${e[3]}</span></li>`).join('');
+}
+const INIT={calendar:renderCal,clubs:renderClubs};
+function openModal(t,meta,body){ $('mTitle').textContent=t; $('mMeta').textContent=meta; $('mText').textContent=body; $('modal').classList.remove('hidden'); }
+$('modal').addEventListener('click',e=>{ if(e.target.id==='modal'||e.target.closest('[data-close]')) $('modal').classList.add('hidden'); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('modal').classList.add('hidden'); });
+$('subBody').addEventListener('click',e=>{
+  const t=e.target.closest('[data-bld],[data-mon],[data-cf],[data-join],[data-doc],[data-contact]'); if(!t) return;
+  if(t.dataset.bld!==undefined){ const b=BLD[t.dataset.bld]; $('bldInfo').innerHTML=`<h3 class="font-bold text-lg" style="color:${b[5]}">${b[0]}</h3><p class="text-sm text-slate-600 mt-2 leading-relaxed">${b[6]}</p>`; document.querySelectorAll('[data-bld]').forEach(x=>x.classList.remove('ring-4','ring-amber-300')); t.classList.add('ring-4','ring-amber-300'); }
+  else if(t.dataset.mon){ calMon=t.dataset.mon; renderCal(); }
+  else if(t.dataset.cf){ clubF=t.dataset.cf; renderClubs(); }
+  else if(t.dataset.join){ const n=t.dataset.join; joined=joined.includes(n)?joined.filter(x=>x!==n):[...joined,n]; try{localStorage.setItem('gu_clubs',JSON.stringify(joined))}catch(x){} renderClubs(); }
+  else if(t.dataset.doc!==undefined){ const f=DOCFILES[t.dataset.doc]; if(f){ const go=()=>{ const a=document.createElement('a'); a.href=f; a.download=f.split('/').pop(); document.body.appendChild(a); a.click(); a.remove(); }; fetch(f,{method:'HEAD'}).then(r=>{ if(r.ok) go(); else openModal(t.dataset.doc,'입학자료실','파일을 찾을 수 없습니다. 저장소의 '+f+' 위치에 파일이 올라가 있는지 확인해 주세요.'); }).catch(go); } else openModal(t.dataset.doc,'입학자료실','이 자료는 현재 준비 중입니다. 입학처(UID 821789055)로 문의해 주세요.'); }
+  else openModal('협력 문의','산학협력단','협력 제안은 (UID 821789055) 로 보내주세요. 담당자가 영업일 기준 3일 안에 회신합니다.');
+});
+document.addEventListener('click',e=>{
+  if(e.target.closest('.imgbtn,.iposbtn')) return;
+  const t=e.target.closest('[data-news],[data-noti],[data-cal]'); if(!t) return;
+  if(t.dataset.news!==undefined){ const n=NEWS[t.dataset.news]; openModal(n[1],n[0]+' · '+n[3],n[2]+' 자세한 내용은 해당 학부 사무실과 학생처에서 확인하실 수 있습니다.'); }
+  else if(t.dataset.noti!==undefined){ const n=NOTI[t.dataset.noti]; openModal(n[0],'공지사항 · '+n[1],n[0]+'에 관한 안내입니다. 자세한 내용은 학생처 또는 해당 학부 사무실에서 확인하실 수 있습니다.'); }
+  else { const c=CAL[t.dataset.cal]; openModal(c[2],'원신 캘린더 · '+c[0]+'월 '+c[1]+'일','일정 변경 시 공지사항을 통해 안내합니다. 자세한 내용은 학사일정 페이지를 확인하세요.'); }
+});
+function renderTabs(g,id){ $('subTabs').innerHTML=g.items.map(t=>`<a href="#/page/${t[0]}" class="px-6 py-3.5 whitespace-nowrap ${t[0]===id?'text-[#13294b] border-b-[3px] border-[#13294b]':'text-slate-500 hover:text-[#13294b]'}">${t[1]}</a>`).join(''); }
+function showPage(id){
+  const g=G.find(x=>x.items.some(i=>i[0]===id)); if(!g||!R[id]){location.hash='#/';return}
+  const it=g.items.find(i=>i[0]===id);
+  $('view-home').classList.add('hidden'); $('view-sub').classList.remove('hidden');
+  $('tl-wrap').classList.add('hidden'); $('subBody').classList.remove('hidden');
+  $('crumbs').innerHTML=`<a href="#/" class="hover:text-white">홈</a> &gt; ${g.n} &gt; ${it[1]}`;
+  $('subTitle').textContent=it[1]; $('subTag').textContent=g.n;
+  renderTabs(g,id);
+  $('subBody').innerHTML=`<div class="max-w-4xl">${R[id]()}</div>`; facFixed=''; if(INIT[id]) INIT[id]();
+  $('syncBar').classList.toggle('hidden',!(id==='faculty'||id==='clubs')); setStatus();
+  window.scrollTo(0,0);
+}
+
+let tlStarted=false;
+/* ===== 공유(Supabase) ===== */
+const cloudOn=()=>!!(GU_CLOUD.url&&GU_CLOUD.key);
+const mkDoc=()=>({version:null,updated:'',data:null,remoteJson:null,pending:null,timer:null});
+const docs={main:mkDoc(),people:mkDoc()};
+const sync={code:'',editor:false,status:''};
+try{ sync.code=localStorage.getItem('gu_code')||''; }catch(e){}
+const canEditNow=()=>!cloudOn()||sync.editor;
+const api=(path,opt={})=>fetch(GU_CLOUD.url.replace(/\/$/,'')+'/rest/v1/'+path,{...opt,headers:{apikey:GU_CLOUD.key,Authorization:'Bearer '+GU_CLOUD.key,'Content-Type':'application/json',...(opt.headers||{})}});
+function writeLocal(d){ try{ localStorage.setItem('gt_regions',JSON.stringify(d.regions)); localStorage.setItem('gt_eras',JSON.stringify(d.eras)); localStorage.setItem('gt_events',JSON.stringify(d.events)); }catch(e){} }
+const APPLY={main:d=>writeLocal(d),people:d=>{ PEOPLE=d; repairPeople(); try{localStorage.setItem('gu_people',JSON.stringify(PEOPLE))}catch(e){} }};
+function setStatus(){
+  const el=$('syncStatus'); if(!el) return; const eb=$('syncEdit'), rb=$('syncReload');
+  if(!cloudOn()){ el.textContent='💾 로컬 모드 · 공유 설정 전이라 이 브라우저에만 저장됩니다.'; eb.classList.add('hidden'); rb.classList.add('hidden'); $('syncUpload').classList.add('hidden'); return; }
+  eb.classList.remove('hidden'); rb.classList.remove('hidden'); $('syncUpload').classList.toggle('hidden',!sync.editor);
+  el.textContent=(sync.editor?'✏️ 편집 모드':'👀 읽기 전용')+' · ☁ 공유 중'+(sync.status?' · '+sync.status:'');
+  eb.textContent=sync.editor?'편집 종료':'편집 모드 입장';
+}
+async function pull(id,applyLocal){
+  const r=await api('timeline?id=eq.'+id+'&select=data,version,updated_at'); if(!r.ok) throw new Error('pull'); const row=(await r.json())[0]; if(!row) throw new Error('no row');
+  const d=docs[id]; d.version=row.version; d.updated=row.updated_at;
+  if(row.data){ d.data=row.data; d.remoteJson=JSON.stringify(row.data); if(applyLocal) APPLY[id](row.data); }
+  return row;
+}
+async function verifyCode(code){
+  try{ const r=await api('rpc/check_code',{method:'POST',body:JSON.stringify({p_code:code})}); return (await r.json())===true; }catch(e){ return null; }
+}
+async function enterEdit(){
+  const code=sync.code||prompt('편집 코드를 입력하세요'); if(!code) return;
+  const ok=await verifyCode(code);
+  if(ok===true){ sync.code=code; sync.editor=true; sync.status=''; try{localStorage.setItem('gu_code',code)}catch(e){} }
+  else { sync.code=''; try{localStorage.removeItem('gu_code')}catch(e){} alert(ok===null?'서버에 연결하지 못했습니다.':'편집 코드가 올바르지 않습니다.'); }
+  setStatus(); dispatchEvent(new Event('gu-mode'));
+}
+function exitEdit(){ sync.editor=false; sync.code=''; try{localStorage.removeItem('gu_code')}catch(e){} setStatus(); dispatchEvent(new Event('gu-mode')); }
+function afterRemote(id){ if(id==='main') dispatchEvent(new Event('gu-data')); else refreshPeople(); }
+async function flush(id){
+  const d=docs[id], data=d.pending; if(!data) return; d.pending=null;
+  try{
+    const r=await api('rpc/save_doc',{method:'POST',body:JSON.stringify({p_code:sync.code,p_id:id,p_data:data,p_base_version:d.version})});
+    const j=await r.json(); const msg=String(j.message||'');
+    if(r.ok){ d.version=j; d.updated=new Date().toISOString(); d.data=data; d.remoteJson=JSON.stringify(data); sync.status='저장됨 ✓'; }
+    else if(msg.includes('conflict')){ await pull(id,true); afterRemote(id); sync.status='다른 사람이 먼저 수정해 최신 내용으로 바뀌었어요'; alert('다른 사람이 먼저 수정했습니다.\n최신 내용을 불러왔으니, 방금 수정한 부분은 다시 입력해 주세요.'); }
+    else if(msg.includes('bad_code')){ exitEdit(); sync.status='편집 코드가 바뀌어 읽기 전용이 되었어요'; }
+    else { d.pending=data; sync.status='저장 실패 – supabase-setup.sql의 2차 추가분을 실행했는지 확인하세요'; }
+  }catch(e){ d.pending=data; sync.status='오프라인 – 연결되면 다시 저장합니다'; setTimeout(()=>flush(id),5000); }
+  setStatus();
+}
+window.GU_SYNC={
+  canEdit:canEditNow,
+  data:()=>docs.main.data,
+  push(a,b){
+    const id=typeof a==='string'?a:'main', data=typeof a==='string'?b:a;
+    if(!cloudOn()||!sync.editor) return; const d=docs[id];
+    if(JSON.stringify(data)===d.remoteJson) return;
+    d.pending=data; sync.status='저장 중…'; setStatus(); clearTimeout(d.timer); d.timer=setTimeout(()=>flush(id),1200);
+  }
+};
+$('syncEdit').onclick=()=>sync.editor?exitEdit():enterEdit();
+$('syncReload').onclick=async()=>{
+  if((docs.main.pending||docs.people.pending)&&!confirm('저장되지 않은 수정이 있습니다. 그래도 최신 내용을 불러올까요?')) return;
+  docs.main.pending=docs.people.pending=null;
+  for(const id of ['people','main']){ try{ await pull(id,true); if(docs[id].data) afterRemote(id); }catch(e){} }
+  sync.status=''; setStatus();
+};
+async function poll(){
+  if(!cloudOn()) return;
+  for(const id of ['people','main']){
+    const d=docs[id]; if(d.pending) continue;
+    if(id==='main'&&(!tlStarted||!location.hash.endsWith('/timeline'))) continue;
+    const prev=d.version;
+    try{ await pull(id,false); if(d.version!==prev&&d.data){ APPLY[id](d.data); afterRemote(id); } }catch(e){}
+  }
+  setStatus();
+}
+async function bootCloud(){
+  if(!cloudOn()) return;
+  try{ if(sync.code){ const ok=await verifyCode(sync.code); sync.editor=ok===true; if(ok===false){ sync.code=''; try{localStorage.removeItem('gu_code')}catch(e){} } } }catch(e){}
+  try{ await pull('people',true); refreshPeople(); }catch(e){}
+  setStatus(); dispatchEvent(new Event('gu-mode'));
+  setInterval(poll,20000); addEventListener('focus',poll);
+}
+addEventListener('gu-mode',()=>refreshPeople());
+
+/* ===== 교수진 · 동아리장 ===== */
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CT=(t,p,x)=>({t,p,x});
+const SEED=()=>({"faculty": [{"id": "f1", "name": "종려", "title": "명예교수", "college": "liyue", "dept": "계약법학과", "field": "계약법, 의례와 전통, 광물학", "email": "zhongli@genshin.example", "office": "리월 상경관 별관 (왕생당 객경 겸임)", "bio": "리월의 계약 정신을 가르칩니다. 수업은 언제나 정시에 시작하며, 점심값은 가끔 학생에게 부탁합니다.", "photo": "assets/people/f1.jpg", "career": [{"t": "경력", "p": "태고~", "x": "리월 항 건설 및 계약 제도 정립"}, {"t": "경력", "p": "수천 년간", "x": "리월 통치 (암왕제군)"}, {"t": "경력", "p": "퇴임 후", "x": "왕생당 객경"}, {"t": "경력", "p": "2020–현재", "x": "원신대학교 계약법학과 명예교수"}]}, {"id": "f2", "name": "나히다", "title": "명예교수", "college": "sumeru", "dept": "원소학과", "field": "풀 원소 이론, 지식과 꿈의 연구", "email": "nahida@genshin.example", "office": "수메르 아카데미아 본관 최상층", "bio": "수메르의 지혜의 신. 학생들의 질문에 언제나 열린 마음으로 답합니다.", "photo": "assets/people/f2.jpg", "career": [{"t": "경력", "p": "—", "x": "수메르의 신 (풀의 신, 지혜의 신)"}, {"t": "경력", "p": "—", "x": "수메르 아카데미아 명예학장"}, {"t": "경력", "p": "2022–현재", "x": "원신대학교 수메르 아카데미아 명예교수"}, {"t": "수상·업적", "p": "2022", "x": "수메르 지식 체계 개혁"}]}, {"id": "f3", "name": "알하이탐", "title": "부교수", "college": "sumeru", "dept": "역사·고고학과", "field": "고문서 해독, 서기학", "email": "alhaitham@genshin.example", "office": "수메르 도서관 2층 연구실", "bio": "수메르 아카데미아 서기관 출신. 불필요한 모임은 정중히 사양합니다.", "photo": "assets/people/f3.jpg", "career": [{"t": "학력", "p": "—", "x": "수메르 아카데미아 졸업"}, {"t": "경력", "p": "—", "x": "수메르 아카데미아 서기관"}, {"t": "경력", "p": "2023–현재", "x": "원신대학교 고대언어학과 부교수"}]}, {"id": "f4", "name": "라이덴 쇼군", "title": "교수", "college": "inazuma", "dept": "전기공학과", "field": "번개 에너지, 영원 이론", "email": "raiden@genshin.example", "office": "이나즈마 공학관 최상층", "bio": "영원을 추구해 온 이나즈마의 번개신. 요즘은 디저트 연구에도 관심이 많습니다.", "photo": "assets/people/f4.jpg", "career": [{"t": "경력", "p": "—", "x": "이나즈마 통치 (번개의 신)"}, {"t": "경력", "p": "—", "x": "영원 연구"}, {"t": "경력", "p": "2021–현재", "x": "원신대학교 전기공학과 교수"}, {"t": "수상·업적", "p": "—", "x": "교내 디저트 연구 우수상"}]}, {"id": "f5", "name": "푸리나", "title": "교수", "college": "fontaine", "dept": "연극영화학과", "field": "무대 연출, 재판극", "email": "furina@genshin.example", "office": "폰타인 예술관 대극장 분장실", "bio": "무대 위에서 가장 빛나는 교수. 수업은 언제나 극적입니다.", "photo": "assets/people/f5.jpg", "career": [{"t": "경력", "p": "—", "x": "폰타인 재판 무대의 주역"}, {"t": "경력", "p": "—", "x": "폰타인 극장 연출"}, {"t": "경력", "p": "2023–현재", "x": "원신대학교 연극영화학과 교수"}, {"t": "수상·업적", "p": "2024", "x": "교내 연극제 대상"}]}, {"id": "f6", "name": "리사", "title": "부교수", "college": "mond", "dept": "자유철학과", "field": "원소학, 도서 관리", "email": "lisa@genshin.example", "office": "몬드 인문관 도서관 사무실", "bio": "몬드 도서관의 사서. 수업 중 낮잠은 못 본 척하지만 과제는 반드시 제출해야 합니다.", "photo": "assets/people/f6.jpg", "career": [{"t": "학력", "p": "—", "x": "수메르 아카데미아 졸업 (우등)"}, {"t": "경력", "p": "—", "x": "몬드 도서관 사서"}, {"t": "경력", "p": "2020–현재", "x": "원신대학교 자유철학과 부교수"}]}, {"id": "f7", "name": "마비카", "title": "교수", "college": "natlan", "dept": "열소응용학과", "field": "열소 응용, 불꽃 의례, 경기 전술", "email": "mavuika@genshin.example", "office": "나타 체육관 본부", "bio": "나타의 불꽃신. 도전은 환영, 포기는 사양합니다.", "photo": "assets/people/f7.jpg", "career": [{"t": "경력", "p": "—", "x": "나타 전투 대회 심판"}, {"t": "경력", "p": "—", "x": "나타 불꽃 의례 주관"}, {"t": "경력", "p": "2024–현재", "x": "원신대학교 불꽃문화학과 교수"}]}, {"id": "f8", "name": "카베", "title": "겸임교수", "college": "sumeru", "dept": "실용건축학과", "field": "건축 설계, 공간 미학", "email": "kaveh@genshin.example", "office": "수메르 아카데미아 설계실", "bio": "아름다움은 타협하지 않는다고 가르칩니다. 마감 앞에서는 늘 바쁩니다.", "photo": "assets/people/f8.jpg", "career": [{"t": "학력", "p": "—", "x": "수메르 아카데미아 건축 전공 졸업"}, {"t": "경력", "p": "—", "x": "수메르 건축가"}, {"t": "경력", "p": "2023–현재", "x": "원신대학교 실용건축학과 겸임교수"}]}], "leaders": [{"id": "l1", "name": "벤티", "club": "바람 시낭송회", "role": "회장", "major": "시문학과", "year": "3학년", "bio": "우리 동아리는 딱딱하게 앉아서 시를 외우는 그런 지루한 곳이 절대 아니라고~? 바람을 타고 흐르는 음유시인의 노래를 듣고, 마음에 떠오르는 자유로운 생각들을 한 줄의 시로 읊조리는 낭만적인 모임이지!", "photo": "assets/people/l1.jpg", "career": [{"t": "활동", "p": "2020", "x": "바람 시낭송회 창립 멤버"}, {"t": "활동", "p": "2026", "x": "바람 시낭송회 회장"}, {"t": "수상", "p": "2026", "x": "교내 문학제 대상"}]}, {"id": "l2", "name": "알베도", "club": "연금술 연구회", "role": "회장", "major": "원소학과", "year": "4학년", "bio": "평범한 흙에서 꽃을 피워내고, 차가운 철에 생명을 불어넣는 기적. 내 연구실에서 나와 함께 그 비밀을 풀어보지 않을래? 네가 가진 아주 작은 의문이라도 훌륭한 연구의 시작점이 될 수 있어", "photo": "assets/people/l2.jpg", "career": [{"t": "활동", "p": "2025", "x": "연금술 연구회 부회장"}, {"t": "활동", "p": "2026", "x": "연금술 연구회 회장"}, {"t": "수상", "p": "2026", "x": "교내 연구발표 우수상"}]}, {"id": "l3", "name": "토마", "club": "낚시 동호회", "role": "회장", "major": "자유철학과", "year": "3학년", "bio": "존재란 무엇인가… 아, 미안! 찌가 흔들려서. 낚시도 철학도 타이밍이 중요하거든.", "photo": "assets/people/l3.jpg", "career": [{"t": "활동", "p": "2020", "x": "낚시 동호회 창립"}, {"t": "활동", "p": "2026", "x": "낚시 동호회 회장"}, {"t": "수상", "p": "2025", "x": "총장배 낚시 대회 우승"}]}, {"id": "l4", "name": "다이루크", "club": "전투 훈련부", "role": "회장", "major": "양조문화학과", "year": "4학년", "bio": "우리 부서는 단순한 친목 도모나 취미 생활을 위한 곳이 아니다. 자신을 단련하고, 어떤 위협 속에서도 소중한 이들을 지켜낼 수 있는 '실전 압축형 힘'을 기르는 것이 목적이다. 훈련은 혹독할 것이고, 어설픈 마음가짐으로는 단 하루도 버티기 힘들 거다.", "photo": "assets/people/l4.jpg", "career": [{"t": "활동", "p": "2024", "x": "전투 훈련부 부회장"}, {"t": "활동", "p": "2026", "x": "전투 훈련부 회장"}, {"t": "수상", "p": "2026", "x": "교내 검술 대회 우승"}]}, {"id": "l5", "name": "모나", "club": "야간 별구경부", "role": "회장", "major": "점성술학과", "year": "3학년", "bio": "비록 동아리 재정(과 제 지갑)은 늘 비어 있고, 가끔 세속적인 밥값 계산 앞에서 \"모라는 무가치한 것\"이라며 현실을 부정하곤 하지만… 별을 사랑하는 마음만큼은 그 누구보다 진심이랍니다", "photo": "assets/people/l5.jpg", "career": [{"t": "활동", "p": "2025", "x": "야간 별구경부 부회장"}, {"t": "활동", "p": "2026", "x": "야간 별구경부 회장"}, {"t": "수상", "p": "2026", "x": "교내 천문 관측 대회 최우수상"}]}, {"id": "l6", "name": "파루잔", "club": "고대문헌 탐독회", "role": "회장", "major": "수메르 아카데미아 복수 전공(5개)", "year": "4학년", "bio": "나를 선배라고 부르도록 해.", "photo": "assets/people/l6.jpg", "career": [{"t": "활동", "p": "2025", "x": "고대문헌 탐독회 부회장"}, {"t": "활동", "p": "2026", "x": "고대문헌 탐독회 회장"}]}, {"id": "p1791157211218", "name": "사이노", "club": "썰렁 개그 연구", "role": "회장", "major": "역사·고고학과", "year": "4학년", "bio": "페이몬이 가장 좋아하는 과일이 뭔지 아나? …바로 '배'다. 여행자 옆에서 맨날 '배'고프다고 하니까! 하하!", "photo": "assets/people/p1791157211218.jpg", "career": [{"t": "경력", "p": "-", "x": "수메르 아카데미아 대풍기관"}, {"t": "경력", "p": "2학년 ~ 현재", "x": "원신대학교 학생중앙징계위원회 총괄 대풍기관"}, {"t": "활동", "p": "2024", "x": "'학술원 연구비 횡령 사건' 주동자 고발 및 교내 영구 제명 처리"}, {"t": "활동", "p": "2025", "x": "'일곱 성인의 소환' 불법 도박장 개설 세력 현장 급습 및 전원 무기정학 처분"}, {"t": "수상", "p": "2025", "x": "원신대학교 자랑스러운 올해의 인물상"}]}]});
+const PRES_IMG="assets/president-traveler.jpg";
+const OLD_PHOTO_SIG=["39119:6l/dKqNZxY4U96+q2ikMZLSd8M9eXWVpaESsf//Z", "41503:WeDUupdW3QeyqWyARQEXNDOzNkjB9KM12PcwP//Z", "39683:JNOupZ9K1FdThIwLOQcD8a9H2jlTSRyWtK5//9k=", "39527:KFWQfxiuZu5Iotc1AM+0RkfNXfgp2Z6c5Jwuf//Z", "40927:WVfh207NwMS5A2+tb/hdAJroDqFGa6IIymz/2Q==", "39307:wkkbP3eXckmtTSrm0ilkS6JwelfRy6nzS2P/2Q==", "40099:efP9mT7q8k1U1co8cVmnAl6+2K+fjuexLY//2Q==", "103111:AEGuj8S+KbXwhZLJdoZc8LHnBNfTuCijJVbo/9k=", "106299:wLqlwyKk4lijGESSQ4Uew7VMKDXvLc25/dsz/9k=", "100251:A/AV5Bo7GXSoLok7JFBU+td2UV0qCbOKvTbeh//Z", "101707:YL+50j4keInZtylCgXHB+Y01PlafY5+dTdu5/9k=", "105147:4TfwncNOrN9hlPCt0U1WuVQQJOmBG/TBzTIZ/9k=", "101499:fpXq/iSFCqFhkkc5rz2n7XU+3wdRToNRWx//2Q==", "102615:m07SbYEZht4mIPPqSGb8a9DD07vT+mcNV3Z//9k="];
+let PEOPLE=null; try{ PEOPLE=JSON.parse(localStorage.getItem('gu_people')); }catch(e){}
+const OLD_F=['벤티','사이노','알베도','토마','다이루크','파루잔','모나'];
+if(PEOPLE&&PEOPLE.faculty&&PEOPLE.faculty.length===8&&PEOPLE.faculty.every((p,i)=>p.name===OLD_F[i])) PEOPLE=null; // 예전 예시 데이터는 새 예시로 교체
+if(!PEOPLE||!PEOPLE.faculty||!PEOPLE.leaders) PEOPLE=SEED();
+// 예전에 저장된 데이터에 남아 있는 잘못된 예시 학과를 현재 학과 목록에 맞게 바로잡음
+const BAD_SEED={f3:'고대언어학과',f7:'불꽃문화학과',l2:'연금술학과',l3:'모험학과 (복수전공)',l6:'고대언어학과'};
+function repairPeople(){
+  let ch=false; const seed=SEED(); const sg=x=>x.length+':'+x.slice(-40);
+  ['faculty','leaders'].forEach(k=>PEOPLE[k].forEach(p=>{ const sp=seed[k].find(x=>x.id===p.id&&x.name===p.name); if(sp&&sp.photo&&p.photo&&p.photo!==sp.photo&&OLD_PHOTO_SIG.includes(sg(p.photo))){ p.photo=sp.photo; ch=true; } }));
+  PEOPLE.faculty.forEach(p=>{ const sp=seed.faculty.find(x=>x.id===p.id&&x.name===p.name); if(sp&&BAD_SEED[p.id]===p.dept){ p.college=sp.college; p.dept=sp.dept; p.field=sp.field; p.office=sp.office; ch=true; } });
+  PEOPLE.leaders.forEach(p=>{ const sp=seed.leaders.find(x=>x.id===p.id&&x.name===p.name); if(sp&&BAD_SEED[p.id]===p.major){ p.major=sp.major; ch=true; } });
+  return ch;
+}
+if(repairPeople()){ try{ localStorage.setItem('gu_people',JSON.stringify(PEOPLE)); }catch(e){} }
+let facQ='', facCollege='all', facFixed='', clubFilter='all', ed=null;
+const colName=id=>(COLLEGES.find(c=>c.id===id)||{name:''}).name;
+const phStyle=p=>{ const o=p.photoPos||{}, x=o.x==null?50:o.x, y=o.y==null?50:o.y, z=o.z||1; return `object-position:${x}% ${y}%;`+(z>1?`transform:scale(${z});transform-origin:${x}% ${y}%;`:''); };
+const AV=(p,cls)=>p.photo?`<span class="${cls} block overflow-hidden"><img src="${p.photo}" alt="${esc(p.name)}" class="w-full h-full object-cover block" style="${phStyle(p)}"></span>`:`<div class="${cls} flex items-center justify-center bg-gradient-to-br from-[#1d3e72] to-[#13294b] text-white font-black text-2xl">${esc((p.name||'?').slice(0,1))}</div>`;
+function persistPeople(){ try{ localStorage.setItem('gu_people',JSON.stringify(PEOPLE)); }catch(e){ alert('브라우저 저장 공간이 부족합니다. 사진 수를 줄여 주세요.'); } if(window.GU_SYNC) window.GU_SYNC.push('people',PEOPLE); }
+function refreshPeople(){ if($('facBox')) renderFaculty(); if($('clubBox')) renderClubs(); renderHomeFaculty(); }
+const RANKS=['교수','부교수','조교수','명예교수','겸임교수','외래교수','특별강사']; // 교수진 직위 정렬 순서
+const rankOf=p=>{ const i=RANKS.indexOf(p.title); return i<0?RANKS.length:i; };
+const sortedFaculty=()=>PEOPLE.faculty.map((p,i)=>[p,i]).sort((a,b)=>rankOf(a[0])-rankOf(b[0])||a[1]-b[1]).map(x=>x[0]);
+const personCard=p=>`<button data-prof="faculty:${p.id}" class="group text-left border border-slate-200 hover:shadow-md transition bg-white flex flex-col justify-start items-stretch h-full">${AV(p,'w-full aspect-square shrink-0')}<div class="p-3 flex-1"><p class="font-bold text-[#13294b]">${esc(p.name)} <span class="text-xs font-medium text-slate-500">${esc(p.title)}</span></p><p class="text-xs text-[#1d3e72] mt-0.5">${esc(colName(p.college))}${p.dept?' · '+esc(p.dept):''}</p><p class="text-xs text-slate-500 mt-1 line-clamp-2">${esc(p.field)}</p></div></button>`;
+function renderFaculty(){
+  const fixed=facFixed, q=facQ.trim().toLowerCase(), cur=fixed||facCollege;
+  if($('facChips')) $('facChips').innerHTML=fixed?'':[['all','전체'],...COLLEGES.map(c=>[c.id,c.name])].map(c=>CHIP('data-fchip',c[0],c[1],facCollege===c[0])).join('');
+  if($('facAdd')) $('facAdd').innerHTML=canEditNow()?'<button data-padd="faculty" class="bg-[#13294b] text-white text-sm px-4 py-2 hover:bg-[#1d3e72]">＋ 교수진 추가</button>':'';
+  const list=sortedFaculty().filter(p=>(cur==='all'||p.college===cur)&&(!q||(p.name+p.dept+p.field+p.title).toLowerCase().includes(q)));
+  const grp=[]; list.forEach(p=>{ let g=grp.find(x=>x.t===p.title); if(!g){ g={t:p.title,a:[]}; grp.push(g); } g.a.push(p); });
+  $('facBox').setAttribute('data-wefix','');
+  $('facBox').innerHTML=list.length?grp.map(g=>`<section class="mb-8"><h3 class="flex items-baseline gap-2 text-lg font-black text-[#13294b] border-b-2 border-[#13294b] pb-1.5 mb-4">${esc(g.t||'기타')}<span class="text-xs font-medium text-slate-400">${g.a.length}명</span></h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${g.a.map(personCard).join('')}</div></section>`).join(''):'<p class="text-slate-400 py-10 text-center">해당하는 교수진이 없습니다.</p>';
+}
+function renderHomeFaculty(){ const el=$('homeFac'); if(el) el.innerHTML=sortedFaculty().slice(0,4).map(personCard).join(''); }
+function renderClubs(){
+  $('clubTabs').innerHTML=['all','학술','체육','예술','레저'].map(c=>CHIP('data-cf',c,c==='all'?'전체':c,clubF===c)).join('')+(canEditNow()?'<button data-padd="leaders" class="ml-auto bg-[#13294b] text-white text-sm px-4 py-1.5 hover:bg-[#1d3e72]">＋ 동아리장 등록</button>':'');
+  $('clubBox').innerHTML=`<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">${CL.filter(c=>clubF==='all'||c[1]===clubF).map(c=>{
+    const on=joined.includes(c[0]), L=PEOPLE.leaders.find(l=>l.club===c[0]);
+    const lead=L?`<button data-prof="leaders:${L.id}" class="mt-3 flex items-center gap-2 text-left w-full border-t border-slate-200 pt-3 hover:bg-slate-50">${AV(L,'w-9 h-9 rounded-full text-base')}<span class="text-sm"><b>${esc(L.name)}</b> <span class="text-slate-500">동아리장 · ${esc(L.role)}</span></span></button>`:'<p class="mt-3 text-xs text-slate-400 border-t border-slate-200 pt-3">동아리장 미등록</p>';
+    return `<div class="border border-slate-200 p-5 flex flex-col"><span class="text-xs font-bold text-[#1d3e72]">${c[1]}</span><h3 class="font-bold text-[#13294b]">${c[0]}</h3><p class="text-sm text-slate-600 mt-1.5 flex-1">${c[2]}</p><button data-join="${c[0]}" class="mt-3 text-sm px-4 py-1.5 border self-start ${on?'bg-[#13294b] text-white border-[#13294b]':'border-slate-300 hover:border-[#13294b]'}">${on?'가입 신청됨 ✓':'가입 신청'}</button>${lead}</div>`}).join('')}</div>`;
+}
+function openProfile(kind,id){
+  const p=PEOPLE[kind].find(x=>x.id===id); if(!p) return;
+  const isF=kind==='faculty';
+  const groups={}; (p.career||[]).forEach(c=>{(groups[c.t]=groups[c.t]||[]).push(c)});
+  const rows=Object.keys(groups).map(t=>`<h4 class="font-bold text-[#13294b] mt-5 mb-1.5 text-sm">${esc(t)}</h4><ul class="border-t border-slate-200">${groups[t].map(c=>`<li class="flex gap-4 py-2 border-b border-slate-100 text-sm"><span class="w-24 flex-none text-slate-500">${esc(c.p)}</span><span>${esc(c.x)}</span></li>`).join('')}</ul>`).join('');
+  const info=isF?[['소속',colName(p.college)+(p.dept?' · '+p.dept:'')],['연구분야',p.field],['이메일',p.email],['연구실',p.office]]:[['동아리',p.club+' · '+p.role],['학과/학년',(p.major||'')+' '+(p.year||'')]];
+  $('pBody').innerHTML=`<div class="grid md:grid-cols-[210px_1fr] gap-6"><div>${AV(p,'w-full aspect-square')}</div><div><p class="text-xs font-bold text-[#1d3e72]">${isF?'교수진':'동아리장'}</p><h3 class="text-2xl font-black text-[#13294b]">${esc(p.name)} <span class="text-base font-medium text-slate-500">${esc(isF?p.title:p.role)}</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed">${esc(p.bio)}</p><dl class="mt-4 text-sm">${info.filter(i=>i[1]&&i[1].trim()).map(i=>`<div class="flex gap-4 py-1.5 border-b border-slate-100"><dt class="w-20 flex-none text-slate-500">${i[0]}</dt><dd>${esc(i[1])}</dd></div>`).join('')}</dl></div></div>${rows||''}${canEditNow()?`<div class="mt-6 flex gap-2 justify-end"><button data-pedit="${kind}:${id}" class="border border-slate-300 px-4 py-2 text-sm hover:border-[#13294b]">수정</button><button data-pdel="${kind}:${id}" class="border border-red-200 text-red-600 px-4 py-2 text-sm hover:bg-red-50">삭제</button></div>`:''}`;
+  $('pmodal').classList.remove('hidden');
+}
+function careerRows(){
+  $('eCareer').innerHTML=ed.career.map((c,i)=>`<div class="flex gap-2 mb-2"><select data-ci="${i}" data-f="t" class="border border-slate-300 px-2 py-1.5 text-sm w-28">${['학력','경력','수상·업적','저서','활동','수상','기타'].map(o=>`<option${o===c.t?' selected':''}>${o}</option>`).join('')}</select><input data-ci="${i}" data-f="p" value="${esc(c.p)}" placeholder="기간 (예: 2018–현재)" class="border border-slate-300 px-2 py-1.5 text-sm w-32"><input data-ci="${i}" data-f="x" value="${esc(c.x)}" placeholder="내용" class="border border-slate-300 px-2 py-1.5 text-sm flex-1 min-w-0"><button data-crm="${i}" class="text-slate-400 hover:text-red-600 px-2" aria-label="삭제">×</button></div>`).join('')||'<p class="text-xs text-slate-400 mb-2">등록된 이력이 없습니다.</p>';
+}
+function collectCareer(){ document.querySelectorAll('#eCareer [data-ci]').forEach(el=>{ ed.career[el.dataset.ci][el.dataset.f]=el.value; }); }
+const SEL_CLS='mt-1 w-full border border-slate-300 px-3 py-2';
+function deptOpts(collegeId,cur){ const c=COLLEGES.find(x=>x.id===collegeId); const list=(c?c.depts:[]).slice(); if(cur&&!list.includes(cur)) list.push(cur); return list.map(d=>`<option value="${esc(d)}"${d===cur?' selected':''}>${esc(d)}</option>`).join('')+'<option value="__custom">직접 입력…</option>'; }
+function majorOpts(cur){ let o=COLLEGES.map(c=>`<optgroup label="${esc(c.name)}">${c.depts.map(d=>`<option value="${esc(d)}"${d===cur?' selected':''}>${esc(d)}</option>`).join('')}</optgroup>`).join(''); if(cur&&!COLLEGES.some(c=>c.depts.includes(cur))) o=`<option value="${esc(cur)}" selected>${esc(cur)}</option>`+o; return o+'<option value="__custom">직접 입력…</option>'; }
+function openEdit(kind,id){
+  const base=id?JSON.parse(JSON.stringify(PEOPLE[kind].find(x=>x.id===id))):(kind==='faculty'?{name:'',title:'교수',college:facFixed||COLLEGES[0].id,dept:'',field:'',email:'',office:'',bio:'',photo:'',career:[]}:{name:'',club:CL[0][0],role:'회장',major:'',year:'1학년',bio:'',photo:'',career:[]});
+  ed={kind,id:id||null,photo:base.photo||'',pos:Object.assign({x:50,y:50,z:1},base.photoPos||{}),career:base.career||[]};
+  const isF=kind==='faculty';
+  const I=(k,l,ph='')=>`<label class="block text-sm"><span class="text-slate-500">${l}</span><input id="e_${k}" value="${esc(base[k])}" placeholder="${ph}" class="mt-1 w-full border border-slate-300 px-3 py-2"></label>`;
+  const S=(k,l,opts)=>`<label class="block text-sm"><span class="text-slate-500">${l}</span><select id="e_${k}" class="mt-1 w-full border border-slate-300 px-3 py-2">${opts.map(o=>`<option value="${esc(o[0])}"${o[0]===base[k]?' selected':''}>${esc(o[1])}</option>`).join('')}</select></label>`;
+  $('eBody').innerHTML=`<div class="mb-5"><div class="flex items-start gap-4"><div id="ePhoto" class="flex-none cursor-move select-none" style="touch-action:none" title="드래그해서 위치 조정">${AV({name:base.name||'?',photo:ed.photo,photoPos:ed.pos},'w-32 h-32 rounded')}</div><div class="flex-1 min-w-0 text-sm"><div class="flex flex-wrap gap-2"><button data-photo class="border border-slate-300 px-3 py-1.5 hover:border-[#13294b]">사진 선택</button><button data-photo-rm class="text-slate-500 hover:text-red-600 px-2">사진 삭제</button><button data-pos-reset class="text-slate-500 hover:text-[#13294b] px-2">위치 초기화</button></div>
+  <div class="mt-2 grid grid-cols-[3.5rem_1fr] items-center gap-x-2 gap-y-1 text-xs text-slate-500"><span>가로 위치</span><input id="e_px" type="range" min="0" max="100" value="${ed.pos.x}"><span>세로 위치</span><input id="e_py" type="range" min="0" max="100" value="${ed.pos.y}"><span>확대</span><input id="e_pz" type="range" min="1" max="3" step="0.05" value="${ed.pos.z}"></div></div></div><p class="text-[11px] text-slate-400 mt-1.5">미리보기를 드래그하거나 슬라이더로 사진 위치를 맞추세요. 카드와 프로필에 같은 위치로 보입니다. (가로·세로는 사진이 잘리는 방향에서, 확대하면 어느 방향이든 움직여요)</p></div>
+  <div class="grid sm:grid-cols-2 gap-3">${I('name','이름','여행자')}${isF?S('title','직위',['교수','부교수','조교수','명예교수','겸임교수','외래교수','특별강사'].map(x=>[x,x])):S('role','직책',['회장','부회장','총무','기장'].map(x=>[x,x]))}
+  ${isF?S('college','소속 단과대학',COLLEGES.map(c=>[c.id,c.name]))+`<label class="block text-sm"><span class="text-slate-500">학과 (선택한 단과대학의 학과)</span><select id="e_dept" class="${SEL_CLS}">${deptOpts(base.college,base.dept)}</select><input id="e_dept_x" placeholder="학과 이름 입력" class="hidden ${SEL_CLS}"></label>`+I('field','연구분야')+I('email','이메일')+I('office','연구실'):S('club','동아리',CL.map(c=>[c[0],c[0]]))+`<label class="block text-sm"><span class="text-slate-500">학과</span><select id="e_major" class="${SEL_CLS}">${majorOpts(base.major)}</select><input id="e_major_x" placeholder="학과 이름 입력" class="hidden ${SEL_CLS}"></label>`+S('year','학년',['1학년','2학년','3학년','4학년','대학원생'].map(x=>[x,x]))}</div>
+  <label class="block text-sm mt-3"><span class="text-slate-500">소개</span><textarea id="e_bio" rows="3" class="mt-1 w-full border border-slate-300 px-3 py-2">${esc(base.bio)}</textarea></label>
+  <div class="mt-4 flex items-center justify-between"><b class="text-sm text-[#13294b]">이력</b><button data-cadd class="text-sm text-[#1d3e72] hover:underline">＋ 이력 추가</button></div><div id="eCareer" class="mt-2"></div>
+  <div class="mt-5 flex justify-end gap-2"><button data-eclose class="border border-slate-300 px-5 py-2 text-sm hover:border-[#13294b]">취소</button><button data-esave class="bg-[#13294b] text-white px-6 py-2 text-sm hover:bg-[#1d3e72]">저장</button></div>`;
+  careerRows(); $('eTitle').textContent=(id?'프로필 수정':'새 프로필')+' · '+(isF?'교수진':'동아리장'); $('pmodal').classList.add('hidden'); $('emodal').classList.remove('hidden');
+}
+function ephoto(){ $('ePhoto').innerHTML=AV({name:($('e_name')&&$('e_name').value)||'?',photo:ed.photo,photoPos:ed.pos},'w-32 h-32 rounded'); ['x','y','z'].forEach(k=>{ const el=$('e_p'+k); if(el) el.value=ed.pos[k]; }); }
+function pickPhoto(){
+  const i=document.createElement('input'); i.type='file'; i.accept='image/*';
+  i.onchange=()=>{ const f=i.files[0]; if(!f) return; const im=new Image(); im.onload=()=>{ const sc=Math.min(1,720/Math.max(im.width,im.height)), c=document.createElement('canvas'); c.width=Math.round(im.width*sc); c.height=Math.round(im.height*sc); c.getContext('2d').drawImage(im,0,0,c.width,c.height); ed.photo=c.toDataURL('image/jpeg',.88); ed.pos={x:50,y:50,z:1}; URL.revokeObjectURL(im.src); ephoto(); }; im.src=URL.createObjectURL(f); };
+  i.click();
+}
+function saveEdit(){
+  const g=k=>($('e_'+k)?$('e_'+k).value.trim():''); const gv=k=>g(k)==='__custom'?g(k+'_x'):g(k); const name=g('name'); if(!name){ alert('이름을 입력해 주세요.'); return; }
+  collectCareer(); const career=ed.career.filter(c=>(c.p||'').trim()||(c.x||'').trim());
+  const o=ed.kind==='faculty'?{name,title:g('title'),college:g('college'),dept:gv('dept'),field:g('field'),email:g('email'),office:g('office'),bio:g('bio'),photo:ed.photo,photoPos:ed.pos,career}:{name,club:g('club'),role:g('role'),major:gv('major'),year:g('year'),bio:g('bio'),photo:ed.photo,photoPos:ed.pos,career};
+  const arr=PEOPLE[ed.kind];
+  if(ed.id){ const i=arr.findIndex(x=>x.id===ed.id); arr[i]={id:ed.id,...o}; } else arr.push({id:'p'+Date.now(),...o});
+  persistPeople(); $('emodal').classList.add('hidden'); refreshPeople();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-prof],[data-fchip],[data-padd],[data-pedit],[data-pdel],[data-photo],[data-photo-rm],[data-pos-reset],[data-cadd],[data-crm],[data-eclose],[data-esave],[data-pclose]'); if(!t) return;
+  const d=t.dataset;
+  if(d.prof){ const [k,id]=d.prof.split(':'); openProfile(k,id); }
+  else if(d.fchip){ facCollege=d.fchip; renderFaculty(); }
+  else if(d.padd){ openEdit(d.padd,null); }
+  else if(d.pedit){ const [k,id]=d.pedit.split(':'); openEdit(k,id); }
+  else if(d.pdel){ const [k,id]=d.pdel.split(':'); if(confirm('이 프로필을 삭제할까요?')){ PEOPLE[k]=PEOPLE[k].filter(x=>x.id!==id); persistPeople(); $('pmodal').classList.add('hidden'); refreshPeople(); } }
+  else if(t.hasAttribute('data-photo')) pickPhoto();
+  else if(t.hasAttribute('data-photo-rm')){ ed.photo=''; ephoto(); }
+  else if(t.hasAttribute('data-pos-reset')){ ed.pos={x:50,y:50,z:1}; ephoto(); }
+  else if(t.hasAttribute('data-cadd')){ collectCareer(); ed.career.push(CT('경력','','')); careerRows(); }
+  else if(d.crm!==undefined){ collectCareer(); ed.career.splice(+d.crm,1); careerRows(); }
+  else if(t.hasAttribute('data-eclose')) $('emodal').classList.add('hidden');
+  else if(t.hasAttribute('data-esave')) saveEdit();
+  else if(t.hasAttribute('data-pclose')) $('pmodal').classList.add('hidden');
+});
+document.addEventListener('change',e=>{
+  const id=e.target.id;
+  if(id==='e_college'){ $('e_dept').innerHTML=deptOpts(e.target.value,''); $('e_dept_x').classList.add('hidden'); }
+  else if(id==='e_dept'||id==='e_major'){ $(id+'_x').classList.toggle('hidden',e.target.value!=='__custom'); }
+});
+document.addEventListener('input',e=>{ if(e.target.id==='facQ'){ facQ=e.target.value; renderFaculty(); }
+  else if(/^e_p[xyz]$/.test(e.target.id)&&ed){ ed.pos[e.target.id.slice(3)]=+e.target.value; const im=$('ePhoto').querySelector('img'); if(im) im.style.cssText=phStyle({photoPos:ed.pos}); } });
+(function(){ let d=null;
+  document.addEventListener('pointerdown',e=>{ const b=e.target.closest&&e.target.closest('#ePhoto'); if(!b||!ed||!ed.photo) return; e.preventDefault(); d={x:e.clientX,y:e.clientY,w:b.getBoundingClientRect().width}; try{ b.setPointerCapture(e.pointerId); }catch(x){} });
+  document.addEventListener('pointermove',e=>{ if(!d) return; const k=100/d.w/Math.max(ed.pos.z-1,.4); ed.pos.x=Math.max(0,Math.min(100,ed.pos.x-(e.clientX-d.x)*k)); ed.pos.y=Math.max(0,Math.min(100,ed.pos.y-(e.clientY-d.y)*k)); d.x=e.clientX; d.y=e.clientY; const im=$('ePhoto').querySelector('img'); if(im) im.style.cssText=phStyle({photoPos:ed.pos}); ['x','y'].forEach(a=>{ $('e_p'+a).value=ed.pos[a]; }); });
+  document.addEventListener('pointerup',()=>{ d=null; });
+})();
+['pmodal','emodal'].forEach(id=>$(id).addEventListener('click',e=>{ if(e.target.id===id) $(id).classList.add('hidden'); }));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ $('pmodal').classList.add('hidden'); $('emodal').classList.add('hidden'); } });
+R.faculty=()=>H('교수진')+`<div class="flex flex-wrap items-center gap-2 mb-5"><input id="facQ" placeholder="이름·학과·연구분야 검색" class="border border-slate-300 px-3 py-2 text-sm w-full sm:w-64"><div id="facChips" class="flex flex-wrap gap-2"></div><span id="facAdd" class="ml-auto"></span></div><div id="facBox"></div>`;
+INIT.faculty=()=>{ facQ=''; facCollege='all'; renderFaculty(); };
+renderHomeFaculty();
+
+const TABS0=c=>[['info','학부 소개'],['depts','학과 안내'],['faculty','교수진'],...(c.id==='sumeru'?[['timeline','티바트 연표']]:[])];
+let CTOV={}; try{ CTOV=JSON.parse(localStorage.getItem('gu_ctabs')||'{}')||{}; }catch(e){}
+const TABS=c=>{ const base=TABS0(c), o=CTOV[c.id]; if(!o) return base; const out=[]; o.forEach(it=>{ const k=base.find(x=>x[0]===it[0]); if(k) out.push(k); else if(String(it[0]).startsWith('c_')) out.push([it[0],it[1]]); }); base.forEach(k=>{ if(!out.some(x=>x[0]===k[0])) out.push(k); }); return out; };
+function saveCT(c,list){ const base=TABS0(c); if(list.length===base.length&&list.every((x,i)=>x[0]===base[i][0])) delete CTOV[c.id]; else CTOV[c.id]=list.map(x=>[x[0],x[1]]); try{ if(Object.keys(CTOV).length) localStorage.setItem('gu_ctabs',JSON.stringify(CTOV)); else localStorage.removeItem('gu_ctabs'); }catch(e){} }
+function renderCTabs(c,tab){ $('subTabs').innerHTML=TABS(c).map(t=>`<a href="#/college/${c.id}${t[0]==='info'?'':'/'+t[0]}" class="px-6 py-3.5 whitespace-nowrap ${t[0]===tab?'text-[#13294b] border-b-[3px] border-[#13294b]':'text-slate-500 hover:text-[#13294b]'}">${t[1]}</a>`).join(''); }
+function showHome(){ $('view-home').classList.remove('hidden'); $('view-sub').classList.add('hidden'); }
+function showSub(id,tab){
+  const c=COLLEGES.find(x=>x.id===id); if(!c){location.hash='#/';return}
+  const tl=TABS(c).find(t=>t[0]===tab); if(!tl){location.hash='#/college/'+id;return}
+  $('view-home').classList.add('hidden'); $('view-sub').classList.remove('hidden');
+  $('crumbs').innerHTML=`<a href="#/" class="hover:text-white">홈</a> &gt; <a href="#colleges" class="hover:text-white">학부/대학원</a> &gt; <a href="#/college/${id}" class="hover:text-white">${c.name}</a>${tab!=='info'?' &gt; '+tl[1]:''}`;
+  $('subTitle').textContent=tab==='timeline'?tl[1]:c.name; $('subTag').textContent=tab==='timeline'?c.name+' · 학부 자료':c.tag;
+  renderCTabs(c,tab);
+  const body=$('subBody'); $('tl-wrap').classList.toggle('hidden',tab!=='timeline'); body.classList.toggle('hidden',tab==='timeline');
+  if(tab==='info'){
+    body.innerHTML=`<div class="max-w-3xl"><h2 class="text-xl font-bold text-[#13294b] border-b-2 border-[#13294b] pb-2">학부 소개</h2><p class="mt-4 text-slate-600 leading-relaxed">${c.desc}</p>`+
+    (id==='sumeru'?`<a href="#/college/sumeru/timeline" class="mt-6 flex items-center justify-between gap-4 bg-gradient-to-r from-[#1d3e72] to-[#13294b] text-white p-5 hover:brightness-110"><span><b class="block text-lg">티바트 연표</b><span class="text-sm text-slate-300">시대와 지역별로 사건을 기록하고 수정하는 학부 자료실</span></span><span class="text-[#e7c978] flex-none">열람하기 &gt;</span></a>`:'')+`</div>`;
+  } else if(tab==='depts'){
+    body.innerHTML=`<h2 class="text-xl font-bold text-[#13294b] border-b-2 border-[#13294b] pb-2">학과 안내</h2><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">`+c.depts.map(d=>`<div class="border border-slate-200 border-l-[6px] p-4 font-medium" style="border-left-color:${c.c}">${d}</div>`).join('')+`</div>`;
+  } else if(tab==='faculty'){
+    facFixed=id; facQ='';
+    body.innerHTML=`<div class="max-w-5xl">${H('교수진')}<div class="flex flex-wrap items-center gap-2 mb-5"><input id="facQ" placeholder="이름·학과·연구분야 검색" class="border border-slate-300 px-3 py-2 text-sm w-full sm:w-64"><span id="facAdd" class="ml-auto"></span></div><div id="facBox"></div></div>`; renderFaculty();
+  } else if(String(tab).startsWith('c_')){
+    body.innerHTML=`<div class="max-w-3xl">${H(tl[1])}<div class="space-y-4 text-slate-600 leading-relaxed"><p>${tl[1]} 페이지입니다. 웹 수정하기에서 글자를 클릭해 내용을 바꾸세요.</p><p>문단에 마우스를 올리고 ＋ 복제를 누르면 문단을 늘릴 수 있어요.</p></div></div>`;
+  } else startTimeline();
+  $('syncBar').classList.toggle('hidden',!(tab==='timeline'||tab==='faculty')); setStatus();
+  window.scrollTo(0,0);
+}
+loadMenuOv(); buildMenu();
+function route(){
+  const h=location.hash; megaOpen(false);
+  if(h==='#academia'){location.replace('#/college/sumeru/timeline');return}
+  const m=h.match(/^#\/college\/([a-z]+)(?:\/([a-z0-9_]+))?$/);
+  if(m) return showSub(m[1],m[2]||'info');
+  const pm=h.match(/^#\/page\/([a-z0-9_]+)$/); if(pm) return showPage(pm[1]);
+  showHome();
+  const el=h.length>2&&!h.startsWith('#/')?document.getElementById(h.slice(1)):null;
+  if(el) el.scrollIntoView(); else window.scrollTo(0,0);
+}
+addEventListener('hashchange',route); route();
+
+const LEGACY={'e2e8f0':'1e293b','fde047':'b7791f','38bdf8':'0284c7','06b6d4':'0891b2','10b981':'059669','14b8a6':'0d9488','94a3b8':'64748b','f59e0b':'d97706','a855f7':'9333ea','ef4444':'dc2626','f43f5e':'e11d48','f97316':'ea580c'};
+function migrateColors(){ try{
+  if(localStorage.getItem('gt_theme')==='light1') return;
+  ['gt_regions','gt_eras','gt_events'].forEach(k=>{const v=localStorage.getItem(k); if(v) localStorage.setItem(k,v.replace(/#([0-9a-fA-F]{6})/g,(m,h)=>'#'+(LEGACY[h.toLowerCase()]||h)))});
+  localStorage.setItem('gt_theme','light1'); }catch(e){} }
+const loadJs=u=>new Promise((ok,no)=>{const s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=()=>no(new Error(u));document.head.appendChild(s)});
+async function startTimeline(){
+  setStatus();
+  if(tlStarted) return;
+  try{
+    await loadJs('https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js');
+    await loadJs('https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js');
+    await loadJs('https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.6/babel.min.js');
+    migrateColors();
+    if(cloudOn()){ try{ await pull('main',true); }catch(e){ sync.status='오프라인 – 저장된 사본을 표시합니다'; } setStatus(); }
+    new Function(Babel.transform($('tlSrc').textContent,{presets:['react']}).code)();
+    tlStarted=true;
+  }catch(e){ $('tl-root').innerHTML='<p class="text-center text-red-600 py-16">연표를 불러오지 못했습니다. 인터넷 연결을 확인하고 새로고침해 주세요.</p>'; }
+}
+async function uploadAll(){
+  if(!cloudOn()||!sync.editor) return;
+  if(!confirm('이 브라우저에 있는 연표·교수진·동아리장 내용을 공유 서버로 올립니다.\n서버에 있던 기존 내용은 덮어써집니다. 계속할까요?')) return;
+  try{ await pull('main',false); }catch(e){}
+  try{ await pull('people',false); }catch(e){}
+  let tl=null; try{ const r=JSON.parse(localStorage.getItem('gt_regions')), e=JSON.parse(localStorage.getItem('gt_eras')), v=JSON.parse(localStorage.getItem('gt_events')); if(r&&e&&v) tl={regions:r,eras:e,events:v}; }catch(x){}
+  docs.people.remoteJson=null; window.GU_SYNC.push('people',PEOPLE);
+  if(tl){ docs.main.remoteJson=null; window.GU_SYNC.push('main',tl); }
+}
+$('syncUpload').onclick=uploadAll;
+$('dataDefault').onclick=()=>{ if(!confirm('이 브라우저에 저장된 연표·교수진·동아리 가입·바꾼 사진·수정한 문구·항목 구성·메뉴를 모두 지우고 기본값으로 되돌릴까요?')) return; try{ ['gt_regions','gt_eras','gt_events','gu_people','gu_clubs','gu_imgs','gu_text','gu_struct','gu_imgpos','gu_menu','gu_ctabs'].forEach(x=>localStorage.removeItem(x)); }catch(e){} location.reload(); };
+$('dataExport').onclick=()=>{
+  const o={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^(gt_|gu_)/.test(k)&&k!=='gu_code') o[k]=localStorage.getItem(k); } }catch(e){}
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'genshin-univ',v:1,data:o})],{type:'application/json'})); a.download='genshin-univ-backup.json'; a.click();
+};
+$('dataImport').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return; const r=new FileReader();
+  r.onload=()=>{ try{ const j=JSON.parse(r.result); if(j.app!=='genshin-univ'||!j.data) throw 0; if(!confirm('이 브라우저의 현재 데이터를 백업 파일 내용으로 덮어쓸까요?')) return; Object.entries(j.data).forEach(([k,v])=>localStorage.setItem(k,v)); alert('복원했습니다. 페이지를 새로고침합니다.'); location.reload(); }catch(x){ alert('올바른 백업 파일이 아닙니다.'); } };
+  r.readAsText(f);
+};
+(function(){ const im=new Image(); im.onerror=()=>{ const d=document.createElement('div'); d.className='bg-amber-100 text-amber-900 text-sm px-4 py-2 text-center'; d.innerHTML='⚠ 사진 파일을 찾지 못했습니다. <b>index.html과 같은 위치에 assets 폴더</b>가 올라가 있는지 확인해 주세요.'; document.body.prepend(d); }; im.src='assets/hero.jpg'; })();
+/* ===== 사진 위치·확대 (총장 인사말·소식 사진) ===== */
+function applyIpos(){ document.querySelectorAll('[data-ipk]').forEach(im=>{ im.style.cssText=ipos(im.dataset.ipk); }); }
+(function(){
+  let key=null, pos=null, d=null;
+  const st=()=>{ const im=$('ipImg'); im.style.cssText=`object-position:${pos.x}% ${pos.y}%;`+(pos.z>1?`scale:${pos.z};transform-origin:${pos.x}% ${pos.y}%;`:''); ['x','y','z'].forEach(a=>{ $('ip_'+a).value=pos[a]; }); };
+  const close=()=>$('ipModal').classList.add('hidden');
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('[data-ipos],[data-ipx],[data-ipreset],[data-ipsave]'); if(!b) return;
+    if(b.dataset.ipos){ e.preventDefault(); e.stopPropagation(); key=b.dataset.ipos; pos=Object.assign({x:50,y:50,z:1},IPOS[key]||{});
+      const src=document.querySelector('[data-ipk="'+key+'"]'); $('ipImg').src=src?src.src:''; $('ipBox').style.aspectRatio=b.dataset.ratio||'1/1'; $('ipModal').classList.remove('hidden'); st(); }
+    else if(b.hasAttribute('data-ipx')) close();
+    else if(b.hasAttribute('data-ipreset')){ pos={x:50,y:50,z:1}; st(); }
+    else if(b.hasAttribute('data-ipsave')){ if(pos.x===50&&pos.y===50&&pos.z===1) delete IPOS[key]; else IPOS[key]=pos; try{ if(Object.keys(IPOS).length) localStorage.setItem('gu_imgpos',JSON.stringify(IPOS)); else localStorage.removeItem('gu_imgpos'); }catch(x){} applyIpos(); close(); }
+  },true);
+  document.addEventListener('input',e=>{ if(/^ip_[xyz]$/.test(e.target.id)&&pos){ pos[e.target.id.slice(3)]=+e.target.value; st(); } });
+  document.addEventListener('pointerdown',e=>{ const b=e.target.closest&&e.target.closest('#ipBox'); if(!b||!pos) return; e.preventDefault(); d={x:e.clientX,y:e.clientY,w:b.getBoundingClientRect().width}; try{ b.setPointerCapture(e.pointerId); }catch(x){} });
+  document.addEventListener('pointermove',e=>{ if(!d||!pos) return; const k=100/d.w/Math.max(pos.z-1,.4); pos.x=Math.max(0,Math.min(100,pos.x-(e.clientX-d.x)*k)); pos.y=Math.max(0,Math.min(100,pos.y-(e.clientY-d.y)*k)); d.x=e.clientX; d.y=e.clientY; st(); });
+  document.addEventListener('pointerup',()=>{ d=null; });
+})();
+
+/* ===== 웹 수정하기 (문구 편집) ===== */
+const norm=t=>String(t==null?'':t).replace(/\s+/g,' ').trim();
+let TXT=Object.create(null);
+try{ Object.assign(TXT,JSON.parse(localStorage.getItem('gu_text')||'{}')); }catch(e){}
+const ovs=t=>{ const k=norm(t); return (k&&k in TXT)?TXT[k]:t; };
+const origMap=new WeakMap(), applied=new WeakMap();
+const WE={on:false,node:null,key:'',busy:false,q:false};
+const SKIPSEL='#tl-wrap,#wePop,#webEditBar,#weHover,#weItem,#weItemBar,#ipModal,.adm,.imgbtn,.iposbtn,#tlSrc,svg defs';
+const textOK=n=>{ if(!n||n.nodeType!==3||!n.nodeValue.trim()) return false; const p=n.parentElement; if(!p) return false; if(/^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT|OPTION|TITLE)$/.test(p.tagName)) return false; return !p.closest(SKIPSEL); };
+const applyOK=n=>textOK(n)&&!n.parentElement.closest('[data-we-add]');
+const wrapWs=(o,t)=>{ const a=o.match(/^\s*/)[0], b=o.match(/\s*$/)[0]; return a+t+b; };
+function saveTXT(){ try{ if(Object.keys(TXT).length) localStorage.setItem('gu_text',JSON.stringify(TXT)); else localStorage.removeItem('gu_text'); }catch(e){} }
+function weApply(){
+  if(WE.busy) return; WE.busy=true; mo.disconnect();
+  try{
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT); let n;
+    while((n=w.nextNode())){
+      if(!applyOK(n)) continue;
+      const cur=n.nodeValue;
+      if(!origMap.has(n)) origMap.set(n,cur);
+      else if(applied.get(n)!==cur&&origMap.get(n)!==cur){ origMap.set(n,cur); applied.delete(n); }
+      const o=origMap.get(n), k=norm(o);
+      const want=(k&&k in TXT)?wrapWs(o,TXT[k]):o;
+      if(n.nodeValue!==want){ n.nodeValue=want; applied.set(n,want); } else if(want===o) applied.delete(n);
+    }
+  }catch(e){}
+  try{ weStruct(); }catch(e){}
+  WE.busy=false; mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+}
+const mo=new MutationObserver(()=>{ if(WE.q) return; WE.q=true; requestAnimationFrame(()=>{ WE.q=false; weApply(); }); });
+
+/* ===== 웹 수정하기: 항목 순서 변경 · 복제(추가) · 삭제 ===== */
+let SX={}; try{ SX=JSON.parse(localStorage.getItem('gu_struct')||'{}')||{}; }catch(e){}
+const saveSX=()=>{ try{ if(Object.keys(SX).length) localStorage.setItem('gu_struct',JSON.stringify(SX)); else localStorage.removeItem('gu_struct'); }catch(e){ alert('브라우저 저장 공간이 부족해 이번 방문에만 적용됩니다.'); } };
+const XEXCL='#subTabs,#ipModal,#hdr,header,footer,#tl-wrap,#modal,#pmodal,#emodal,#wePop,#webEditBar,#weItemBar,#weHover,#weItem,#syncBar,#searchBox,#mobileMenu,svg';
+const routeKey=()=>location.hash.replace(/^#\/?/,'')||'home';
+function pathKey(el){ const parts=[]; for(let n=el;n&&n!==document.body;n=n.parentElement){ if(n.id){ parts.push('#'+n.id); break; } parts.push(n.tagName.toLowerCase()+':'+[...n.parentElement.children].indexOf(n)); } return routeKey()+'|'+parts.reverse().join('>'); }
+function resolveKey(k){
+  const path=k.split('|').slice(1).join('|').split('>'); let n=null;
+  if(path[0]&&path[0][0]==='#'){ n=document.getElementById(path.shift().slice(1)); } else n=document.body;
+  for(const part of path){ if(!n) return null; const [t,i]=part.split(':'); n=n.children[+i]; if(!n||n.tagName.toLowerCase()!==t) return null; }
+  return n;
+}
+const elKids=c=>[...c.children].filter(x=>!/^(SCRIPT|STYLE)$/.test(x.tagName));
+const INL=/^(SPAN|A|B|STRONG|EM|I|U|BR|SMALL|SUP|SUB|MARK|CODE|LABEL|BUTTON|INPUT|SELECT|TEXTAREA|TIME|IMG|OPTION|TD|TH|DT|DD|SUMMARY|SVG|PATH|CIRCLE|RECT|USE|G)$/i;
+function isContainer(c){
+  if(!c||c.nodeType!==1||c.closest(XEXCL)||c.hasAttribute('data-wefix')) return false;
+  if(/^(BODY|HTML|P|H[1-6]|BUTTON|A|SPAN|LABEL|SUMMARY|DETAILS|DL|TABLE|THEAD|TR|SELECT|FORM|MAIN)$/i.test(c.tagName)&&c.tagName!=='MAIN') return false;
+  const k=elKids(c); if(!k.length) return false;
+  const f=k[0];
+  if(!/^(TD|TH|OPTION|BR|DT|DD)$/.test(f.tagName)&&k.every(x=>x.tagName===f.tagName&&x.className===f.className)&&(k.length>=2||SX[pathKey(c)])) return 'strict';
+  if(k.filter(x=>!INL.test(x.tagName)).length>=2) return 'loose';
+  return false;
+}
+const isItem=n=>{ if(!n||n.nodeType!==1||!n.parentElement) return false; const kind=isContainer(n.parentElement); if(!kind) return false; if(kind==='loose'&&INL.test(n.tagName)) return false; return n.textContent.trim().length>0||!!n.querySelector('img'); };
+function origText(el){ const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT); let t='',n; while((n=w.nextNode())){ if(/^(SCRIPT|STYLE)$/.test(n.parentElement.tagName)) continue; t+=' '+(origMap.has(n)?origMap.get(n):n.nodeValue); } return norm(t).slice(0,160); }
+function keyed(c){ const seen={}; return elKids(c).map(el=>{ let k=el.getAttribute('data-we-add')?'add:'+el.getAttribute('data-we-add'):el.tagName+':'+origText(el); seen[k]=(seen[k]||0)+1; return [el,k+'#'+(seen[k]-1)]; }); }
+function weStruct(){
+  const rk=routeKey()+'|'; const ks=Object.keys(SX).filter(k=>k.startsWith(rk)); if(!ks.length) return;
+  const targets=ks.map(k=>[resolveKey(k),SX[k]]).filter(x=>x[0]);
+  targets.forEach(([c,rec])=>{
+    (rec.add||[]).forEach(a=>{ if(!elKids(c).some(x=>x.getAttribute('data-we-add')===a.id)){ const t=document.createElement('template'); t.innerHTML=a.html.trim(); const n=t.content.firstElementChild; if(n){ n.setAttribute('data-we-add',a.id); c.appendChild(n); } } });
+    const plain=elKids(c).filter(x=>!x.hasAttribute('data-we-add'));
+    if(plain.length&&plain.every(x=>!x.hasAttribute('data-we-s'))){
+      if(rec.del&&rec.del.length) keyed(c).forEach(([el,k])=>{ if(rec.del.includes(k)) el.remove(); });
+      elKids(c).forEach(x=>{ if(!x.hasAttribute('data-we-add')) x.setAttribute('data-we-s','1'); });
+    }
+    if(rec.order&&rec.order.length){
+      const items=keyed(c), pos=k=>rec.order.indexOf(k), groups=[]; let lead=[],cur=null;
+      items.forEach(([el,k])=>{ if(pos(k)>=0){ cur={p:pos(k),els:[el]}; groups.push(cur); } else if(cur) cur.els.push(el); else lead.push(el); });
+      groups.sort((a,b)=>a.p-b.p);
+      const fin=[...lead,...groups.flatMap(g=>g.els)], now=elKids(c);
+      if(fin.some((el,i)=>el!==now[i])) fin.forEach(el=>c.appendChild(el));
+    }
+  });
+}
+function recFor(c){ const k=pathKey(c); if(!SX[k]){ elKids(c).forEach(x=>{ if(!x.hasAttribute('data-we-add')) x.setAttribute('data-we-s','1'); }); SX[k]={}; } return SX[k]; }
+function recOrder(c){ recFor(c).order=keyed(c).map(x=>x[1]); }
+const toast=m=>{ let t=$('weToast'); if(!t){ t=document.createElement('div'); t.id='weToast'; t.className='fixed left-1/2 -translate-x-1/2 bottom-20 z-[97] bg-black/85 text-white text-sm px-4 py-2'; document.body.appendChild(t); } t.textContent=m; t.style.display='block'; clearTimeout(t._t); t._t=setTimeout(()=>{ t.style.display='none'; },2600); };
+/* 메뉴(탭·드롭다운) 항목 */
+function menuItemAt(el){
+  let a=el.closest&&el.closest('#subTabs a'), kind='tab', host=a;
+  if(!a){ const li=el.closest&&el.closest('.gnb-sub li'); if(!li) return null; a=li.querySelector('a'); kind='drop'; host=li; }
+  const href=a&&a.getAttribute('href')||''; let m=href.match(/^#\/page\/(.+)$/);
+  if(m){ const gi=G.findIndex(g=>g.items.some(x=>x[0]===m[1])); if(gi<0) return null; return {el:host,kind,gi,id:m[1],href,item:host.closest('.gnb-item')}; }
+  m=kind==='tab'&&href.match(/^#\/college\/([a-z]+)(?:\/([a-z0-9_]+))?$/);
+  if(m&&COLLEGES.some(c=>c.id===m[1])) return {el:host,kind,cid:m[1],id:m[2]||'info',href,item:null};
+  return null;
+}
+function menuRefresh(){ saveMenuOv(); buildMenu(); const m=location.hash.match(/^#\/page\/(.+)$/); if(m){ const g=G.find(x=>x.items.some(i=>i[0]===m[1])); if(g) renderTabs(g,m[1]); } weApply(); }
+function menuOp(it,op){
+  if(it._menu.cid){ collegeTabOp(it,op); return; }
+  const {gi,id}=it._menu, g=G[gi], i=g.items.findIndex(x=>x[0]===id); if(i<0) return;
+  if(op==='prev'||op==='next'){ const j=op==='prev'?i-1:i+1; if(j<0||j>=g.items.length){ toast(op==='prev'?'맨 앞입니다.':'맨 뒤입니다.'); return; } [g.items[i],g.items[j]]=[g.items[j],g.items[i]]; menuRefresh(); weHoverMenuAgain(it._menu.href); }
+  else if(op==='dup'){
+    let n=1; const labels=G.flatMap(x=>x.items.map(y=>y[1])); while(labels.includes('새 항목 '+n)) n++;
+    const nid='c_'+Date.now(), lbl='새 항목 '+n; g.items.splice(i+1,0,[nid,lbl]); mkCustomPage(nid,lbl); menuRefresh(); toast('새 항목을 추가했어요. 이름은 글자를 클릭해서 바꾸세요.'); location.hash='#/page/'+nid;
+  } else if(op==='del'){
+    if(!String(id).startsWith('c_')){ toast('기본 페이지는 삭제할 수 없어요. (순서 이동·이름 변경은 가능)'); return; }
+    if(!confirm('이 메뉴 항목과 페이지를 삭제할까요?')) return;
+    g.items.splice(i,1); delete R[id]; Object.keys(SX).forEach(k=>{ if(k.startsWith('page/'+id+'|')) delete SX[k]; }); saveSX(); weItemHide(); menuRefresh();
+    if(location.hash==='#/page/'+id) location.hash='#/page/'+g.items[0][0];
+  }
+}
+function collegeTabOp(it,op){
+  const {cid,id,href}=it._menu, c=COLLEGES.find(x=>x.id===cid), list=TABS(c).map(x=>x.slice()), i=list.findIndex(x=>x[0]===id); if(i<0) return;
+  const cur=(location.hash.match(/^#\/college\/[a-z]+(?:\/([a-z0-9_]+))?$/)||[])[1]||'info';
+  if(op==='prev'||op==='next'){ const j=op==='prev'?i-1:i+1; if(j<0||j>=list.length){ toast(op==='prev'?'맨 앞입니다.':'맨 뒤입니다.'); return; } [list[i],list[j]]=[list[j],list[i]]; saveCT(c,list); renderCTabs(c,cur); weApply(); weHoverMenuAgain(href); }
+  else if(op==='dup'){
+    let n=1; const labels=list.map(x=>x[1]).concat(G.flatMap(x=>x.items.map(y=>y[1]))); while(labels.includes('새 항목 '+n)) n++;
+    const nid='c_'+Date.now(); list.splice(i+1,0,[nid,'새 항목 '+n]); saveCT(c,list); toast('새 항목을 추가했어요. 이름은 글자를 클릭해서 바꾸세요.'); location.hash='#/college/'+cid+'/'+nid;
+  } else if(op==='del'){
+    if(!String(id).startsWith('c_')){ toast('기본 탭은 삭제할 수 없어요. (순서 이동·이름 변경은 가능)'); return; }
+    if(!confirm('이 탭과 페이지를 삭제할까요?')) return;
+    list.splice(i,1); saveCT(c,list); Object.keys(SX).forEach(k=>{ if(k.startsWith('college/'+cid+'/'+id+'|')) delete SX[k]; }); saveSX(); weItemHide();
+    if(cur===id) location.hash='#/college/'+cid; else { renderCTabs(c,cur); weApply(); }
+  }
+}
+function weHoverMenuAgain(href){ requestAnimationFrame(()=>{ const a=document.querySelector('#subTabs a[href="'+href+'"]')||document.querySelector('.gnb-sub a[href="'+href+'"]'); if(a){ const m=menuItemAt(a); if(m){ WI=m.el; WI._menu=m; weItemShow(); } } }); }
+/* 선택된 항목 */
+let WI=null, WL=0, WI0=null;
+function weItemHide(){ if(typeof WPend!=='undefined'&&WPend){ clearTimeout(WPend); WPend=null; } document.querySelectorAll('.gnb-item.we-open').forEach(x=>x.classList.remove('we-open')); WI=null; WI0=null; WL=0; $('weItem').style.display='none'; $('weItemBar').classList.add('hidden'); }
+function weItemShow(){
+  if(!WI||!WI.isConnected){ weItemHide(); return; }
+  const r=WI.getBoundingClientRect(), o=$('weItem'), b=$('weItemBar');
+  o.style.cssText='display:block;left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;height:'+r.height+'px';
+  const mn=WI._menu, isP=!!WI.dataset.prof; b.querySelector('[data-wb=edit]').classList.toggle('hidden',!isP); b.querySelector('[data-wb=up]').classList.toggle('hidden',!!mn);
+  document.querySelectorAll('.gnb-item.we-open').forEach(x=>{ if(!mn||x!==mn.item) x.classList.remove('we-open'); }); if(mn&&mn.item) mn.item.classList.add('we-open');
+  b.classList.remove('hidden'); const bw=b.offsetWidth, bh=b.offsetHeight;
+  if(mn){ let l=mn.kind==='drop'?r.right+2:r.left, t=mn.kind==='drop'?r.top:r.bottom+2; if(l+bw>innerWidth-4) l=mn.kind==='drop'?r.left-bw-6:innerWidth-bw-4; b.style.left=Math.max(4,l)+'px'; b.style.top=Math.max(4,Math.min(t,innerHeight-bh-4))+'px'; return; }
+  b.style.left=Math.max(4,Math.min(r.right-bw-4,innerWidth-bw-4))+'px'; b.style.top=Math.max(4,Math.min(r.top+4,innerHeight-bh-4))+'px';
+}
+let WPend=null;
+function weItemPend(cancel){ if(WPend){ clearTimeout(WPend); WPend=null; } }
+function weItemHover(x,y){
+  const el=document.elementFromPoint(x,y); if(!el||el.closest('#weItemBar')){ weItemPend(); return; }
+  let cand=null, menu=null, lvl0=null;
+  const mi=menuItemAt(el);
+  if(mi){ cand=mi.el; menu=mi; lvl0=mi.el; }
+  else { const chain=[]; for(let n=el;n&&n!==document.body;n=n.parentElement){ if(isItem(n)) chain.push(n); }
+    if(chain.length){ lvl0=chain[0]; const lv=(lvl0===WI0)?WL:0; cand=chain[Math.min(lv,chain.length-1)]; } }
+  const apply=()=>{ WPend=null; if(!cand){ weItemHide(); return; } if(lvl0!==WI0) WL=0; WI0=lvl0; WI=cand; WI._menu=menu||undefined; weItemShow(); };
+  if(cand===WI){ weItemPend(); if(cand&&WI0!==lvl0){ WI0=lvl0; } return; }
+  if(!WI||!WI.isConnected){ weItemPend(); apply(); return; }
+  // 다른 항목으로 옮겨갈 때는 잠깐(0.5초) 머물러야 바뀜 → 도구줄까지 커서를 옮길 시간 확보
+  weItemPend(); WPend=setTimeout(apply,500);
+}
+addEventListener('scroll',()=>{ if(WE.on&&WI) weItemShow(); },{passive:true});
+function wbMove(it,dir){
+  const loose=isContainer(it.parentElement)==='loose'; let sib=dir<0?it.previousElementSibling:it.nextElementSibling;
+  while(loose&&sib&&INL.test(sib.tagName)) sib=dir<0?sib.previousElementSibling:sib.nextElementSibling;
+  if(!sib){ toast(dir<0?'맨 앞입니다.':'맨 뒤입니다.'); return; }
+  if(it.dataset.prof){
+    const [k,id]=it.dataset.prof.split(':'), oid=(sib.dataset.prof||'').split(':')[1]; if(!oid){ toast('같은 직위 안에서만 순서를 바꿀 수 있어요.'); return; }
+    const A=PEOPLE[k], i=A.findIndex(p=>p.id===id), j=A.findIndex(p=>p.id===oid); if(i<0||j<0) return; [A[i],A[j]]=[A[j],A[i]]; persistPeople(); refreshPeople();
+    const nu=document.querySelector('[data-prof="'+k+':'+id+'"]'); if(nu){ WI=nu; WI0=nu; } weItemShow(); return;
+  }
+  const c=it.parentElement; if(dir<0) c.insertBefore(it,sib); else c.insertBefore(sib,it);
+  recOrder(c); saveSX(); weItemShow();
+}
+function wbDup(it){
+  if(it.dataset.prof){
+    const [k,id]=it.dataset.prof.split(':'), A=PEOPLE[k], i=A.findIndex(p=>p.id===id); if(i<0) return;
+    const cp=JSON.parse(JSON.stringify(A[i])); cp.id='p'+Date.now(); cp.name=cp.name+' (복사)'; A.splice(i+1,0,cp); persistPeople(); refreshPeople(); toast('복제했습니다. ✎ 수정에서 이름·정보를 바꿔 주세요.'); return;
+  }
+  const c=it.parentElement, cl=it.cloneNode(true); cl.removeAttribute('data-we-add'); cl.removeAttribute('data-we-s'); cl.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id')); cl.removeAttribute('id');
+  const id='a'+Date.now(); cl.setAttribute('data-we-add',id); const html=cl.outerHTML;
+  it.after(cl); const rec=recFor(c); (rec.add=rec.add||[]).push({id,html}); recOrder(c); saveSX(); WI=cl; WI0=cl; weItemShow(); toast('복제했습니다. 새 항목의 글자를 클릭해서 내용을 바꿔 주세요.');
+}
+function wbDel(it){
+  if(it.dataset.prof){ const [k,id]=it.dataset.prof.split(':'); if(confirm('이 프로필을 삭제할까요?')){ PEOPLE[k]=PEOPLE[k].filter(x=>x.id!==id); persistPeople(); refreshPeople(); weItemHide(); } return; }
+  if(!confirm('이 항목을 삭제할까요? ("항목 구성 초기화"로 되돌릴 수 있어요)')) return;
+  const c=it.parentElement, rec=recFor(c), ad=it.getAttribute('data-we-add');
+  if(ad){ rec.add=(rec.add||[]).filter(a=>a.id!==ad); it.remove(); }
+  else { const k=(keyed(c).find(x=>x[0]===it)||[])[1]; if(k){ (rec.del=rec.del||[]).push(k); } it.remove(); }
+  recOrder(c); saveSX(); weItemHide();
+}
+$('weItemBar').addEventListener('click',e=>{
+  const b=e.target.closest('[data-wb]'); if(!b||!WI) return; e.preventDefault(); e.stopPropagation(); const it=WI, w=b.dataset.wb;
+  if(it._menu){ if(w==='prev'||w==='next'||w==='dup'||w==='del') menuOp(it,w); return; }
+  if(w==='prev') wbMove(it,-1); else if(w==='next') wbMove(it,1); else if(w==='dup') wbDup(it); else if(w==='del') wbDel(it);
+  else if(w==='edit'){ const [k,id]=it.dataset.prof.split(':'); openEdit(k,id); weItemHide(); }
+  else if(w==='up'){ let n=it.parentElement; while(n&&n!==document.body&&!isItem(n)) n=n.parentElement; if(n&&n!==document.body){ WL++; WI=n; weItemShow(); toast('상위 묶음을 선택했어요.'); } else toast('더 위 단계가 없어요.'); }
+});
+$('weResetSt').onclick=()=>{ if(!Object.keys(SX).length){ alert('바꾼 항목 구성이 없습니다.'); return; } if(!confirm('복제·삭제·순서 변경한 항목 구성을 모두 원래대로 되돌릴까요? (페이지를 새로고침합니다)')) return; SX={}; saveSX(); location.reload(); };
+addEventListener('hashchange',()=>{ weItemHide(); requestAnimationFrame(weApply); });
+function weNodeAt(x,y){
+  let n=null;
+  try{
+    if(document.caretPositionFromPoint){ const p=document.caretPositionFromPoint(x,y); n=p&&p.offsetNode; }
+    else if(document.caretRangeFromPoint){ const p=document.caretRangeFromPoint(x,y); n=p&&p.startContainer; }
+  }catch(e){}
+  if(!textOK(n)) return null;
+  const rg=document.createRange(); rg.selectNodeContents(n);
+  for(const b of rg.getClientRects()) if(x>=b.left-2&&x<=b.right+2&&y>=b.top-2&&y<=b.bottom+2) return n;
+  return null;
+}
+const weHideHover=()=>{ $('weHover').style.display='none'; };
+let hovQ=false;
+document.addEventListener('mousemove',e=>{
+  if(!WE.on||hovQ) return; hovQ=true; const x=e.clientX,y=e.clientY;
+  requestAnimationFrame(()=>{ hovQ=false;
+    if(!WE.on){ weHideHover(); return; }
+    if(e.target.closest&&e.target.closest('#weItemBar')){ weHideHover(); weItemPend(); return; }
+    if(e.target.closest&&e.target.closest('#wePop,#webEditBar,#emodal,#pmodal')){ weHideHover(); weItemHide(); return; }
+    weItemHover(x,y);
+    const n=weNodeAt(x,y); if(!n){ weHideHover(); return; }
+    const rg=document.createRange(); rg.selectNodeContents(n); const b=rg.getBoundingClientRect(), h=$('weHover');
+    h.style.cssText='display:block;left:'+(b.left-3)+'px;top:'+(b.top-2)+'px;width:'+(b.width+6)+'px;height:'+(b.height+4)+'px';
+  });
+});
+function weOpen(n){
+  if(!origMap.has(n)) origMap.set(n,n.nodeValue);
+  WE.node=n; WE.key=norm(origMap.get(n));
+  const rg=document.createRange(); rg.selectNodeContents(n); const b=rg.getBoundingClientRect();
+  const pop=$('wePop'), ta=$('weTa'); ta.value=norm(n.nodeValue); pop.classList.remove('hidden');
+  const pw=pop.offsetWidth, ph=pop.offsetHeight;
+  let l=Math.max(8,Math.min(b.left,innerWidth-pw-8)), t=b.bottom+8; if(t+ph>innerHeight-8) t=Math.max(8,b.top-ph-8);
+  pop.style.left=l+'px'; pop.style.top=t+'px'; weHideHover(); ta.focus(); ta.select();
+}
+function weClose(){ $('wePop').classList.add('hidden'); WE.node=null; }
+function weSave(){
+  if(!WE.node) return; const v=norm($('weTa').value);
+  if(!v){ alert('빈 문구로는 저장할 수 없어요. 원래대로 되돌리려면 "원래대로"를 눌러 주세요.'); return; }
+  const ad=WE.node.parentElement&&WE.node.parentElement.closest('[data-we-add]');
+  if(ad){ WE.node.nodeValue=wrapWs(WE.node.nodeValue,v); const c=ad.parentElement, rec=SX[pathKey(c)], a=rec&&(rec.add||[]).find(x=>x.id===ad.getAttribute('data-we-add')); if(a){ a.html=ad.outerHTML; saveSX(); } weClose(); return; }
+  if(v===WE.key) delete TXT[WE.key]; else TXT[WE.key]=v;
+  saveTXT(); weClose(); weApply();
+}
+$('weSave').onclick=weSave;
+$('weRev').onclick=()=>{ if(!WE.node) return; if(WE.node.parentElement.closest('[data-we-add]')){ weClose(); return; } delete TXT[WE.key]; saveTXT(); weClose(); weApply(); };
+$('weCancel').onclick=weClose; $('weX').onclick=weClose;
+$('weResetAll').onclick=()=>{ if(!Object.keys(TXT).length){ alert('수정한 문구가 없습니다.'); return; } if(!confirm('수정한 문구를 모두 원래대로 되돌릴까요? (교수진·동아리·사진·연표는 그대로입니다)')) return; TXT=Object.create(null); saveTXT(); weClose(); weApply(); };
+document.addEventListener('click',e=>{
+  if(!WE.on||e.altKey) return;
+  if(e.target.closest('#wePop,#webEditBar,#weItemBar,#ipModal,#tl-wrap,.adm,.imgbtn,.iposbtn,#emodal,#pmodal,#syncBar')) return;
+  const n=weNodeAt(e.clientX,e.clientY); if(!n) return;
+  e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); weOpen(n);
+},true);
+document.addEventListener('keydown',e=>{
+  if(!WE.on) return;
+  if(e.key==='Escape'&&WE.node){ weClose(); }
+  else if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)&&WE.node){ e.preventDefault(); weSave(); }
+},true);
+addEventListener('scroll',weHideHover,{passive:true});
+addEventListener('hashchange',()=>{ weClose(); weHideHover(); });
+function weStart(){
+  WE.on=true; document.body.classList.add('we-on'); $('webEditBar').classList.remove('hidden');
+  $('webEditBtn').textContent='✏️ 웹 수정 끝내기';
+  $('weCloudNote').textContent=cloudOn()?' · 문구 수정은 이 브라우저에만 저장됩니다':'';
+  document.querySelectorAll('details').forEach(d=>{ d.open=true; });
+}
+function weStop(){
+  WE.on=false; document.body.classList.remove('we-on'); $('webEditBar').classList.add('hidden');
+  $('webEditBtn').textContent='✏️ 웹 수정하기'; weClose(); weHideHover(); weItemHide();
+}
+$('weDone').onclick=weStop;
+$('webEditBtn').onclick=async()=>{
+  if(WE.on){ weStop(); return; }
+  if(!canEditNow()){ await enterEdit(); if(!canEditNow()) return; }
+  weStart();
+};
+addEventListener('gu-mode',()=>{ if(WE.on&&!canEditNow()) weStop(); });
+weApply();
+bootCloud();
+</script>
+</body>
+</html>
+
 .drag-over{border-color:#1d3e72!important;background-color:rgba(29,62,114,.08)!important}
 input[type=color]::-webkit-color-swatch-wrapper{padding:0}
 input[type=color]::-webkit-color-swatch{border:none;border-radius:6px}
