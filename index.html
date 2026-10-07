@@ -1798,12 +1798,12 @@ async function uploadAll(){
 $('syncUpload').onclick=uploadAll;
 $('dataDefault').onclick=()=>{ if(!confirm('이 브라우저에 저장된 연표·교수진·동아리 가입·바꾼 사진·수정한 문구·항목 구성·메뉴를 모두 지우고 기본값으로 되돌릴까요?')) return; try{ ['gt_regions','gt_eras','gt_events','gu_people','gu_clubs','gu_imgs','gu_text','gu_struct','gu_imgpos','gu_menu','gu_ctabs','gu_seedsig'].forEach(x=>localStorage.removeItem(x)); }catch(e){} location.reload(); };
 $('dataExport').onclick=()=>{
-  const o={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^(gt_|gu_)/.test(k)&&k!=='gu_code') o[k]=localStorage.getItem(k); } }catch(e){}
-  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'genshin-univ',v:1,data:o})],{type:'application/json'})); a.download='genshin-univ-backup.json'; a.click();
+  const o={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^(gt_|gu_)/.test(k)&&k!=='gu_code'&&k!=='gu_seedsig') o[k]=localStorage.getItem(k); } }catch(e){}
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'genshin-univ',v:1,data:o})],{type:'application/json'})); a.download='seed.json'; a.click();
 };
 $('dataImport').onchange=e=>{
   const f=e.target.files[0]; if(!f) return; const r=new FileReader();
-  r.onload=()=>{ try{ const j=JSON.parse(r.result); if(j.app!=='genshin-univ'||!j.data) throw 0; if(!confirm('이 브라우저의 현재 데이터를 백업 파일 내용으로 덮어쓸까요?')) return; Object.entries(j.data).forEach(([k,v])=>localStorage.setItem(k,v)); alert('복원했습니다. 페이지를 새로고침합니다.'); location.reload(); }catch(x){ alert('올바른 백업 파일이 아닙니다.'); } };
+  r.onload=()=>{ try{ let j=JSON.parse(r.result); if(j&&!j.data&&(j.regions||j.eras||j.events)){ const d={gt_theme:'light1'}; if(j.regions) d.gt_regions=JSON.stringify(j.regions); if(j.eras) d.gt_eras=JSON.stringify(j.eras); if(j.events) d.gt_events=JSON.stringify(j.events); j={app:'genshin-univ',data:d}; } if(!j||j.app!=='genshin-univ'||!j.data) throw 0; if(!confirm('이 브라우저의 현재 데이터를 백업 파일 내용으로 덮어쓸까요?')) return; Object.entries(j.data).forEach(([k,v])=>{ if(k!=='gu_seedsig') localStorage.setItem(k,v); }); alert('복원했습니다. 페이지를 새로고침합니다.'); location.reload(); }catch(x){ alert('올바른 백업 파일이 아닙니다.'); } };
   r.readAsText(f);
 };
 (function(){ const im=new Image(); im.onerror=()=>{ const d=document.createElement('div'); d.className='bg-amber-100 text-amber-900 text-sm px-4 py-2 text-center'; d.innerHTML='⚠ 사진 파일을 찾지 못했습니다. <b>index.html과 같은 위치에 assets 폴더</b>가 올라가 있는지 확인해 주세요.'; document.body.prepend(d); }; im.src='assets/hero.jpg'; })();
