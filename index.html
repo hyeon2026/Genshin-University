@@ -830,10 +830,11 @@ style,script,head{display:none!important}
 (function(){
   try{
     var txt=null, src='inline';
-    try{ var x=new XMLHttpRequest(); x.open('GET','assets/seed.json',false); x.send(); if(x.status===200&&x.responseText&&x.responseText.trim()[0]==='{'){ txt=x.responseText; src='file'; } }catch(e){}
+    ['assets/seed.json','seed.json'].some(function(u){ try{ var x=new XMLHttpRequest(); x.open('GET',u+'?t='+Date.now(),false); x.send(); if(x.status===200&&x.responseText&&x.responseText.trim()[0]==='{'){ txt=x.responseText; src='file'; return true; } }catch(e){} return false; });
     if(!txt){ var el=document.getElementById('guSeed'); txt=el?el.textContent:null; }
     if(!txt) return;
     var sig=src+':'+txt.length+':'+(function(t){ var h=5381; for(var i=0;i<t.length;i++) h=((h<<5)+h+t.charCodeAt(i))|0; return h; })(txt);
+    window.GU_SEED_INFO={src:src,sig:sig}; try{console.info('[seed]',src,txt.length+'자');}catch(e){}
     if(localStorage.getItem('gu_seedsig')===sig) return;
     var j=JSON.parse(txt), d={};
     if(j&&j.data&&typeof j.data==='object') d=j.data;
