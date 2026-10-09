@@ -1529,8 +1529,15 @@ function openProfile(kind,id){
   $('pmodal').classList.remove('hidden');
 }
 function careerRows(){
-  $('eCareer').innerHTML=ed.career.map((c,i)=>`<div class="flex gap-2 mb-2"><select data-ci="${i}" data-f="t" class="border border-slate-300 px-2 py-1.5 text-sm w-28">${['학력','경력','수상·업적','저서','활동','수상','기타'].map(o=>`<option${o===c.t?' selected':''}>${o}</option>`).join('')}</select><input data-ci="${i}" data-f="p" value="${esc(c.p)}" placeholder="기간 (예: 2018–현재)" class="border border-slate-300 px-2 py-1.5 text-sm w-32"><input data-ci="${i}" data-f="x" value="${esc(c.x)}" placeholder="내용" class="border border-slate-300 px-2 py-1.5 text-sm flex-1 min-w-0"><button data-crm="${i}" class="text-slate-400 hover:text-red-600 px-2" aria-label="삭제">×</button></div>`).join('')||'<p class="text-xs text-slate-400 mb-2">등록된 이력이 없습니다.</p>';
+  $('eCareer').innerHTML=ed.career.map((c,i)=>`<div class="flex gap-1 mb-2 items-center" data-crow="${i}"><span data-chandle title="끌어서 순서 바꾸기" class="cursor-grab text-slate-400 hover:text-[#1d3e72] px-1 select-none">⠿</span><span class="flex flex-col leading-none"><button type="button" data-cup="${i}" class="text-slate-400 hover:text-[#1d3e72] text-xs px-1 disabled:opacity-25" aria-label="위로"${i===0?' disabled':''}>▲</button><button type="button" data-cdn="${i}" class="text-slate-400 hover:text-[#1d3e72] text-xs px-1 disabled:opacity-25" aria-label="아래로"${i===ed.career.length-1?' disabled':''}>▼</button></span><select data-ci="${i}" data-f="t" class="border border-slate-300 px-2 py-1.5 text-sm w-28">${['학력','경력','수상·업적','저서','활동','수상','기타'].map(o=>`<option${o===c.t?' selected':''}>${o}</option>`).join('')}</select><input data-ci="${i}" data-f="p" value="${esc(c.p)}" placeholder="기간 (예: 2018–현재)" class="border border-slate-300 px-2 py-1.5 text-sm w-32"><input data-ci="${i}" data-f="x" value="${esc(c.x)}" placeholder="내용" class="border border-slate-300 px-2 py-1.5 text-sm flex-1 min-w-0"><button data-crm="${i}" class="text-slate-400 hover:text-red-600 px-2" aria-label="삭제">×</button></div>`).join('')||'<p class="text-xs text-slate-400 mb-2">등록된 이력이 없습니다.</p>';
 }
+(function(){ let from=null;
+  document.addEventListener('mousedown',e=>{ const h=e.target.closest&&e.target.closest('[data-chandle]'); document.querySelectorAll('#eCareer [data-crow]').forEach(r=>r.draggable=!!h&&r===h.closest('[data-crow]')); });
+  document.addEventListener('dragstart',e=>{ const r=e.target.closest&&e.target.closest('#eCareer [data-crow]'); if(!r) return; from=+r.dataset.crow; e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain','c');}catch(x){} r.style.opacity='.4'; });
+  document.addEventListener('dragover',e=>{ if(from===null) return; const r=e.target.closest&&e.target.closest('#eCareer [data-crow]'); if(!r) return; e.preventDefault(); document.querySelectorAll('#eCareer [data-crow]').forEach(x=>x.style.boxShadow=''); if(+r.dataset.crow!==from) r.style.boxShadow=(+r.dataset.crow<from?'0 -2px':'0 2px')+' 0 #1d3e72'; });
+  document.addEventListener('drop',e=>{ if(from===null) return; const r=e.target.closest&&e.target.closest('#eCareer [data-crow]'); if(!r) return; e.preventDefault(); const to=+r.dataset.crow; collectCareer(); if(to!==from){ const m=ed.career.splice(from,1)[0]; ed.career.splice(to,0,m); } from=null; careerRows(); });
+  document.addEventListener('dragend',()=>{ if(from!==null){ from=null; if(ed&&!$('emodal').classList.contains('hidden')) careerRows(); } });
+})();
 function collectCareer(){ document.querySelectorAll('#eCareer [data-ci]').forEach(el=>{ ed.career[el.dataset.ci][el.dataset.f]=el.value; }); }
 const SEL_CLS='mt-1 w-full border border-slate-300 px-3 py-2';
 function deptOpts(collegeId,cur){ const c=COLLEGES.find(x=>x.id===collegeId); const list=(c?c.depts:[]).slice(); if(cur&&!list.includes(cur)) list.push(cur); return list.map(d=>`<option value="${esc(d)}"${d===cur?' selected':''}>${esc(d)}</option>`).join('')+'<option value="__custom">직접 입력…</option>'; }
@@ -1565,7 +1572,7 @@ function saveEdit(){
   persistPeople(); $('emodal').classList.add('hidden'); refreshPeople();
 }
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-prof],[data-fchip],[data-padd],[data-pedit],[data-pdel],[data-photo],[data-photo-rm],[data-pos-reset],[data-cadd],[data-crm],[data-eclose],[data-esave],[data-pclose]'); if(!t) return;
+  const t=e.target.closest('[data-prof],[data-fchip],[data-padd],[data-pedit],[data-pdel],[data-photo],[data-photo-rm],[data-pos-reset],[data-cadd],[data-crm],[data-cup],[data-cdn],[data-eclose],[data-esave],[data-pclose]'); if(!t) return;
   const d=t.dataset;
   if(d.prof){ const [k,id]=d.prof.split(':'); openProfile(k,id); }
   else if(d.fchip){ facCollege=d.fchip; renderFaculty(); }
@@ -1577,6 +1584,7 @@ document.addEventListener('click',e=>{
   else if(t.hasAttribute('data-pos-reset')){ ed.pos={x:50,y:50,z:1}; ephoto(); }
   else if(t.hasAttribute('data-cadd')){ collectCareer(); ed.career.push(CT('경력','','')); careerRows(); }
   else if(d.crm!==undefined){ collectCareer(); ed.career.splice(+d.crm,1); careerRows(); }
+  else if(d.cup!==undefined||d.cdn!==undefined){ collectCareer(); const i=+(d.cup!==undefined?d.cup:d.cdn), j=d.cup!==undefined?i-1:i+1; if(j>=0&&j<ed.career.length){ const a=ed.career[i]; ed.career[i]=ed.career[j]; ed.career[j]=a; careerRows(); } }
   else if(t.hasAttribute('data-eclose')) $('emodal').classList.add('hidden');
   else if(t.hasAttribute('data-esave')) saveEdit();
   else if(t.hasAttribute('data-pclose')) $('pmodal').classList.add('hidden');
