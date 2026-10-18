@@ -1838,7 +1838,21 @@ document.addEventListener('click',e=>{
   else if(b.dataset.mmtbcol) mmRtDo({cmd:mmTbMode==='fore'?'foreColor':'hiliteColor',val:b.dataset.mmtbcol});
 });
 document.addEventListener('change',e=>{ if(e.target.id==='mmTbSize'){ const v=e.target.value; e.target.value=''; if(v) mmRtDo({cmd:'fontSize',val:v}); } else if(e.target.id==='mmTbCustom'){ mmRtDo({cmd:mmTbMode==='fore'?'foreColor':'hiliteColor',val:e.target.value}); } });
-document.addEventListener('paste',e=>{ const ed=e.target.closest&&e.target.closest('[data-mmrt]'); if(!ed) return; e.preventDefault(); const t=(e.clipboardData||window.clipboardData).getData('text/plain'); document.execCommand('insertText',false,t); });
+document.addEventListener('paste',async e=>{
+  const cd=e.clipboardData||window.clipboardData; if(!cd) return; const tg=e.target, ed=tg.closest&&tg.closest('[data-mmrt]');
+  let imgs=[...(cd.items||[])].filter(i=>i.kind==='file'&&/^(image|video)\//.test(i.type)).map(i=>i.getAsFile()).filter(Boolean);
+  if(!imgs.length) imgs=[...(cd.files||[])].filter(f=>/^(image|video)\//.test(f.type));
+  let urlm=null; if(!imgs.length){ const hm=(cd.getData('text/html')||'').match(/<img[^>]+src=["']([^"']+)["']/i); if(hm&&!cd.getData('text/plain').trim().replace(/\s/g,'').match(/[^\s]{40,}/)||hm&&!cd.getData('text/plain').trim()) urlm=mmMediaFromUrl(hm[1].replace(/&amp;/g,'&')); if(urlm&&urlm.k!=='img') urlm=null; }
+  const modal=$('mmModal')&&!$('mmModal').classList.contains('hidden');
+  if((imgs.length||urlm)&&(modal||($('mm-wrap')&&MS.sel&&mmCan()&&!/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName)))){
+    e.preventDefault();
+    if(modal){ const at=ed?+ed.dataset.mmrt:-1; if(urlm){ if(at>=0&&MMED[at]&&!MMED[at].src) Object.assign(MMED[at],urlm); else MMED.push(Object.assign({t:'',cap:''},urlm)); } else await mmAddFiles(imgs,at); mmMedRows(); toast0('붙여넣은 사진을 넣었어요.'); }
+    else { const n=mmBy(MS.sel); if(!n) return; const arr=JSON.parse(JSON.stringify(n.media||[])); if(urlm) arr.push(Object.assign({t:'',cap:''},urlm)); else await mmAddFiles(imgs,-1,arr); if(arr.length===(n.media||[]).length) return; mmSnap(); n.media=arr; mmSave(); MS.fit=false; mmAll(); toast0('붙여넣은 사진을 ‘'+n.t+'’ 에 넣었어요.'); }
+    return;
+  }
+  if(!ed) return; e.preventDefault(); document.execCommand('insertText',false,cd.getData('text/plain'));
+});
+function toast0(m){ try{ toast(m); }catch(x){} }
 let MF={mode:'add',id:null}, MMED=[], MMIDX=-1;
 /* ---- 기간: 시작일 기준, 상태가 완료가 되면 종료일을 자동으로 채움 ---- */
 const mmIso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
@@ -1863,7 +1877,7 @@ function mmEnsureModal(){
    <label class="block"><span class="font-bold text-slate-700">상위 연구</span><select id="mmfP" class="mt-1 w-full border border-slate-300 px-3 py-2"></select></label></div>
    <div><span class="font-bold text-slate-700">내용 (사진 + 설명)</span><p class="text-[11px] text-slate-400 leading-snug">모든 설명은 여기에 적어요. 항목마다 소제목, 사진(또는 영상), 설명을 적으면 사진 옆에 설명이 나란히 표시돼요. 사진 없이 글만 적어도 돼요.</p><div id="mmTb" class="sticky top-0 z-10 mt-1.5 mb-2 bg-white border border-slate-300 p-1.5 flex flex-wrap items-center gap-1 text-sm shadow-sm"><button type="button" data-mmtb="bold" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] font-bold" title="굵게 (Ctrl+B)">B</button><button type="button" data-mmtb="italic" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] italic" title="기울임 (Ctrl+I)">I</button><button type="button" data-mmtb="underline" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] underline" title="밑줄 (Ctrl+U)">U</button><button type="button" data-mmtb="strikeThrough" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] line-through" title="취소선">S</button><select id="mmTbSize" class="h-8 border border-slate-200 bg-white px-1" title="글자 크기"><option value="">크기</option><option value="12">작게</option><option value="15">보통</option><option value="19">크게</option><option value="24">아주 크게</option><option value="32">제목 크기</option></select><button type="button" data-mmtbc="fore" class="h-8 px-2 border border-slate-200 hover:border-[#13294b]" title="글자 색"><b style="color:#dc2626">A</b> 글자색</button><button type="button" data-mmtbc="back" class="h-8 px-2 border border-slate-200 hover:border-[#13294b]" title="형광펜 (글자 배경색)"><b style="background:#fde047;padding:0 3px">A</b> 형광펜</button><button type="button" data-mmtb="removeFormat" class="h-8 px-2 border border-slate-200 hover:border-[#13294b] text-slate-600" title="선택한 글자의 서식 지우기">서식 지우기</button><div id="mmTbPal" class="hidden basis-full flex flex-wrap items-center gap-1.5 pt-1.5"></div></div><div id="mmfMed" class="space-y-3"></div>
     <div class="flex flex-wrap gap-2 mt-2"><button type="button" data-mmeadd class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">＋ 내용 추가</button><button type="button" data-mmimgs class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">📷 사진·영상 여러 개 올리기</button><input id="mmFile" type="file" accept="image/*,video/*" multiple class="hidden"></div>
-    <p class="text-[11px] text-slate-400 mt-1 leading-snug">바탕화면의 사진·영상 파일을 이 창 안으로 끌어다 놓아도 돼요 (항목 위에 놓으면 그 항목에 들어가요). 사진은 가로 1280px로 줄여 저장돼요. 영상 파일은 3MB까지만 바로 넣을 수 있고, 더 큰 영상은 YouTube 주소나 mp4 파일 경로(저장소 assets 폴더에 올린 파일)를 넣어 주세요.</p></div>
+    <p class="text-[11px] text-slate-400 mt-1 leading-snug">화면 캡처는 Ctrl+V 로 바로 붙여넣을 수 있고, 바탕화면의 사진·영상 파일을 이 창 안으로 끌어다 놓아도 돼요 (항목 위에 놓으면 그 항목에 들어가요). 사진은 가로 1280px로 줄여 저장돼요. 영상 파일은 3MB까지만 바로 넣을 수 있고, 더 큰 영상은 YouTube 주소나 mp4 파일 경로(저장소 assets 폴더에 올린 파일)를 넣어 주세요.</p></div>
    <div id="mmfColBox"><span class="font-bold text-slate-700">색상</span><div id="mmfCols" class="mt-1.5"></div></div>
   </div>
   <div class="px-5 pb-5 flex justify-between items-center"><button type="button" id="mmfDel" data-mmdel2 class="text-sm text-red-600 hover:underline hidden">삭제</button><span class="flex gap-2 ml-auto"><button type="button" data-mmx class="px-4 py-2 text-sm border border-slate-300 hover:border-[#13294b]">취소</button><button class="px-5 py-2 text-sm bg-[#13294b] text-white hover:bg-[#1d3e72]">저장</button></span></div></form></div>
