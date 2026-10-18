@@ -33,6 +33,7 @@ style,script,head{display:none!important}
 .we-on .adm,.we-on .adm *,.we-on #tl-wrap *,.we-on #webEditBar *,.we-on #wePop *{cursor:pointer}
 .we-on #wePop textarea{cursor:text}
 #weHover{position:fixed;z-index:90;pointer-events:none;border:2px dashed #c9a24b;background:rgba(201,162,75,.15);display:none}
+.mmrt:empty:before{content:attr(data-ph);color:#94a3b8;pointer-events:none}
 .mmdz{outline:3px dashed #f59e0b!important;outline-offset:2px;background-color:#fffbeb}
 </style>
 <!-- ★ 기본 데이터(백업 합치기): 아래 guSeed 블록 안의 내용이 사이트의 기본 데이터가 됩니다.
@@ -1726,7 +1727,7 @@ function mmPanel(){
   const kids=mmKids(n.id), sibs=MM.filter(x=>x.p===n.p), si=sibs.indexOf(n);
   const link=n.link&&/^(https?:\/\/|assets\/|#\/)/.test(n.link)?`<a href="${esc(n.link)}" ${n.link[0]==='#'?'':'target="_blank" rel="noopener"'} class="inline-block mt-3 text-sm text-[#1d3e72] hover:underline">🔗 관련 자료 열기 ›</a>`:'';
   const btn=(a,l,cls)=>`<button ${a} class="px-3 py-1.5 text-sm border ${cls||'border-slate-300 hover:border-[#13294b]'}">${l}</button>`;
-  const ents=(n.media||[]).map((m,i)=>`<div class="py-4 ${i?'border-t border-slate-200':''}">${m.t?`<h4 class="font-bold text-[#13294b] mb-2">${esc(m.t)}</h4>`:''}<div class="flex flex-col sm:flex-row gap-4">${m.k&&m.src?`<button data-mmmed="${n.id}:${i}" class="relative flex-none sm:w-[46%] aspect-video bg-slate-100 overflow-hidden hover:opacity-90" title="눌러서 크게 보기">${mmThumb(m,'object-contain')}</button>`:''}<p class="flex-1 min-w-0 text-[15px] text-slate-700 leading-relaxed whitespace-pre-line">${esc(m.cap||'')}</p></div></div>`).join('');
+  const ents=(n.media||[]).map((m,i)=>`<div class="py-4 ${i?'border-t border-slate-200':''}">${m.t?`<h4 class="font-bold text-[#13294b] mb-2">${esc(m.t)}</h4>`:''}<div class="flex flex-col sm:flex-row gap-4">${m.k&&m.src?`<button data-mmmed="${n.id}:${i}" class="relative flex-none sm:w-[46%] aspect-video bg-slate-100 overflow-hidden hover:opacity-90" title="눌러서 크게 보기">${mmThumb(m,'object-contain')}</button>`:''}<div class="flex-1 min-w-0 text-[15px] text-slate-700 leading-relaxed break-words">${mmRich(m)}</div></div></div>`).join('');
   const colNow=n.col||'';
   box.innerHTML=`<div class="border border-slate-200 border-t-4" style="border-top-color:${MMSC[n.st]||'#94a3b8'}"><div class="p-5">
    <p class="text-xs text-slate-400 mb-2">${path.map(p=>`<button data-mmsel="${p.id}" class="hover:underline">${esc(p.t)}</button>`).join(' › ')}</p>
@@ -1786,6 +1787,57 @@ function mmWhoOpts(cur){
   if(cur&&!all.includes(cur)) s+=`<optgroup label="이전에 입력한 값">${o(cur)}</optgroup>`;
   return s;
 }
+/* ---- 내용 서식 (굵게·크기·색·형광펜) ---- */
+const MMFONT=['12','15','19','24','32'];
+function mmClean(html){
+  const t=document.createElement('template'); t.innerHTML=String(html||'');
+  const col=v=>/^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\)|transparent|[a-z]{3,20})$/i.test(String(v).trim())?String(v).trim():'';
+  const ok=new Set(['B','STRONG','I','EM','U','S','STRIKE','BR','DIV','P','SPAN','FONT']);
+  const walk=n=>{ let o=''; n.childNodes.forEach(c=>{
+    if(c.nodeType===3){ o+=esc(c.nodeValue); return; } if(c.nodeType!==1) return;
+    const tg=c.tagName; if(!ok.has(tg)){ o+=walk(c); return; }
+    if(tg==='BR'){ o+='<br>'; return; }
+    const inner=walk(c);
+    if(tg==='SPAN'||tg==='FONT'){ const st=[]; let sc=c.style.color||c.getAttribute('color')||'', bg=c.style.backgroundColor||'', fs=parseFloat(c.style.fontSize), fw=c.style.fontWeight, fi=c.style.fontStyle, td=c.style.textDecorationLine||c.style.textDecoration||'';
+      if(col(sc)) st.push('color:'+col(sc)); if(col(bg)) st.push('background-color:'+col(bg)); if(fs>=8&&fs<=60) st.push('font-size:'+Math.round(fs)+'px'); if(fw==='bold'||+fw>=600) st.push('font-weight:700'); if(fi==='italic') st.push('font-style:italic');
+      const dec=[]; if(/underline/.test(td)) dec.push('underline'); if(/line-through/.test(td)) dec.push('line-through'); if(dec.length) st.push('text-decoration:'+dec.join(' '));
+      o+=st.length?`<span style="${st.join(';')}">${inner}</span>`:inner; return; }
+    if(tg==='DIV'||tg==='P'){ o+=(o&&!/<br>$/.test(o)?'<br>':'')+inner; return; }
+    const m={STRONG:'b',B:'b',EM:'i',I:'i',U:'u',S:'s',STRIKE:'s'}[tg]; o+=`<${m}>${inner}</${m}>`;
+  }); return o; };
+  return walk(t.content);
+}
+const mmRich=m=>m.h?mmClean(m.h):esc(m.cap||'').replace(/\n/g,'<br>');
+let MMSEL=null;
+document.addEventListener('selectionchange',()=>{ const s=getSelection(); if(s&&s.rangeCount){ const r=s.getRangeAt(0), el=r.commonAncestorContainer.nodeType===1?r.commonAncestorContainer:r.commonAncestorContainer.parentElement; const ed=el&&el.closest&&el.closest('[data-mmrt]'); if(ed) MMSEL={ed,r:r.cloneRange()}; } });
+function mmRtSync(ed){ const i=+ed.dataset.mmrt; if(!MMED[i]) return; ed.querySelectorAll('font[size="7"]').forEach(f=>{ const s=document.createElement('span'); s.style.fontSize=(f.dataset.px||'15')+'px'; while(f.firstChild) s.appendChild(f.firstChild); f.replaceWith(s); }); MMED[i].h=mmClean(ed.innerHTML); MMED[i].cap=ed.innerText.replace(/ /g,' ').replace(/\n{3,}/g,'\n\n').trim(); }
+function mmRtDo(fn){
+  if(!MMSEL||!MMSEL.ed.isConnected){ alert('먼저 서식을 바꿀 설명 칸을 누르고, 글자를 드래그해서 선택해 주세요.'); return; }
+  const {ed,r}=MMSEL; ed.focus(); const s=getSelection(); s.removeAllRanges(); s.addRange(r);
+  if(r.collapsed&&!['bold','italic','underline','strikeThrough'].includes(fn.cmd)){ alert('서식을 바꿀 글자를 먼저 드래그해서 선택해 주세요.'); return; }
+  try{ document.execCommand('styleWithCSS',false,true); }catch(e){}
+  if(fn.cmd==='fontSize'){ document.execCommand('fontSize',false,'7'); ed.querySelectorAll('font[size="7"]').forEach(f=>f.dataset.px=fn.val); ed.querySelectorAll('span').forEach(sp=>{ if(sp.style.fontSize==='xxx-large'||sp.style.fontSize==='-webkit-xxx-large') sp.style.fontSize=fn.val+'px'; }); }
+  else document.execCommand(fn.cmd,false,fn.val);
+  mmRtSync(ed); const s2=getSelection(); if(s2.rangeCount) MMSEL={ed,r:s2.getRangeAt(0).cloneRange()};
+}
+const MMTBC=['#000000','#475569','#dc2626','#ea580c','#ca8a04','#16a34a','#0d9488','#2563eb','#7c3aed','#db2777','#ffffff'];
+const MMTBH=['#fef08a','#fed7aa','#fecaca','#bbf7d0','#bae6fd','#ddd6fe','#fbcfe8','#e2e8f0'];
+let mmTbMode='';
+function mmTbPal(mode){
+  const p=$('mmTbPal'); if(!p) return; if(mmTbMode===mode&&!p.classList.contains('hidden')){ p.classList.add('hidden'); return; } mmTbMode=mode;
+  const list=mode==='fore'?MMTBC:MMTBH;
+  p.innerHTML=`<span class="text-xs font-bold text-slate-500">${mode==='fore'?'글자색':'형광펜'}</span>`+list.map(c=>`<button type="button" data-mmtbcol="${c}" class="w-6 h-6 border border-slate-300" style="background:${c}" aria-label="${c}"></button>`).join('')+(mode==='back'?'<button type="button" data-mmtbcol="transparent" class="h-6 px-2 text-xs border border-slate-300 bg-white">없음</button>':'')+`<label class="flex items-center gap-1 text-xs text-slate-500">직접<input type="color" id="mmTbCustom" value="${mode==='fore'?'#dc2626':'#fde047'}" class="w-7 h-6 p-0 border border-slate-300 bg-white cursor-pointer"></label>`;
+  p.classList.remove('hidden');
+}
+document.addEventListener('mousedown',e=>{ if(e.target.closest('#mmTb')&&!e.target.closest('select,input')) e.preventDefault(); });
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-mmtb],[data-mmtbc],[data-mmtbcol]'); if(!b) return;
+  if(b.dataset.mmtb) mmRtDo({cmd:b.dataset.mmtb});
+  else if(b.dataset.mmtbc!==undefined) mmTbPal(b.dataset.mmtbc);
+  else if(b.dataset.mmtbcol) mmRtDo({cmd:mmTbMode==='fore'?'foreColor':'hiliteColor',val:b.dataset.mmtbcol});
+});
+document.addEventListener('change',e=>{ if(e.target.id==='mmTbSize'){ const v=e.target.value; e.target.value=''; if(v) mmRtDo({cmd:'fontSize',val:v}); } else if(e.target.id==='mmTbCustom'){ mmRtDo({cmd:mmTbMode==='fore'?'foreColor':'hiliteColor',val:e.target.value}); } });
+document.addEventListener('paste',e=>{ const ed=e.target.closest&&e.target.closest('[data-mmrt]'); if(!ed) return; e.preventDefault(); const t=(e.clipboardData||window.clipboardData).getData('text/plain'); document.execCommand('insertText',false,t); });
 let MF={mode:'add',id:null}, MMED=[], MMIDX=-1;
 /* ---- 기간: 시작일 기준, 상태가 완료가 되면 종료일을 자동으로 채움 ---- */
 const mmIso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
@@ -1806,13 +1858,13 @@ function mmEnsureModal(){
    <label class="block"><span class="font-bold text-slate-700">담당 (연구기관 · 캠퍼스 학과)</span><select id="mmfWho" class="mt-1 w-full border border-slate-300 px-3 py-2 bg-white"></select></label></div>
    <div class="grid grid-cols-2 gap-3"><div><span class="font-bold text-slate-700">기간</span><div class="mt-1 flex items-center gap-1.5"><input id="mmfS" type="date" class="min-w-0 flex-1 border border-slate-300 px-2 py-2 bg-white" aria-label="시작일"><span class="text-slate-400">~</span><input id="mmfE" type="date" class="min-w-0 flex-1 border border-slate-300 px-2 py-2 bg-white" aria-label="종료일"></div><p id="mmfWh" class="text-[11px] text-slate-400 mt-1 leading-snug"></p></div>
    <label class="block"><span class="font-bold text-slate-700">상위 연구</span><select id="mmfP" class="mt-1 w-full border border-slate-300 px-3 py-2"></select></label></div>
-   <div><span class="font-bold text-slate-700">내용 (사진 + 설명)</span><p class="text-[11px] text-slate-400 leading-snug">모든 설명은 여기에 적어요. 항목마다 소제목, 사진(또는 영상), 설명을 적으면 사진 옆에 설명이 나란히 표시돼요. 사진 없이 글만 적어도 돼요.</p><div id="mmfMed" class="mt-1.5 space-y-3"></div>
+   <div><span class="font-bold text-slate-700">내용 (사진 + 설명)</span><p class="text-[11px] text-slate-400 leading-snug">모든 설명은 여기에 적어요. 항목마다 소제목, 사진(또는 영상), 설명을 적으면 사진 옆에 설명이 나란히 표시돼요. 사진 없이 글만 적어도 돼요.</p><div id="mmTb" class="sticky top-0 z-10 mt-1.5 mb-2 bg-white border border-slate-300 p-1.5 flex flex-wrap items-center gap-1 text-sm shadow-sm"><button type="button" data-mmtb="bold" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] font-bold" title="굵게 (Ctrl+B)">B</button><button type="button" data-mmtb="italic" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] italic" title="기울임 (Ctrl+I)">I</button><button type="button" data-mmtb="underline" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] underline" title="밑줄 (Ctrl+U)">U</button><button type="button" data-mmtb="strikeThrough" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] line-through" title="취소선">S</button><select id="mmTbSize" class="h-8 border border-slate-200 bg-white px-1" title="글자 크기"><option value="">크기</option><option value="12">작게</option><option value="15">보통</option><option value="19">크게</option><option value="24">아주 크게</option><option value="32">제목 크기</option></select><button type="button" data-mmtbc="fore" class="h-8 px-2 border border-slate-200 hover:border-[#13294b]" title="글자 색"><b style="color:#dc2626">A</b> 글자색</button><button type="button" data-mmtbc="back" class="h-8 px-2 border border-slate-200 hover:border-[#13294b]" title="형광펜 (글자 배경색)"><b style="background:#fde047;padding:0 3px">A</b> 형광펜</button><button type="button" data-mmtb="removeFormat" class="h-8 px-2 border border-slate-200 hover:border-[#13294b] text-slate-600" title="선택한 글자의 서식 지우기">서식 지우기</button><div id="mmTbPal" class="hidden basis-full flex flex-wrap items-center gap-1.5 pt-1.5"></div></div><div id="mmfMed" class="space-y-3"></div>
     <div class="flex flex-wrap gap-2 mt-2"><button type="button" data-mmeadd class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">＋ 내용 추가</button><button type="button" data-mmimgs class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">📷 사진·영상 여러 개 올리기</button><input id="mmFile" type="file" accept="image/*,video/*" multiple class="hidden"></div>
     <p class="text-[11px] text-slate-400 mt-1 leading-snug">바탕화면의 사진·영상 파일을 이 창 안으로 끌어다 놓아도 돼요 (항목 위에 놓으면 그 항목에 들어가요). 사진은 가로 1280px로 줄여 저장돼요. 영상 파일은 3MB까지만 바로 넣을 수 있고, 더 큰 영상은 YouTube 주소나 mp4 파일 경로(저장소 assets 폴더에 올린 파일)를 넣어 주세요.</p></div>
    <div id="mmfColBox"><span class="font-bold text-slate-700">색상</span><div id="mmfCols" class="mt-1.5"></div></div>
   </div>
   <div class="px-5 pb-5 flex justify-between items-center"><button type="button" id="mmfDel" data-mmdel2 class="text-sm text-red-600 hover:underline hidden">삭제</button><span class="flex gap-2 ml-auto"><button type="button" data-mmx class="px-4 py-2 text-sm border border-slate-300 hover:border-[#13294b]">취소</button><button class="px-5 py-2 text-sm bg-[#13294b] text-white hover:bg-[#1d3e72]">저장</button></span></div></form></div>
-  <div id="mmLb" class="hidden fixed inset-0 z-[96] bg-black/85 flex flex-col items-center justify-center p-4"><button data-mmlbx class="absolute right-4 top-3 text-white text-3xl leading-none" aria-label="닫기">×</button><button data-mmlbp class="absolute left-2 sm:left-5 top-1/2 text-white text-4xl px-2" aria-label="이전">‹</button><button data-mmlbn class="absolute right-2 sm:right-5 top-1/2 text-white text-4xl px-2" aria-label="다음">›</button><div id="mmLbBox" class="w-full max-w-4xl flex items-center justify-center"></div><div id="mmLbCap" class="mt-3 max-w-3xl text-center text-white text-sm leading-relaxed whitespace-pre-line"></div></div>`);
+  <div id="mmLb" class="hidden fixed inset-0 z-[96] bg-black/85 flex flex-col items-center justify-center p-4"><button data-mmlbx class="absolute right-4 top-3 text-white text-3xl leading-none" aria-label="닫기">×</button><button data-mmlbp class="absolute left-2 sm:left-5 top-1/2 text-white text-4xl px-2" aria-label="이전">‹</button><button data-mmlbn class="absolute right-2 sm:right-5 top-1/2 text-white text-4xl px-2" aria-label="다음">›</button><div id="mmLbBox" class="w-full max-w-4xl flex items-center justify-center"></div><div id="mmLbCap" class="mt-3 max-w-3xl w-full bg-white text-slate-800 text-left text-[15px] leading-relaxed p-3 max-h-48 overflow-y-auto break-words"></div></div>`);
   $('mmForm').addEventListener('submit',mmSubmit);
 }
 function mmReadVid(f){ return new Promise((ok,no)=>{ if(f.size>3*1024*1024){ no('big'); return; } const r=new FileReader(); r.onerror=no; r.onload=()=>ok(r.result); r.readAsDataURL(f); }); }
@@ -1842,7 +1894,7 @@ let LB={id:null,i:0};
 function mmLbShow(){
   const n=mmBy(LB.id), ms=n?(n.media||[]).filter(m=>m.k&&m.src):[], m=ms[LB.i]; if(!m){ mmLbClose(); return; }
   $('mmLbBox').innerHTML=m.k==='img'?`<img src="${esc(m.src)}" alt="" class="max-w-full object-contain" style="max-height:72vh">`:m.k==='yt'?`<div class="w-full" style="aspect-ratio:16/9;max-height:72vh"><iframe src="https://www.youtube-nocookie.com/embed/${esc(m.src)}?rel=0" class="w-full h-full" style="border:0" allow="accelerometer;autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe></div>`:`<video src="${esc(m.src)}" controls autoplay playsinline class="max-w-full" style="max-height:72vh"></video>`;
-  $('mmLbCap').innerHTML=(m.t?`<b class="block text-base mb-1">${esc(m.t)}</b>`:'')+(m.cap?esc(m.cap):'')+`<div class="text-xs text-slate-400 mt-1">${esc(n.t)} · ${LB.i+1} / ${ms.length}</div>`;
+  $('mmLbCap').innerHTML=(m.t?`<b class="block text-base mb-1">${esc(m.t)}</b>`:'')+mmRich(m)+`<div class="text-xs text-slate-400 mt-2">${esc(n.t)} · ${LB.i+1} / ${ms.length}</div>`;
   const many=ms.length>1; document.querySelector('[data-mmlbp]').style.display=many?'':'none'; document.querySelector('[data-mmlbn]').style.display=many?'':'none';
 }
 function mmLbOpen(id,i){ mmEnsureModal(); const n=mmBy(id); if(!n) return; const m=(n.media||[])[i]; LB={id,i:Math.max(0,(n.media||[]).filter(x=>x.k&&x.src).indexOf(m))}; $('mmLb').classList.remove('hidden'); mmLbShow(); }
@@ -1855,7 +1907,7 @@ function mmMedRows(){
   b.innerHTML=MMED.length?MMED.map((m,i)=>`<div data-mment="${i}" class="border border-slate-200 bg-slate-50/60 p-2.5"><div class="flex items-center mb-1.5"><b class="text-xs text-slate-500">내용 ${i+1}</b><span class="ml-auto flex text-xs"><button type="button" data-mmmup="${i}" class="px-1.5 text-slate-500 hover:text-[#13294b]">▲</button><button type="button" data-mmmdn="${i}" class="px-1.5 text-slate-500 hover:text-[#13294b]">▼</button><button type="button" data-mmmrm="${i}" class="px-1.5 text-red-500">✕ 삭제</button></span></div>
    <input data-mmet="${i}" maxlength="60" value="${esc(m.t||'')}" class="w-full border border-slate-300 px-3 py-1.5 text-sm font-bold mb-2 bg-white" placeholder="소제목 (선택) 예: 서풍 매의 사당">
    <div class="flex gap-2 items-start"><div class="flex-none w-44">${m.src?`<span class="relative block w-44 h-28 bg-slate-100 overflow-hidden">${mmThumb(m)}</span><button type="button" data-mmmclr="${i}" class="text-[11px] text-red-500 mt-1">사진·영상 빼기</button>`:`<button type="button" data-mmimg="${i}" class="w-44 h-28 border-2 border-dashed border-slate-300 text-xs text-slate-500 hover:border-[#13294b] bg-white">📷 사진<br>올리기</button>`}</div>
-   <textarea data-mmcap="${i}" rows="7" style="min-height:11rem;resize:vertical" class="flex-1 min-w-0 border border-slate-300 px-3 py-2 text-[15px] leading-relaxed bg-white" placeholder="설명 (사진 옆에 나란히 표시돼요)">${esc(m.cap||'')}</textarea></div>
+   <div data-mmrt="${i}" contenteditable="true" data-ph="설명 (사진 옆에 나란히 표시돼요)" style="min-height:11rem;max-height:30rem;overflow:auto;resize:vertical" class="mmrt flex-1 min-w-0 border border-slate-300 px-3 py-2 text-[15px] leading-relaxed bg-white break-words focus:outline-none focus:border-[#13294b]">${mmRich(m)}</div></div>
    ${m.src?'':`<div class="flex gap-1 mt-1.5"><input data-mmeu="${i}" class="flex-1 min-w-0 border border-slate-300 px-2 py-1 text-xs bg-white" placeholder="또는 영상·사진 주소 (YouTube, mp4, assets/…)"><button type="button" data-mmeuset="${i}" class="px-2.5 text-xs border border-slate-300 hover:border-[#13294b] bg-white flex-none">적용</button></div>`}</div>`).join(''):'<p class="text-xs text-slate-400">아직 상세 내용이 없습니다. ‘＋ 내용 추가’를 눌러 사진과 설명을 넣어 보세요.</p>';
 }
 function mmOpenForm(mode,id,parent){
@@ -1869,7 +1921,7 @@ function mmOpenForm(mode,id,parent){
 }
 function mmSubmit(e){
   e.preventDefault(); const t=$('mmfT').value.trim(); if(!t){ $('mmfT').focus(); return; }
-  const d={t,st:$('mmfSt').value,who:$('mmfWho').value.trim(),when:mmWhenStr(),s:$('mmfS').value,e:$('mmfE').value,note:'',p:$('mmfP').value,col:mmColSel,media:MMED.filter(m=>m.src||(m.t||'').trim()||(m.cap||'').trim()).map(m=>({t:(m.t||'').trim(),k:m.src?m.k:'',src:m.src||'',cap:(m.cap||'').trim()}))};
+  const d={t,st:$('mmfSt').value,who:$('mmfWho').value.trim(),when:mmWhenStr(),s:$('mmfS').value,e:$('mmfE').value,note:'',p:$('mmfP').value,col:mmColSel,media:MMED.filter(m=>m.src||(m.t||'').trim()||(m.cap||'').trim()).map(m=>({t:(m.t||'').trim(),k:m.src?m.k:'',src:m.src||'',cap:(m.cap||'').trim(),h:(m.cap||'').trim()?(m.h||''):''}))};
   mmSnap(); let n;
   if(MF.mode==='edit'){ n=mmBy(MF.id); const moved=n.p!==d.p; Object.assign(n,d); if(moved){ MM.splice(MM.indexOf(n),1); MM.push(n); } }
   else { n=Object.assign({id:mmId(),link:''},d); MM.push(n); }
@@ -1985,7 +2037,7 @@ document.addEventListener('click',e=>{
   else if(d.mmlbp!==undefined||d.mmlbn!==undefined){ const n=mmBy(LB.id); if(n){ const L=(n.media||[]).filter(m=>m.k&&m.src).length; LB.i=(LB.i+(d.mmlbn!==undefined?1:-1)+L)%L; mmLbShow(); } }
 });
 document.addEventListener('change',e=>{ const id=e.target.id; if(id==='mmfSt') mmStatusChange(); else if(id==='mmfS'){ const E=$('mmfE'); if(E.value&&e.target.value&&E.value<e.target.value){ E.value=e.target.value; } if($('mmfSt').value==='완료'&&!E.value){ mmStatusChange(); } mmWhenHint(); } else if(id==='mmfE'){ MF.autoEnd=false; const S=$('mmfS'); if(S.value&&e.target.value&&e.target.value<S.value){ S.value=e.target.value; } mmWhenHint(); } });
-document.addEventListener('input',e=>{ const t=e.target, d=t.dataset||{}; if(d.mmcap!==undefined&&MMED[+d.mmcap]){ MMED[+d.mmcap].cap=t.value; t.style.height='auto'; t.style.height=Math.max(176,t.scrollHeight+4)+'px'; } if(d.mmet!==undefined&&MMED[+d.mmet]) MMED[+d.mmet].t=t.value; if(t.id==='mmfColIn') mmPickCol(t.value); });
+document.addEventListener('input',e=>{ const t=e.target, d=t.dataset||{}; if(d.mmrt!==undefined) mmRtSync(t); if(d.mmet!==undefined&&MMED[+d.mmet]) MMED[+d.mmet].t=t.value; if(t.id==='mmfColIn') mmPickCol(t.value); });
 document.addEventListener('change',async e=>{
   const t=e.target;
   if(t.id==='mmQcIn'){ const n=mmBy(MS.sel); if(n&&mmCan()){ mmSnap(); n.col=t.value; mmSave(); MS.fit=false; mmAll(); } return; }
