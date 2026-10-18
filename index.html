@@ -1681,7 +1681,7 @@ function mmDraw(){
     if(z.th){ const ty=(o.h-z.th)/2; s+=`<clipPath id="mmc_${n.id}"><rect x="7" y="${ty}" width="${z.th}" height="${z.th}" rx="9"/></clipPath><image href="${esc(z.im)}" x="7" y="${ty}" width="${z.th}" height="${z.th}" preserveAspectRatio="xMidYMid slice" clip-path="url(#mmc_${n.id})"/>`; }
     if(lv>=1) s+=`<circle cx="${z.x0}" cy="${o.h/2}" r="4.5" fill="${MMSC[n.st]||'#94a3b8'}" stroke="#fff" stroke-width="1.5"/>`;
     s+=`<text x="${lv===0?o.w/2:z.x0+z.dot-2}" y="${o.h/2}" dy=".35em" text-anchor="${lv===0?'middle':'start'}" font-size="${parseFloat(z.f.split(' ')[1])}" font-weight="${z.f.split(' ')[0]}" fill="${tc}" style="pointer-events:none">${esc(z.t)}</text></g>`;
-    const nm=(n.media||[]).filter(m=>m.src).length;
+    const nm=(n.media||[]).reduce((a,m)=>a+(m.src?1+(m.x||[]).filter(x=>x.src).length:0),0);
     if(nm) s+=`<g transform="translate(${o.x+o.w-2} ${o.y+1})" style="pointer-events:none"><circle r="8" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/><text text-anchor="middle" dy=".35em" font-size="10" font-weight="700" fill="#fff">${nm}</text></g>`;
     const hasTog=lv>=1&&o.nk, right=o.dir>=0;
     if(hasTog){ const cx=right?o.x+o.w+11:o.x-11; s+=`<g data-mmt="${n.id}" transform="translate(${cx} ${o.cy})" style="cursor:pointer"><circle r="${n.c?10:8}" fill="#fff" stroke="${o.col}" stroke-width="1.5"/><text text-anchor="middle" dy=".35em" font-size="${n.c?10:12}" font-weight="700" fill="${o.col}" style="pointer-events:none">${n.c?'+'+mmDesc(n.id).length:'−'}</text></g>`; }
@@ -1728,7 +1728,7 @@ function mmPanel(){
   const kids=mmKids(n.id), sibs=MM.filter(x=>x.p===n.p), si=sibs.indexOf(n);
   const link=n.link&&/^(https?:\/\/|assets\/|#\/)/.test(n.link)?`<a href="${esc(n.link)}" ${n.link[0]==='#'?'':'target="_blank" rel="noopener"'} class="inline-block mt-3 text-sm text-[#1d3e72] hover:underline">🔗 관련 자료 열기 ›</a>`:'';
   const btn=(a,l,cls)=>`<button ${a} class="px-3 py-1.5 text-sm border ${cls||'border-slate-300 hover:border-[#13294b]'}">${l}</button>`;
-  const ents=(n.media||[]).map((m,i)=>`<div class="py-4 ${i?'border-t border-slate-200':''}">${m.t?`<h4 class="font-bold text-[#13294b] mb-2">${esc(m.t)}</h4>`:''}<div class="flex flex-col sm:flex-row gap-4">${m.k&&m.src?`<button data-mmmed="${n.id}:${i}" class="relative flex-none sm:w-[46%] aspect-video bg-slate-100 overflow-hidden hover:opacity-90" title="눌러서 크게 보기">${mmThumb(m,'object-contain')}</button>`:''}<div class="flex-1 min-w-0 text-[15px] text-slate-700 leading-relaxed break-words">${mmRich(m)}</div></div></div>`).join('');
+  const ents=(n.media||[]).map((m,i)=>`<div class="py-4 ${i?'border-t border-slate-200':''}">${m.t?`<h4 class="font-bold text-[#13294b] mb-2">${esc(m.t)}</h4>`:''}<div class="flex flex-col sm:flex-row gap-4">${m.k&&m.src?(()=>{ const all=[m,...(m.x||[]).filter(x=>x.src)]; return `<div class="flex-none" style="width:${all.length>1?'23.5rem':'11rem'};max-width:100%"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));gap:.5rem">${all.map((x,j)=>`<button data-mmmed="${n.id}:${i}:${j}" class="relative block w-full h-28 bg-slate-100 overflow-hidden hover:opacity-90" title="눌러서 크게 보기">${mmThumb(x)}</button>`).join('')}</div></div>`; })():''}<div class="flex-1 min-w-0 text-[15px] text-slate-700 leading-relaxed break-words">${mmRich(m)}</div></div></div>`).join('');
   const colNow=n.col||'';
   box.innerHTML=`<div class="border border-slate-200 border-t-4" style="border-top-color:${MMSC[n.st]||'#94a3b8'}"><div class="p-5">
    <p class="text-xs text-slate-400 mb-2">${path.map(p=>`<button data-mmsel="${p.id}" class="hover:underline">${esc(p.t)}</button>`).join(' › ')}</p>
@@ -1846,7 +1846,7 @@ document.addEventListener('paste',async e=>{
   const modal=$('mmModal')&&!$('mmModal').classList.contains('hidden');
   if((imgs.length||urlm)&&(modal||($('mm-wrap')&&MS.sel&&mmCan()&&!/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName)))){
     e.preventDefault();
-    if(modal){ const at=ed?+ed.dataset.mmrt:-1; if(urlm){ if(at>=0&&MMED[at]&&!MMED[at].src) Object.assign(MMED[at],urlm); else MMED.push(Object.assign({t:'',cap:''},urlm)); } else await mmAddFiles(imgs,at); mmMedRows(); toast0('붙여넣은 사진을 넣었어요.'); }
+    if(modal){ const at=ed?+ed.dataset.mmrt:-1; if(urlm){ if(at>=0&&MMED[at]&&!MMED[at].src) Object.assign(MMED[at],urlm); else if(at>=0&&MMED[at]) (MMED[at].x=MMED[at].x||[]).push({k:urlm.k,src:urlm.src}); else MMED.push(Object.assign({t:'',cap:''},urlm)); } else await mmAddFiles(imgs,at); mmMedRows(); toast0('붙여넣은 사진을 넣었어요.'); }
     else { const n=mmBy(MS.sel); if(!n) return; const arr=JSON.parse(JSON.stringify(n.media||[])); if(urlm) arr.push(Object.assign({t:'',cap:''},urlm)); else await mmAddFiles(imgs,-1,arr); if(arr.length===(n.media||[]).length) return; mmSnap(); n.media=arr; mmSave(); MS.fit=false; mmAll(); toast0('붙여넣은 사진을 ‘'+n.t+'’ 에 넣었어요.'); }
     return;
   }
@@ -1877,7 +1877,7 @@ function mmEnsureModal(){
    <label class="block"><span class="font-bold text-slate-700">상위 연구</span><select id="mmfP" class="mt-1 w-full border border-slate-300 px-3 py-2"></select></label></div>
    <div><span class="font-bold text-slate-700">내용 (사진 + 설명)</span><p class="text-[11px] text-slate-400 leading-snug">모든 설명은 여기에 적어요. 항목마다 소제목, 사진(또는 영상), 설명을 적으면 사진 옆에 설명이 나란히 표시돼요. 사진 없이 글만 적어도 돼요.</p><div id="mmTb" class="sticky top-0 z-10 mt-1.5 mb-2 bg-white border border-slate-300 p-1.5 flex flex-wrap items-center gap-1 text-sm shadow-sm"><button type="button" data-mmtb="bold" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] font-bold" title="굵게 (Ctrl+B)">B</button><button type="button" data-mmtb="italic" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] italic" title="기울임 (Ctrl+I)">I</button><button type="button" data-mmtb="underline" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] underline" title="밑줄 (Ctrl+U)">U</button><button type="button" data-mmtb="strikeThrough" class="w-8 h-8 border border-slate-200 hover:border-[#13294b] line-through" title="취소선">S</button><select id="mmTbSize" class="h-8 border border-slate-200 bg-white px-1" title="글자 크기"><option value="">크기</option><option value="12">작게</option><option value="15">보통</option><option value="19">크게</option><option value="24">아주 크게</option><option value="32">제목 크기</option></select><button type="button" data-mmtbc="fore" class="h-8 px-2 border border-slate-200 hover:border-[#13294b]" title="글자 색"><b style="color:#dc2626">A</b> 글자색</button><button type="button" data-mmtbc="back" class="h-8 px-2 border border-slate-200 hover:border-[#13294b]" title="형광펜 (글자 배경색)"><b style="background:#fde047;padding:0 3px">A</b> 형광펜</button><button type="button" data-mmtb="removeFormat" class="h-8 px-2 border border-slate-200 hover:border-[#13294b] text-slate-600" title="선택한 글자의 서식 지우기">서식 지우기</button><div id="mmTbPal" class="hidden basis-full flex flex-wrap items-center gap-1.5 pt-1.5"></div></div><div id="mmfMed" class="space-y-3"></div>
     <div class="flex flex-wrap gap-2 mt-2"><button type="button" data-mmeadd class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">＋ 내용 추가</button><button type="button" data-mmimgs class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">📷 사진·영상 여러 개 올리기</button><input id="mmFile" type="file" accept="image/*,video/*" multiple class="hidden"></div>
-    <p class="text-[11px] text-slate-400 mt-1 leading-snug">화면 캡처는 Ctrl+V 로 바로 붙여넣을 수 있고, 바탕화면의 사진·영상 파일을 이 창 안으로 끌어다 놓아도 돼요 (항목 위에 놓으면 그 항목에 들어가요). 사진은 가로 1280px로 줄여 저장돼요. 영상 파일은 3MB까지만 바로 넣을 수 있고, 더 큰 영상은 YouTube 주소나 mp4 파일 경로(저장소 assets 폴더에 올린 파일)를 넣어 주세요.</p></div>
+    <p class="text-[11px] text-slate-400 mt-1 leading-snug">화면 캡처는 Ctrl+V 로 바로 붙여넣을 수 있고, 바탕화면의 사진·영상 파일을 이 창 안으로 끌어다 놓아도 돼요 (항목 위에 놓으면 그 항목에 들어가고, 한 항목에 사진을 여러 장 넣을 수도 있어요). 사진은 가로 1280px로 줄여 저장돼요. 영상 파일은 3MB까지만 바로 넣을 수 있고, 더 큰 영상은 YouTube 주소나 mp4 파일 경로(저장소 assets 폴더에 올린 파일)를 넣어 주세요.</p></div>
    <div id="mmfColBox"><span class="font-bold text-slate-700">색상</span><div id="mmfCols" class="mt-1.5"></div></div>
   </div>
   <div class="px-5 pb-5 flex justify-between items-center"><button type="button" id="mmfDel" data-mmdel2 class="text-sm text-red-600 hover:underline hidden">삭제</button><span class="flex gap-2 ml-auto"><button type="button" data-mmx class="px-4 py-2 text-sm border border-slate-300 hover:border-[#13294b]">취소</button><button class="px-5 py-2 text-sm bg-[#13294b] text-white hover:bg-[#1d3e72]">저장</button></span></div></form></div>
@@ -1889,7 +1889,7 @@ async function mmAddFiles(fs,at,arr){
   arr=arr||MMED; const big=[]; let first=true;
   for(const f of fs){ try{
     let k,src; if(/^image\//.test(f.type)){ k='img'; src=await mmReadImg(f); } else if(/^video\//.test(f.type)){ k='vid'; src=await mmReadVid(f); } else { alert('‘'+f.name+'’ 은(는) 사진·영상 파일이 아니에요.'); continue; }
-    if(first&&at>=0&&arr[at]&&!arr[at].src){ arr[at].k=k; arr[at].src=src; at++; } else { arr.push({t:'',k,src,cap:''}); at=-1; } first=false;
+    if(at>=0&&arr[at]){ if(!arr[at].src){ arr[at].k=k; arr[at].src=src; } else (arr[at].x=arr[at].x||[]).push({k,src}); } else { arr.push({t:'',k,src,cap:''}); at=-1; } first=false;
   }catch(x){ if(x==='big') big.push(f.name); else alert('‘'+f.name+'’ 파일을 읽지 못했습니다.'); } }
   if(big.length) alert('영상은 3MB까지만 바로 넣을 수 있어요: '+big.join(', ')+'\n큰 영상은 저장소 assets 폴더에 올린 뒤 경로(assets/파일.mp4)나 YouTube 주소로 넣어 주세요.');
 }
@@ -1901,20 +1901,21 @@ document.addEventListener('drop',async e=>{
   e.preventDefault(); document.querySelectorAll('.mmdz').forEach(x=>x.classList.remove('mmdz'));
   const fs=[...e.dataTransfer.files]; let urlm=null; if(!fs.length){ urlm=mmMediaFromUrl((e.dataTransfer.getData('text/uri-list')||'').split('\n')[0]); if(!urlm) return; }
   if(m){ const en=e.target.closest('[data-mment]'), at=en?+en.dataset.mment:-1;
-    if(urlm){ if(at>=0&&MMED[at]&&!MMED[at].src) Object.assign(MMED[at],urlm); else MMED.push(Object.assign({t:'',cap:''},urlm)); } else await mmAddFiles(fs,at);
+    if(urlm){ if(at>=0&&MMED[at]&&!MMED[at].src) Object.assign(MMED[at],urlm); else if(at>=0&&MMED[at]) (MMED[at].x=MMED[at].x||[]).push({k:urlm.k,src:urlm.src}); else MMED.push(Object.assign({t:'',cap:''},urlm)); } else await mmAddFiles(fs,at);
     mmMedRows(); }
   else { const g=e.target.closest('[data-mmn]'); if(!g||!mmCan()) return; const n=mmBy(g.dataset.mmn); if(!n) return; const arr=JSON.parse(JSON.stringify(n.media||[]));
     if(urlm) arr.push(Object.assign({t:'',cap:''},urlm)); else await mmAddFiles(fs,-1,arr);
     if(arr.length===(n.media||[]).length) return; mmSnap(); n.media=arr; mmSave(); MS.fit=false; MS.sel=n.id; mmAll(); }
 });
 let LB={id:null,i:0};
+const mmLbList=n=>(n.media||[]).flatMap(m=>m.k&&m.src?[m,...(m.x||[]).filter(x=>x.src).map(x=>({k:x.k,src:x.src,t:m.t,cap:m.cap,h:m.h}))]:[]);
 function mmLbShow(){
-  const n=mmBy(LB.id), ms=n?(n.media||[]).filter(m=>m.k&&m.src):[], m=ms[LB.i]; if(!m){ mmLbClose(); return; }
+  const n=mmBy(LB.id), ms=n?mmLbList(n):[], m=ms[LB.i]; if(!m){ mmLbClose(); return; }
   $('mmLbBox').innerHTML=m.k==='img'?`<img src="${esc(m.src)}" alt="" class="max-w-full object-contain" style="max-height:72vh">`:m.k==='yt'?`<div class="w-full" style="aspect-ratio:16/9;max-height:72vh"><iframe src="https://www.youtube-nocookie.com/embed/${esc(m.src)}?rel=0" class="w-full h-full" style="border:0" allow="accelerometer;autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe></div>`:`<video src="${esc(m.src)}" controls autoplay playsinline class="max-w-full" style="max-height:72vh"></video>`;
   $('mmLbCap').innerHTML=(m.t?`<b class="block text-base mb-1">${esc(m.t)}</b>`:'')+mmRich(m)+`<div class="text-xs text-slate-400 mt-2">${esc(n.t)} · ${LB.i+1} / ${ms.length}</div>`;
   const many=ms.length>1; document.querySelector('[data-mmlbp]').style.display=many?'':'none'; document.querySelector('[data-mmlbn]').style.display=many?'':'none';
 }
-function mmLbOpen(id,i){ mmEnsureModal(); const n=mmBy(id); if(!n) return; const m=(n.media||[])[i]; LB={id,i:Math.max(0,(n.media||[]).filter(x=>x.k&&x.src).indexOf(m))}; $('mmLb').classList.remove('hidden'); mmLbShow(); }
+function mmLbOpen(id,i,j){ mmEnsureModal(); const n=mmBy(id); if(!n) return; let k=0; (n.media||[]).forEach((m,x)=>{ if(x<i&&m.k&&m.src) k+=1+(m.x||[]).filter(e=>e.src).length; }); LB={id,i:k+(j||0)}; $('mmLb').classList.remove('hidden'); mmLbShow(); }
 function mmLbClose(){ const b=$('mmLb'); if(b){ b.classList.add('hidden'); $('mmLbBox').innerHTML=''; } }
 let mmColSel='';
 function mmPickCol(c){ mmColSel=c||''; const sw=x=>`<button type="button" data-mmcol="${x}" class="w-6 h-6 border-2 ${x.toLowerCase()===mmColSel.toLowerCase()?'border-black':'border-white shadow'}" style="background:${x}" aria-label="${x}"></button>`;
@@ -1923,7 +1924,7 @@ function mmMedRows(){
   const b=$('mmfMed'); if(!b) return;
   b.innerHTML=MMED.length?MMED.map((m,i)=>`<div data-mment="${i}" class="border border-slate-200 bg-slate-50/60 p-2.5"><div class="flex items-center mb-1.5"><b class="text-xs text-slate-500">내용 ${i+1}</b><span class="ml-auto flex text-xs"><button type="button" data-mmmup="${i}" class="px-1.5 text-slate-500 hover:text-[#13294b]">▲</button><button type="button" data-mmmdn="${i}" class="px-1.5 text-slate-500 hover:text-[#13294b]">▼</button><button type="button" data-mmmrm="${i}" class="px-1.5 text-red-500">✕ 삭제</button></span></div>
    <input data-mmet="${i}" maxlength="60" value="${esc(m.t||'')}" class="w-full border border-slate-300 px-3 py-1.5 text-sm font-bold mb-2 bg-white" placeholder="소제목 (선택) 예: 서풍 매의 사당">
-   <div class="flex gap-2 items-start"><div class="flex-none w-44">${m.src?`<span class="relative block w-44 h-28 bg-slate-100 overflow-hidden">${mmThumb(m)}</span><button type="button" data-mmmclr="${i}" class="text-[11px] text-red-500 mt-1">사진·영상 빼기</button>`:`<button type="button" data-mmimg="${i}" class="w-44 h-28 border-2 border-dashed border-slate-300 text-xs text-slate-500 hover:border-[#13294b] bg-white">📷 사진<br>올리기</button>`}</div>
+   <div class="flex gap-2 items-start"><div class="flex-none w-44">${m.src?`<span class="relative block w-44 h-28 bg-slate-100 overflow-hidden">${mmThumb(m)}</span>${(m.x||[]).length?`<div class="grid grid-cols-3 gap-1 mt-1">${m.x.map((x,j)=>`<span class="relative block h-12 bg-slate-100 overflow-hidden">${mmThumb(x)}<button type="button" data-mmxrm="${i}:${j}" class="absolute right-0 top-0 bg-black/60 text-white text-xs px-1" aria-label="이 사진 빼기">✕</button></span>`).join('')}</div>`:''}<div class="flex gap-2 mt-1"><button type="button" data-mmimg="${i}" class="text-[11px] text-[#1d3e72] font-bold">＋ 사진 더 넣기</button><button type="button" data-mmmclr="${i}" class="text-[11px] text-red-500">첫 사진 빼기</button></div>`:`<button type="button" data-mmimg="${i}" class="w-44 h-28 border-2 border-dashed border-slate-300 text-xs text-slate-500 hover:border-[#13294b] bg-white">📷 사진<br>올리기</button>`}</div>
    <div data-mmrt="${i}" contenteditable="true" data-ph="설명 (사진 옆에 나란히 표시돼요)" style="min-height:11rem;max-height:30rem;overflow:auto;resize:vertical" class="mmrt flex-1 min-w-0 border border-slate-300 px-3 py-2 text-[15px] leading-relaxed bg-white break-words focus:outline-none focus:border-[#13294b]">${mmRich(m)}</div></div>
    ${m.src?'':`<div class="flex gap-1 mt-1.5"><input data-mmeu="${i}" class="flex-1 min-w-0 border border-slate-300 px-2 py-1 text-xs bg-white" placeholder="또는 영상·사진 주소 (YouTube, mp4, assets/…)"><button type="button" data-mmeuset="${i}" class="px-2.5 text-xs border border-slate-300 hover:border-[#13294b] bg-white flex-none">적용</button></div>`}</div>`).join(''):'<p class="text-xs text-slate-400">아직 상세 내용이 없습니다. ‘＋ 내용 추가’를 눌러 사진과 설명을 넣어 보세요.</p>';
 }
@@ -1938,7 +1939,7 @@ function mmOpenForm(mode,id,parent){
 }
 function mmSubmit(e){
   e.preventDefault(); const t=$('mmfT').value.trim(); if(!t){ $('mmfT').focus(); return; }
-  const d={t,st:$('mmfSt').value,who:$('mmfWho').value.trim(),when:mmWhenStr(),s:$('mmfS').value,e:$('mmfE').value,note:'',p:$('mmfP').value,col:mmColSel,media:MMED.filter(m=>m.src||(m.t||'').trim()||(m.cap||'').trim()).map(m=>({t:(m.t||'').trim(),k:m.src?m.k:'',src:m.src||'',cap:(m.cap||'').trim(),h:(m.cap||'').trim()?(m.h||''):''}))};
+  const d={t,st:$('mmfSt').value,who:$('mmfWho').value.trim(),when:mmWhenStr(),s:$('mmfS').value,e:$('mmfE').value,note:'',p:$('mmfP').value,col:mmColSel,media:MMED.filter(m=>m.src||(m.t||'').trim()||(m.cap||'').trim()).map(m=>({t:(m.t||'').trim(),k:m.src?m.k:'',src:m.src||'',cap:(m.cap||'').trim(),h:(m.cap||'').trim()?(m.h||''):'',x:m.src?(m.x||[]).filter(e=>e&&e.src).map(e=>({k:e.k,src:e.src})):[]}))};
   mmSnap(); let n;
   if(MF.mode==='edit'){ n=mmBy(MF.id); const moved=n.p!==d.p; Object.assign(n,d); if(moved){ MM.splice(MM.indexOf(n),1); MM.push(n); } }
   else { n=Object.assign({id:mmId(),link:''},d); MM.push(n); }
@@ -2021,7 +2022,7 @@ R.mindmap=()=>H('연구 마인드맵')+'<div id="mm-wrap"></div>'; INIT.mindmap=
 R.timeline=()=>''; INIT.timeline=()=>{ $('tl-wrap').classList.remove('hidden'); $('subBody').classList.add('hidden'); startTimeline(); };
 document.addEventListener('click',e=>{
   if(e.target.id==='mmLb'){ mmLbClose(); return; }
-  const t=e.target.closest('[data-mmroot],[data-mmview],[data-mmst],[data-mmsel],[data-mmnew],[data-mmadd],[data-mmsib],[data-mmedit],[data-mmup],[data-mmdn],[data-mmdel],[data-mmdel2],[data-mmx],[data-mmcol],[data-mmz],[data-mmfit],[data-mmpng],[data-mmundo],[data-mmqc],[data-mmeadd],[data-mmimgs],[data-mmimg],[data-mmmrm],[data-mmmup],[data-mmmdn],[data-mmmclr],[data-mmeuset],[data-mmmed],[data-mmlbx],[data-mmlbp],[data-mmlbn]'); if(!t||!$('mm-wrap')&&!t.closest('#mmModal,#mmLb')) return;
+  const t=e.target.closest('[data-mmroot],[data-mmview],[data-mmst],[data-mmsel],[data-mmnew],[data-mmadd],[data-mmsib],[data-mmedit],[data-mmup],[data-mmdn],[data-mmdel],[data-mmdel2],[data-mmx],[data-mmcol],[data-mmz],[data-mmfit],[data-mmpng],[data-mmundo],[data-mmqc],[data-mmeadd],[data-mmimgs],[data-mmimg],[data-mmmrm],[data-mmmup],[data-mmmdn],[data-mmmclr],[data-mmxrm],[data-mmeuset],[data-mmmed],[data-mmlbx],[data-mmlbp],[data-mmlbn]'); if(!t||!$('mm-wrap')&&!t.closest('#mmModal,#mmLb')) return;
   const d=t.dataset;
   if(d.mmroot!==undefined){ MS.root=d.mmroot; MS.fit=true; MS.moved=false; mmAll(); }
   else if(d.mmview!==undefined){ MS.view=d.mmview; MS.fit=!MS.moved; mmAll(); if(MS.view==='map') requestAnimationFrame(()=>{ if(MS.fit&&!MS.moved) mmFit(); }); }
@@ -2045,13 +2046,14 @@ document.addEventListener('click',e=>{
   else if(d.mmeadd!==undefined){ MMED.push({t:'',k:'',src:'',cap:''}); mmMedRows(); }
   else if(d.mmimgs!==undefined){ MMIDX=-1; $('mmFile').click(); }
   else if(d.mmimg!==undefined){ MMIDX=+d.mmimg; $('mmFile').click(); }
-  else if(d.mmmclr!==undefined){ const m=MMED[+d.mmmclr]; if(m){ m.k=''; m.src=''; mmMedRows(); } }
+  else if(d.mmmclr!==undefined){ const m=MMED[+d.mmmclr]; if(m){ if(m.x&&m.x.length){ Object.assign(m,m.x.shift()); } else { m.k=''; m.src=''; } mmMedRows(); } }
+  else if(d.mmxrm!==undefined){ const q=d.mmxrm.split(':'), m=MMED[+q[0]]; if(m&&m.x){ m.x.splice(+q[1],1); mmMedRows(); } }
   else if(d.mmeuset!==undefined){ const i=+d.mmeuset, inp=document.querySelector(`[data-mmeu="${i}"]`), m=mmMediaFromUrl(inp&&inp.value); if(!m){ alert('주소를 확인해 주세요. YouTube 주소, mp4 파일 경로, 또는 사진 주소(https:// 또는 assets/…)를 넣을 수 있어요.'); return; } Object.assign(MMED[i],m); mmMedRows(); }
   else if(d.mmmrm!==undefined){ MMED.splice(+d.mmmrm,1); mmMedRows(); }
   else if(d.mmmup!==undefined||d.mmmdn!==undefined){ const i=+(d.mmmup!==undefined?d.mmmup:d.mmmdn), j=d.mmmup!==undefined?i-1:i+1; if(MMED[j]){ const a=MMED[i]; MMED[i]=MMED[j]; MMED[j]=a; mmMedRows(); } }
-  else if(d.mmmed!==undefined){ const q=d.mmmed.split(':'); mmLbOpen(q[0],+q[1]); }
+  else if(d.mmmed!==undefined){ const q=d.mmmed.split(':'); mmLbOpen(q[0],+q[1],+q[2]||0); }
   else if(d.mmlbx!==undefined){ mmLbClose(); }
-  else if(d.mmlbp!==undefined||d.mmlbn!==undefined){ const n=mmBy(LB.id); if(n){ const L=(n.media||[]).filter(m=>m.k&&m.src).length; LB.i=(LB.i+(d.mmlbn!==undefined?1:-1)+L)%L; mmLbShow(); } }
+  else if(d.mmlbp!==undefined||d.mmlbn!==undefined){ const n=mmBy(LB.id); if(n){ const L=mmLbList(n).length; LB.i=(LB.i+(d.mmlbn!==undefined?1:-1)+L)%L; mmLbShow(); } }
 });
 document.addEventListener('change',e=>{ const id=e.target.id; if(id==='mmfWho') MF.whoAuto=false; else if(id==='mmfP'&&MF.mode==='add'&&MF.whoAuto){ const w=e.target.value?mmTopWho(e.target.value):''; $('mmfWho').innerHTML=mmWhoOpts(w); $('mmfWho').value=w; } if(id==='mmfSt') mmStatusChange(); else if(id==='mmfS'){ MF.autoStart=false; const E=$('mmfE'); if(E.value&&e.target.value&&E.value<e.target.value){ E.value=e.target.value; } if($('mmfSt').value==='완료'&&!E.value){ mmStatusChange(); } mmWhenHint(); } else if(id==='mmfE'){ MF.autoEnd=false; const S=$('mmfS'); if(S.value&&e.target.value&&e.target.value<S.value){ S.value=e.target.value; } mmWhenHint(); } });
 document.addEventListener('input',e=>{ const t=e.target, d=t.dataset||{}; if(d.mmrt!==undefined) mmRtSync(t); if(d.mmet!==undefined&&MMED[+d.mmet]) MMED[+d.mmet].t=t.value; if(t.id==='mmfColIn') mmPickCol(t.value); });
