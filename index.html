@@ -1626,6 +1626,7 @@ const mmBy=id=>MM.find(n=>n.id===id);
 const mmRoots=()=>MM.filter(n=>!n.p||!mmBy(n.p));
 const mmKids=id=>MM.filter(n=>n.p===id);
 const mmDesc=id=>{ const o=[]; (function f(i){ mmKids(i).forEach(c=>{ if(!o.includes(c.id)){ o.push(c.id); f(c.id); } }); })(id); return o; };
+const mmTopWho=id=>{ let x=mmBy(id),i=0; while(x&&x.p&&mmBy(x.p)&&i++<50) x=mmBy(x.p); return x&&x.who||''; };
 const mmCan=()=>{ try{ return canEditNow(); }catch(e){ return true; } };
 const mmId=()=>'m'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 const mmCv=document.createElement('canvas').getContext('2d');
@@ -1759,7 +1760,7 @@ function mmInline(kind,id){
     else if(e.key==='Enter'){ e.preventDefault(); const v=i.value.trim(); if(!v){ mmInlineClose(); return; }
       mmSnap();
       if(kind==='rename'){ n.t=v; mmSave(); MS.sel=id; mmAll(); }
-      else { const c={id:mmId(),p:id,t:v,st:'계획',who:'',when:'',note:'',link:'',col:'',media:[]}; MM.push(c); n.c=0; mmSave(); MS.sel=id; mmAll(); mmInline('add',id); }
+      else { const c={id:mmId(),p:id,t:v,st:'계획',who:mmTopWho(id),when:'',note:'',link:'',col:'',media:[]}; MM.push(c); n.c=0; mmSave(); MS.sel=id; mmAll(); mmInline('add',id); }
     }
   });
   i.addEventListener('blur',()=>{ setTimeout(()=>{ if(i.isConnected&&!i.dataset.done) mmInlineClose(); },120); });
@@ -1844,9 +1845,11 @@ const mmIso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+St
 const mmFmt=s=>s?s.replace(/-/g,'.'):'';
 function mmParseWhen(w){ const m=[...String(w||'').matchAll(/(\d{4})\.(\d{1,2})(?:\.(\d{1,2}))?/g)]; if(!m.length) return {s:'',e:''}; const f=(x,end)=>{ const y=+x[1], mo=+x[2], d=x[3]?+x[3]:(end?new Date(y,mo,0).getDate():1); return mmIso(new Date(y,mo-1,d)); }; return {s:f(m[0],0),e:m[1]?f(m[1],1):''}; }
 function mmWhenStr(){ const s=$('mmfS').value, e=$('mmfE').value, st=$('mmfSt').value; if(!s&&!e) return ''; const tail=e?mmFmt(e):(st==='완료'?'':st==='진행중'?'진행 중':'예정'); return mmFmt(s)+(tail?' ~ '+tail:''); }
-function mmWhenHint(){ const st=$('mmfSt').value, e=$('mmfE').value, h=$('mmfWh'); if(!h) return; h.textContent=(mmWhenStr()?'표시: '+mmWhenStr()+' · ':'')+(st==='완료'?'‘완료’로 바꾸면 종료일이 오늘 날짜로 자동 입력돼요. 필요하면 직접 바꿔 주세요.':'종료일을 비워 두면 상태에 따라 ‘진행 중’/‘예정’으로 표시돼요.'); }
-function mmWhenInit(n){ let s=n&&n.s, e=n&&n.e; if(n&&s===undefined&&e===undefined){ const p=mmParseWhen(n.when); s=p.s; e=p.e; } $('mmfS').value=s||''; $('mmfE').value=e||''; MF.autoEnd=false; mmWhenHint(); }
-function mmStatusChange(){ const st=$('mmfSt').value, E=$('mmfE'), S=$('mmfS'); if(st==='완료'){ if(!E.value){ E.value=mmIso(new Date()); MF.autoEnd=true; } if(S.value&&E.value<S.value){ E.value=S.value; } } else if(MF.autoEnd){ E.value=''; MF.autoEnd=false; } mmWhenHint(); }
+function mmWhenHint(){ const st=$('mmfSt').value, e=$('mmfE').value, h=$('mmfWh'); if(!h) return; h.textContent=(mmWhenStr()?'표시: '+mmWhenStr()+' · ':'')+(st==='완료'?'‘완료’로 바꾸면 종료일이 오늘 날짜로 자동 입력돼요. 필요하면 직접 바꿔 주세요.':'‘진행중’으로 바꾸면 시작일이 오늘로 자동 입력되고, 종료일을 비워 두면 ‘진행 중’/‘예정’으로 표시돼요.'); }
+function mmWhenInit(n){ let s=n&&n.s, e=n&&n.e; if(n&&s===undefined&&e===undefined){ const p=mmParseWhen(n.when); s=p.s; e=p.e; } $('mmfS').value=s||''; $('mmfE').value=e||''; MF.autoEnd=false; MF.autoStart=false; mmWhenHint(); }
+function mmStatusChange(){ const st=$('mmfSt').value, E=$('mmfE'), S=$('mmfS'); if(st==='완료'){ if(!E.value){ E.value=mmIso(new Date()); MF.autoEnd=true; } if(S.value&&E.value<S.value){ E.value=S.value; } } else if(MF.autoEnd){ E.value=''; MF.autoEnd=false; }
+  if(st==='진행중'&&!S.value){ S.value=mmIso(new Date()); MF.autoStart=true; } else if(st==='계획'&&MF.autoStart){ S.value=''; MF.autoStart=false; }
+  mmWhenHint(); }
 
 function mmEnsureModal(){
   if($('mmModal')) return;
@@ -1915,7 +1918,7 @@ function mmOpenForm(mode,id,parent){
   $('mmFH').textContent=mode==='edit'?'연구 수정':(parent?'하위 연구 추가':'새 연구 시작');
   const opts=['<option value="">(없음 — 새 연구의 시작점)</option>']; (function w(pid,d){ MM.filter(x=>(pid===''?(!x.p||!mmBy(x.p)):x.p===pid)).forEach(x=>{ if(ex.includes(x.id)) return; opts.push(`<option value="${x.id}">${'　'.repeat(d)}${d?'└ ':''}${esc(x.t)}</option>`); w(x.id,d+1); }); })('',0);
   $('mmfP').innerHTML=opts.join(''); $('mmfP').value=n?(mmBy(n.p)?n.p:''):(parent||''); MMED=n?JSON.parse(JSON.stringify(n.media||[])):[]; if(!MMED.length) MMED.push({t:'',k:'',src:'',cap:''}); mmMedRows();
-  $('mmfT').value=n?n.t:''; $('mmfSt').value=n?n.st:'계획'; $('mmfWho').innerHTML=mmWhoOpts(n?n.who||'':''); $('mmfWho').value=n?n.who||'':''; mmWhenInit(n); 
+  $('mmfT').value=n?n.t:''; $('mmfSt').value=n?n.st:'계획'; { const w0=n?n.who||'':(parent?mmTopWho(parent):''); $('mmfWho').innerHTML=mmWhoOpts(w0); $('mmfWho').value=w0; MF.whoAuto=!n; } mmWhenInit(n); 
   mmPickCol(n?n.col||'':''); $('mmfDel').classList.toggle('hidden',mode!=='edit');
   $('mmModal').classList.remove('hidden'); setTimeout(()=>$('mmfT').focus(),30);
 }
@@ -2036,7 +2039,7 @@ document.addEventListener('click',e=>{
   else if(d.mmlbx!==undefined){ mmLbClose(); }
   else if(d.mmlbp!==undefined||d.mmlbn!==undefined){ const n=mmBy(LB.id); if(n){ const L=(n.media||[]).filter(m=>m.k&&m.src).length; LB.i=(LB.i+(d.mmlbn!==undefined?1:-1)+L)%L; mmLbShow(); } }
 });
-document.addEventListener('change',e=>{ const id=e.target.id; if(id==='mmfSt') mmStatusChange(); else if(id==='mmfS'){ const E=$('mmfE'); if(E.value&&e.target.value&&E.value<e.target.value){ E.value=e.target.value; } if($('mmfSt').value==='완료'&&!E.value){ mmStatusChange(); } mmWhenHint(); } else if(id==='mmfE'){ MF.autoEnd=false; const S=$('mmfS'); if(S.value&&e.target.value&&e.target.value<S.value){ S.value=e.target.value; } mmWhenHint(); } });
+document.addEventListener('change',e=>{ const id=e.target.id; if(id==='mmfWho') MF.whoAuto=false; else if(id==='mmfP'&&MF.mode==='add'&&MF.whoAuto){ const w=e.target.value?mmTopWho(e.target.value):''; $('mmfWho').innerHTML=mmWhoOpts(w); $('mmfWho').value=w; } if(id==='mmfSt') mmStatusChange(); else if(id==='mmfS'){ MF.autoStart=false; const E=$('mmfE'); if(E.value&&e.target.value&&E.value<e.target.value){ E.value=e.target.value; } if($('mmfSt').value==='완료'&&!E.value){ mmStatusChange(); } mmWhenHint(); } else if(id==='mmfE'){ MF.autoEnd=false; const S=$('mmfS'); if(S.value&&e.target.value&&e.target.value<S.value){ S.value=e.target.value; } mmWhenHint(); } });
 document.addEventListener('input',e=>{ const t=e.target, d=t.dataset||{}; if(d.mmrt!==undefined) mmRtSync(t); if(d.mmet!==undefined&&MMED[+d.mmet]) MMED[+d.mmet].t=t.value; if(t.id==='mmfColIn') mmPickCol(t.value); });
 document.addEventListener('change',async e=>{
   const t=e.target;
