@@ -1144,6 +1144,7 @@ const COLLEGES=[
  {id:'natlan',name:'나타 캠퍼스',tag:'전쟁의 학풍',c:'#ea580c',desc:'열정과 경쟁의 정신으로 체력과 전투 기술을 단련하는 대학입니다.',depts:['체육교육과','전투기술학과','고대이름계승학과','열소응용학과','나타용전문의학과']},
  {id:'snezhnaya',name:'스네즈나야 캠퍼스',tag:'북국의 학풍',c:'#0284c7',desc:'혹한의 땅에서 발전한 첨단 과학 기술을 연구합니다.',depts:['저온공학과','정밀기계학과','외교·전략학과','스네즈나야 군사학과','스네즈나야 문화·예술학과']}
 ];
+const INST0=[['원소학연구소','원소 반응과 에너지 순환을 연구합니다.'],['고대문헌연구소','수메르 도서관 고서를 연구합니다.'],['심연탐사센터','미지의 지하 구역을 안전하게 탐사합니다.'],['약초·식물연구소','티바트 전역의 식물 자원을 연구합니다.']];
 /* 입학자료실 파일: '자료 이름':'파일 경로' — 파일을 assets/docs/ 에 올리고 여기에 한 줄 추가하면 열람 버튼이 다운로드로 바뀝니다 */
 const DOCFILES={
  '2027학년도 수시모집 요강':'assets/docs/2027학년도 수시모집 요강.pdf','2026학년도 입시 결과': 'assets/docs/2026학년도 입시 결과 분석 보고서.pdf','입학원서 및 활동기록서 양식': 'assets/docs/입학원서 및 활동기록서 양식.pdf','장학금 안내 책자': 'assets/docs/2027학년도 장학금 안내 책자.pdf'
@@ -1491,7 +1492,7 @@ const R={
  dorm:()=>H('기숙사')+ACC([['몬드 생활관 (1인실)','정문 인근에 있는 1인실 중심 기숙사입니다. 바람이 잘 드는 창가가 인기입니다.'],['리월 생활관 (2인실)','식당과 가까운 2인실 기숙사입니다. 룸메이트와 계약서를 작성하는 전통이 있습니다.'],['수메르 생활관 (4인실)','도서관과 연결된 통로가 있어 시험 기간에 인기가 높습니다.']]),
  bus:()=>H('캠퍼스 버스')+T(['노선','경로','배차'],[['1호선','정문 ↔ 본관 ↔ 수메르 도서관','10분'],['2호선','기숙사 순환','15분'],['3호선','체육관 ↔ 스네즈나야 캠퍼스','20분']])+`<p class="text-sm text-slate-500 mt-3">운행 시간: 평일 07:30 ~ 22:00</p>`,
  results:()=>H('연구성과')+ACC([['티바트 원소 순환 연구','원소 반응이 지역 생태계에 미치는 영향을 7개 국가에서 비교 조사했습니다.'],['고대 문헌 디지털 아카이브','수메르 도서관 고서 1만 권의 디지털화를 진행 중입니다.'],['심층 수계 생태 조사','폰타인 수역의 생물 다양성을 조사했습니다.'],['전통 공예와 에너지 공학','이나즈마 장인 기술을 현대 공학에 접목한 연구입니다.']]),
- institutes:()=>H('연구기관')+CARDS([['원소학연구소','원소 반응과 에너지 순환을 연구합니다.'],['고대문헌연구소','수메르 도서관 고서를 연구합니다.'],['심연탐사센터','미지의 지하 구역을 안전하게 탐사합니다.'],['약초·식물연구소','티바트 전역의 식물 자원을 연구합니다.']]),
+ institutes:()=>H('연구기관')+CARDS(INST0),
  industry:()=>H('산학협력단')+CARDS([['현장 실습','일곱 국가 상회와 연계한 학기 중 실습 프로그램입니다.'],['공동 연구','기업과 함께 하는 연구 과제를 운영합니다.'],['창업 지원','학생 창업 동아리에 공간과 자금을 지원합니다.']])+`<button data-contact class="mt-6 bg-[#13294b] text-white px-5 py-2.5 hover:bg-[#1d3e72]">협력 문의하기</button>`
 };
 /* ===== 티바트 캠퍼스맵 (SNU 캠퍼스맵 스타일 · 공식 티바트 전체지도 배경) ===== */
@@ -1615,6 +1616,8 @@ const MMPAL=['#ef4444','#f97316','#f59e0b','#eab308','#84cc16','#22c55e','#10b98
 function mmFlat(t,p,out){ t.forEach(x=>{ const id='d'+(out.length+1); out.push({id,p,t:x[0],st:x[1]||'계획',who:x[2]||'',when:x[3]||'',note:x[4]||'',link:'',col:'',media:[]}); if(x[5]) mmFlat(x[5],id,out); }); return out; }
 let MM=null; try{ const v=JSON.parse(localStorage.getItem('gu_mm')||'null'); if(Array.isArray(v)) MM=v; }catch(e){}
 if(!MM) MM=mmFlat(MM_T0,'',[]);
+MM.forEach(n=>{ if(!Array.isArray(n.media)) n.media=[]; if(n.note&&n.note.trim()){ n.media.unshift({t:'',k:'',src:'',cap:n.note.trim()}); n.note=''; } });
+const mmTxt=n=>(n.t||'')+' '+(n.who||'')+' '+(n.media||[]).map(m=>(m.t||'')+' '+(m.cap||'')).join(' ');
 const mmSave=()=>{ try{ localStorage.setItem('gu_mm',JSON.stringify(MM)); }catch(e){ alert('브라우저 저장 공간이 부족해 이번 방문에만 적용됩니다. 사진이 많으면 assets 폴더에 올리고 경로로 넣어 주세요.'); } };
 let MMH=[]; const mmSnap=()=>{ MMH.push(JSON.stringify(MM)); if(MMH.length>40) MMH.shift(); };
 const MS={root:'all',sel:null,view:'map',q:'',st:'all',tf:{x:0,y:0,k:1},fit:true,moved:false,lay:null,drop:null};
@@ -1664,7 +1667,7 @@ function mmDraw(){
   list.forEach(r=>{ const L=mmLayout(r), dy=off-L.b.y0; L.nodes.forEach(o=>{ o.y+=dy; o.cy+=dy; }); L.edges.forEach(e=>{ e.y1+=dy; e.y2+=dy; }); nodes=nodes.concat(L.nodes); edges=edges.concat(L.edges); b.x0=Math.min(b.x0,L.b.x0); b.x1=Math.max(b.x1,L.b.x1); b.y0=Math.min(b.y0,L.b.y0+dy); b.y1=Math.max(b.y1,L.b.y1+dy); off=L.b.y1+dy+80; });
   if(!nodes.length) b={x0:-100,x1:100,y0:-50,y1:50};
   MS.lay={nodes,edges,b};
-  const q=MS.q.trim().toLowerCase(), hit=n=>q&&((n.t||'')+' '+(n.note||'')+' '+(n.who||'')).toLowerCase().includes(q), can=mmCan();
+  const q=MS.q.trim().toLowerCase(), hit=n=>q&&mmTxt(n).toLowerCase().includes(q), can=mmCan();
   const eh=edges.map(e=>{ const dx=(e.x2-e.x1)/2; return `<path d="M${e.x1} ${e.y1} C${e.x1+dx} ${e.y1},${e.x2-dx} ${e.y2},${e.x2} ${e.y2}" fill="none" stroke="${e.col}" stroke-width="${e.lv===1?3.5:2}" stroke-linecap="round" opacity=".85"/>`; }).join('');
   const nh=nodes.map(o=>{
     const n=o.n, z=o.z, lv=o.lv, sel=MS.sel===n.id, fade=(q&&!hit(n))||(MS.st!=='all'&&n.st!==MS.st);
@@ -1701,11 +1704,11 @@ function mmBar(){
   const vs=$('mmViews'); if(vs) vs.innerHTML=CHIP('data-mmview','map','마인드맵',MS.view==='map')+CHIP('data-mmview','list','개요 목록',MS.view==='list');
   const nb=$('mmNew'); if(nb) nb.classList.toggle('hidden',!mmCan());
   const ub=$('mmUndo'); if(ub) ub.classList.toggle('hidden',!mmCan());
-  const qn=$('mmQn'); if(qn){ const q=MS.q.trim().toLowerCase(); qn.textContent=q?MM.filter(n=>((n.t||'')+' '+(n.note||'')+' '+(n.who||'')).toLowerCase().includes(q)).length+'건':''; }
+  const qn=$('mmQn'); if(qn){ const q=MS.q.trim().toLowerCase(); qn.textContent=q?MM.filter(n=>mmTxt(n).toLowerCase().includes(q)).length+'건':''; }
 }
 function mmList(){
   const box=$('mmList'); if(!box) return; const q=MS.q.trim().toLowerCase();
-  const hit=n=>q&&((n.t||'')+' '+(n.note||'')+' '+(n.who||'')).toLowerCase().includes(q);
+  const hit=n=>q&&mmTxt(n).toLowerCase().includes(q);
   const rs=MS.root==='all'?mmRoots():mmRoots().filter(r=>r.id===MS.root);
   const row=(n,lv)=>`<button data-mmsel="${n.id}" class="flex w-full items-center gap-2 py-1.5 pr-2 text-left hover:bg-slate-50 ${MS.sel===n.id?'bg-amber-50':''} ${hit(n)?'bg-yellow-100':''} ${(MS.st!=='all'&&n.st!==MS.st)?'opacity-40':''}" style="padding-left:${lv*22+8}px">${mmDot(n.st)}<span class="${lv===0?'font-bold text-[#13294b]':lv===1?'font-semibold':''}">${esc(n.t)}</span>${n.who?`<span class="text-xs text-slate-400">${esc(n.who)}</span>`:''}<span class="ml-auto text-xs text-slate-400 flex-none">${esc(n.when||'')}</span></button>`;
   const walk=(n,lv)=>row(n,lv)+mmKids(n.id).map(c=>walk(c,lv+1)).join('');
@@ -1761,19 +1764,49 @@ function mmInline(kind,id){
   i.addEventListener('blur',()=>{ setTimeout(()=>{ if(i.isConnected&&!i.dataset.done) mmInlineClose(); },120); });
 }
 /* ---- 추가 / 수정 폼 ---- */
+/* ---- 담당 선택 목록: 연구기관 → 캠퍼스 학과 (웹 수정하기로 바꾼 이름·추가·삭제·순서까지 반영) ---- */
+function mmEff(route,base,nameOf){
+  let items=base.map(b=>({k:'DIV:'+b.key+'#0',name:b.name}));
+  try{
+    Object.keys(SX).filter(k=>k.startsWith(route+'|')).forEach(key=>{
+      const rec=SX[key]||{};
+      (rec.add||[]).forEach(a=>{ const t=document.createElement('template'); t.innerHTML=(a.html||'').trim(); const el=t.content.firstElementChild; if(el){ const nm=norm(nameOf(el)); if(nm) items.push({k:'add:'+a.id+'#0',name:nm}); } });
+      if(rec.del&&rec.del.length) items=items.filter(x=>!rec.del.includes(x.k));
+      if(rec.order&&rec.order.length){ const pos=k=>rec.order.indexOf(k), lead=[], groups=[]; let cur=null; items.forEach(x=>{ if(pos(x.k)>=0){ cur={p:pos(x.k),els:[x]}; groups.push(cur); } else if(cur) cur.els.push(x); else lead.push(x); }); groups.sort((a,b)=>a.p-b.p); items=[...lead,...groups.flatMap(g=>g.els)]; }
+    });
+  }catch(e){}
+  return items.map(x=>(typeof TXT!=='undefined'&&TXT[norm(x.name)])||x.name);
+}
+const mmInsts=()=>mmEff('page/institutes',INST0.map(i=>({name:i[0],key:i[0]+' '+i[1]})),el=>(el.querySelector('h3')||el).textContent);
+const mmDepts=c=>mmEff('college/'+c.id+'/depts',c.depts.map(d=>({name:d,key:d})),el=>el.textContent);
+function mmWhoOpts(cur){
+  const o=n=>`<option value="${esc(n)}">${esc(n)}</option>`; let s='<option value="">(선택 안 함)</option>', all=[];
+  const ins=mmInsts(); all=all.concat(ins); s+=`<optgroup label="연구기관">${ins.map(o).join('')}</optgroup>`;
+  COLLEGES.forEach(c=>{ const d=mmDepts(c); all=all.concat(d); s+=`<optgroup label="${esc(c.name)} 학과">${d.map(o).join('')}</optgroup>`; });
+  if(cur&&!all.includes(cur)) s+=`<optgroup label="이전에 입력한 값">${o(cur)}</optgroup>`;
+  return s;
+}
 let MF={mode:'add',id:null}, MMED=[], MMIDX=-1;
+/* ---- 기간: 시작일 기준, 상태가 완료가 되면 종료일을 자동으로 채움 ---- */
+const mmIso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const mmFmt=s=>s?s.replace(/-/g,'.'):'';
+function mmParseWhen(w){ const m=[...String(w||'').matchAll(/(\d{4})\.(\d{1,2})(?:\.(\d{1,2}))?/g)]; if(!m.length) return {s:'',e:''}; const f=(x,end)=>{ const y=+x[1], mo=+x[2], d=x[3]?+x[3]:(end?new Date(y,mo,0).getDate():1); return mmIso(new Date(y,mo-1,d)); }; return {s:f(m[0],0),e:m[1]?f(m[1],1):''}; }
+function mmWhenStr(){ const s=$('mmfS').value, e=$('mmfE').value, st=$('mmfSt').value; if(!s&&!e) return ''; const tail=e?mmFmt(e):(st==='완료'?'':st==='진행중'?'진행 중':'예정'); return mmFmt(s)+(tail?' ~ '+tail:''); }
+function mmWhenHint(){ const st=$('mmfSt').value, e=$('mmfE').value, h=$('mmfWh'); if(!h) return; h.textContent=(mmWhenStr()?'표시: '+mmWhenStr()+' · ':'')+(st==='완료'?'‘완료’로 바꾸면 종료일이 오늘 날짜로 자동 입력돼요. 필요하면 직접 바꿔 주세요.':'종료일을 비워 두면 상태에 따라 ‘진행 중’/‘예정’으로 표시돼요.'); }
+function mmWhenInit(n){ let s=n&&n.s, e=n&&n.e; if(n&&s===undefined&&e===undefined){ const p=mmParseWhen(n.when); s=p.s; e=p.e; } $('mmfS').value=s||''; $('mmfE').value=e||''; MF.autoEnd=false; mmWhenHint(); }
+function mmStatusChange(){ const st=$('mmfSt').value, E=$('mmfE'), S=$('mmfS'); if(st==='완료'){ if(!E.value){ E.value=mmIso(new Date()); MF.autoEnd=true; } if(S.value&&E.value<S.value){ E.value=S.value; } } else if(MF.autoEnd){ E.value=''; MF.autoEnd=false; } mmWhenHint(); }
+
 function mmEnsureModal(){
   if($('mmModal')) return;
-  document.body.insertAdjacentHTML('beforeend',`<div id="mmModal" class="hidden fixed inset-0 z-[90] bg-black/50 flex items-start justify-center p-4 overflow-y-auto overscroll-contain"><form id="mmForm" class="bg-white w-full max-w-2xl shadow-2xl my-auto">
+  document.body.insertAdjacentHTML('beforeend',`<div id="mmModal" class="hidden fixed inset-0 z-[90] bg-black/50 flex items-start justify-center p-4 overflow-y-auto overscroll-contain"><form id="mmForm" class="bg-white w-full max-w-4xl shadow-2xl my-auto">
   <div class="bg-[#13294b] text-white px-5 py-3 flex justify-between items-center"><p id="mmFH" class="text-sm font-bold"></p><button type="button" data-mmx class="text-xl leading-none" aria-label="닫기">×</button></div>
   <div class="p-5 space-y-3 text-sm">
    <label class="block"><span class="font-bold text-slate-700">연구 제목</span><input id="mmfT" maxlength="60" class="mt-1 w-full border border-slate-300 px-3 py-2" placeholder="예: 고대 용 문명 기록 해독"></label>
    <div class="grid grid-cols-2 gap-3"><label class="block"><span class="font-bold text-slate-700">상태</span><select id="mmfSt" class="mt-1 w-full border border-slate-300 px-3 py-2">${Object.keys(MMSC).map(s=>`<option>${s}</option>`).join('')}</select></label>
-   <label class="block"><span class="font-bold text-slate-700">담당 (연구실·학부)</span><input id="mmfWho" maxlength="40" class="mt-1 w-full border border-slate-300 px-3 py-2"></label></div>
-   <div class="grid grid-cols-2 gap-3"><label class="block"><span class="font-bold text-slate-700">기간</span><input id="mmfWhen" maxlength="40" class="mt-1 w-full border border-slate-300 px-3 py-2" placeholder="예: 2026.03 ~ 진행 중"></label>
+   <label class="block"><span class="font-bold text-slate-700">담당 (연구기관 · 캠퍼스 학과)</span><select id="mmfWho" class="mt-1 w-full border border-slate-300 px-3 py-2 bg-white"></select></label></div>
+   <div class="grid grid-cols-2 gap-3"><div><span class="font-bold text-slate-700">기간</span><div class="mt-1 flex items-center gap-1.5"><input id="mmfS" type="date" class="min-w-0 flex-1 border border-slate-300 px-2 py-2 bg-white" aria-label="시작일"><span class="text-slate-400">~</span><input id="mmfE" type="date" class="min-w-0 flex-1 border border-slate-300 px-2 py-2 bg-white" aria-label="종료일"></div><p id="mmfWh" class="text-[11px] text-slate-400 mt-1 leading-snug"></p></div>
    <label class="block"><span class="font-bold text-slate-700">상위 연구</span><select id="mmfP" class="mt-1 w-full border border-slate-300 px-3 py-2"></select></label></div>
-   <label class="block"><span class="font-bold text-slate-700">요약 설명</span><textarea id="mmfNote" rows="3" class="mt-1 w-full border border-slate-300 px-3 py-2" placeholder="연구 내용, 이어진 이유 등 (맨 위에 보여요)"></textarea></label>
-   <div><span class="font-bold text-slate-700">상세 내용 (사진 + 설명)</span><p class="text-[11px] text-slate-400 leading-snug">항목마다 소제목, 사진(또는 영상), 설명을 적으면 사진 옆에 설명이 나란히 표시돼요.</p><div id="mmfMed" class="mt-1.5 space-y-2.5"></div>
+   <div><span class="font-bold text-slate-700">내용 (사진 + 설명)</span><p class="text-[11px] text-slate-400 leading-snug">모든 설명은 여기에 적어요. 항목마다 소제목, 사진(또는 영상), 설명을 적으면 사진 옆에 설명이 나란히 표시돼요. 사진 없이 글만 적어도 돼요.</p><div id="mmfMed" class="mt-1.5 space-y-3"></div>
     <div class="flex flex-wrap gap-2 mt-2"><button type="button" data-mmeadd class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">＋ 내용 추가</button><button type="button" data-mmimgs class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">📷 사진·영상 여러 개 올리기</button><input id="mmFile" type="file" accept="image/*,video/*" multiple class="hidden"></div>
     <p class="text-[11px] text-slate-400 mt-1 leading-snug">바탕화면의 사진·영상 파일을 이 창 안으로 끌어다 놓아도 돼요 (항목 위에 놓으면 그 항목에 들어가요). 사진은 가로 1280px로 줄여 저장돼요. 영상 파일은 3MB까지만 바로 넣을 수 있고, 더 큰 영상은 YouTube 주소나 mp4 파일 경로(저장소 assets 폴더에 올린 파일)를 넣어 주세요.</p></div>
    <div id="mmfColBox"><span class="font-bold text-slate-700">색상</span><div id="mmfCols" class="mt-1.5"></div></div>
@@ -1820,23 +1853,23 @@ function mmPickCol(c){ mmColSel=c||''; const sw=x=>`<button type="button" data-m
 function mmMedRows(){
   const b=$('mmfMed'); if(!b) return;
   b.innerHTML=MMED.length?MMED.map((m,i)=>`<div data-mment="${i}" class="border border-slate-200 bg-slate-50/60 p-2.5"><div class="flex items-center mb-1.5"><b class="text-xs text-slate-500">내용 ${i+1}</b><span class="ml-auto flex text-xs"><button type="button" data-mmmup="${i}" class="px-1.5 text-slate-500 hover:text-[#13294b]">▲</button><button type="button" data-mmmdn="${i}" class="px-1.5 text-slate-500 hover:text-[#13294b]">▼</button><button type="button" data-mmmrm="${i}" class="px-1.5 text-red-500">✕ 삭제</button></span></div>
-   <input data-mmet="${i}" maxlength="60" value="${esc(m.t||'')}" class="w-full border border-slate-300 px-2 py-1 text-sm mb-1.5 bg-white" placeholder="소제목 (선택) 예: 서풍 매의 사당">
-   <div class="flex gap-2 items-start"><div class="flex-none w-32">${m.src?`<span class="relative block w-32 h-[5.2rem] bg-slate-100 overflow-hidden">${mmThumb(m)}</span><button type="button" data-mmmclr="${i}" class="text-[11px] text-red-500 mt-1">사진·영상 빼기</button>`:`<button type="button" data-mmimg="${i}" class="w-32 h-[5.2rem] border-2 border-dashed border-slate-300 text-xs text-slate-500 hover:border-[#13294b] bg-white">📷 사진<br>올리기</button>`}</div>
-   <textarea data-mmcap="${i}" rows="4" class="flex-1 min-w-0 border border-slate-300 px-2 py-1 text-sm bg-white" placeholder="설명 (사진 옆에 나란히 표시돼요)">${esc(m.cap||'')}</textarea></div>
+   <input data-mmet="${i}" maxlength="60" value="${esc(m.t||'')}" class="w-full border border-slate-300 px-3 py-1.5 text-sm font-bold mb-2 bg-white" placeholder="소제목 (선택) 예: 서풍 매의 사당">
+   <div class="flex gap-2 items-start"><div class="flex-none w-44">${m.src?`<span class="relative block w-44 h-28 bg-slate-100 overflow-hidden">${mmThumb(m)}</span><button type="button" data-mmmclr="${i}" class="text-[11px] text-red-500 mt-1">사진·영상 빼기</button>`:`<button type="button" data-mmimg="${i}" class="w-44 h-28 border-2 border-dashed border-slate-300 text-xs text-slate-500 hover:border-[#13294b] bg-white">📷 사진<br>올리기</button>`}</div>
+   <textarea data-mmcap="${i}" rows="7" style="min-height:11rem;resize:vertical" class="flex-1 min-w-0 border border-slate-300 px-3 py-2 text-[15px] leading-relaxed bg-white" placeholder="설명 (사진 옆에 나란히 표시돼요)">${esc(m.cap||'')}</textarea></div>
    ${m.src?'':`<div class="flex gap-1 mt-1.5"><input data-mmeu="${i}" class="flex-1 min-w-0 border border-slate-300 px-2 py-1 text-xs bg-white" placeholder="또는 영상·사진 주소 (YouTube, mp4, assets/…)"><button type="button" data-mmeuset="${i}" class="px-2.5 text-xs border border-slate-300 hover:border-[#13294b] bg-white flex-none">적용</button></div>`}</div>`).join(''):'<p class="text-xs text-slate-400">아직 상세 내용이 없습니다. ‘＋ 내용 추가’를 눌러 사진과 설명을 넣어 보세요.</p>';
 }
 function mmOpenForm(mode,id,parent){
   mmEnsureModal(); MF={mode,id}; const n=mode==='edit'?mmBy(id):null, ex=n?[n.id,...mmDesc(n.id)]:[];
   $('mmFH').textContent=mode==='edit'?'연구 수정':(parent?'하위 연구 추가':'새 연구 시작');
   const opts=['<option value="">(없음 — 새 연구의 시작점)</option>']; (function w(pid,d){ MM.filter(x=>(pid===''?(!x.p||!mmBy(x.p)):x.p===pid)).forEach(x=>{ if(ex.includes(x.id)) return; opts.push(`<option value="${x.id}">${'　'.repeat(d)}${d?'└ ':''}${esc(x.t)}</option>`); w(x.id,d+1); }); })('',0);
-  $('mmfP').innerHTML=opts.join(''); $('mmfP').value=n?(mmBy(n.p)?n.p:''):(parent||''); MMED=n?JSON.parse(JSON.stringify(n.media||[])):[]; mmMedRows();
-  $('mmfT').value=n?n.t:''; $('mmfSt').value=n?n.st:'계획'; $('mmfWho').value=n?n.who||'':''; $('mmfWhen').value=n?n.when||'':''; $('mmfNote').value=n?n.note||'':'';
+  $('mmfP').innerHTML=opts.join(''); $('mmfP').value=n?(mmBy(n.p)?n.p:''):(parent||''); MMED=n?JSON.parse(JSON.stringify(n.media||[])):[]; if(!MMED.length) MMED.push({t:'',k:'',src:'',cap:''}); mmMedRows();
+  $('mmfT').value=n?n.t:''; $('mmfSt').value=n?n.st:'계획'; $('mmfWho').innerHTML=mmWhoOpts(n?n.who||'':''); $('mmfWho').value=n?n.who||'':''; mmWhenInit(n); 
   mmPickCol(n?n.col||'':''); $('mmfDel').classList.toggle('hidden',mode!=='edit');
   $('mmModal').classList.remove('hidden'); setTimeout(()=>$('mmfT').focus(),30);
 }
 function mmSubmit(e){
   e.preventDefault(); const t=$('mmfT').value.trim(); if(!t){ $('mmfT').focus(); return; }
-  const d={t,st:$('mmfSt').value,who:$('mmfWho').value.trim(),when:$('mmfWhen').value.trim(),note:$('mmfNote').value.trim(),p:$('mmfP').value,col:mmColSel,media:MMED.filter(m=>m.src||(m.t||'').trim()||(m.cap||'').trim()).map(m=>({t:(m.t||'').trim(),k:m.src?m.k:'',src:m.src||'',cap:(m.cap||'').trim()}))};
+  const d={t,st:$('mmfSt').value,who:$('mmfWho').value.trim(),when:mmWhenStr(),s:$('mmfS').value,e:$('mmfE').value,note:'',p:$('mmfP').value,col:mmColSel,media:MMED.filter(m=>m.src||(m.t||'').trim()||(m.cap||'').trim()).map(m=>({t:(m.t||'').trim(),k:m.src?m.k:'',src:m.src||'',cap:(m.cap||'').trim()}))};
   mmSnap(); let n;
   if(MF.mode==='edit'){ n=mmBy(MF.id); const moved=n.p!==d.p; Object.assign(n,d); if(moved){ MM.splice(MM.indexOf(n),1); MM.push(n); } }
   else { n=Object.assign({id:mmId(),link:''},d); MM.push(n); }
@@ -1951,7 +1984,8 @@ document.addEventListener('click',e=>{
   else if(d.mmlbx!==undefined){ mmLbClose(); }
   else if(d.mmlbp!==undefined||d.mmlbn!==undefined){ const n=mmBy(LB.id); if(n){ const L=(n.media||[]).filter(m=>m.k&&m.src).length; LB.i=(LB.i+(d.mmlbn!==undefined?1:-1)+L)%L; mmLbShow(); } }
 });
-document.addEventListener('input',e=>{ const t=e.target, d=t.dataset||{}; if(d.mmcap!==undefined&&MMED[+d.mmcap]) MMED[+d.mmcap].cap=t.value; if(d.mmet!==undefined&&MMED[+d.mmet]) MMED[+d.mmet].t=t.value; if(t.id==='mmfColIn') mmPickCol(t.value); });
+document.addEventListener('change',e=>{ const id=e.target.id; if(id==='mmfSt') mmStatusChange(); else if(id==='mmfS'){ const E=$('mmfE'); if(E.value&&e.target.value&&E.value<e.target.value){ E.value=e.target.value; } if($('mmfSt').value==='완료'&&!E.value){ mmStatusChange(); } mmWhenHint(); } else if(id==='mmfE'){ MF.autoEnd=false; const S=$('mmfS'); if(S.value&&e.target.value&&e.target.value<S.value){ S.value=e.target.value; } mmWhenHint(); } });
+document.addEventListener('input',e=>{ const t=e.target, d=t.dataset||{}; if(d.mmcap!==undefined&&MMED[+d.mmcap]){ MMED[+d.mmcap].cap=t.value; t.style.height='auto'; t.style.height=Math.max(176,t.scrollHeight+4)+'px'; } if(d.mmet!==undefined&&MMED[+d.mmet]) MMED[+d.mmet].t=t.value; if(t.id==='mmfColIn') mmPickCol(t.value); });
 document.addEventListener('change',async e=>{
   const t=e.target;
   if(t.id==='mmQcIn'){ const n=mmBy(MS.sel); if(n&&mmCan()){ mmSnap(); n.col=t.value; mmSave(); MS.fit=false; mmAll(); } return; }
