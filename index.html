@@ -33,6 +33,7 @@ style,script,head{display:none!important}
 .we-on .adm,.we-on .adm *,.we-on #tl-wrap *,.we-on #webEditBar *,.we-on #wePop *{cursor:pointer}
 .we-on #wePop textarea{cursor:text}
 #weHover{position:fixed;z-index:90;pointer-events:none;border:2px dashed #c9a24b;background:rgba(201,162,75,.15);display:none}
+.mmdz{outline:3px dashed #f59e0b!important;outline-offset:2px;background-color:#fffbeb}
 </style>
 <!-- ★ 기본 데이터(백업 합치기): 아래 guSeed 블록 안의 내용이 사이트의 기본 데이터가 됩니다.
      - 연표 "내보내기" 파일(regions/eras/events) 내용 또는 "데이터 백업" 파일(genshin-univ-backup.json) 내용을 통째로 붙여넣으면 됩니다.
@@ -89,7 +90,6 @@ style,script,head{display:none!important}
     </a>
     <div class="flex flex-col items-end">
       <div class="hidden md:flex items-center gap-4 text-xs text-slate-500 mb-1">
-        <a href="#/college/sumeru/timeline" class="hover:text-[#13294b]">티바트 연표</a>
         <a href="#colleges" class="hover:text-[#13294b]">교내기관 안내</a>
         <a href="#/page/map" class="hover:text-[#13294b]">캠퍼스맵</a>
         <a href="#" class="hover:text-[#13294b]">ENG</a>
@@ -122,10 +122,6 @@ style,script,head{display:none!important}
       <div id="newsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 mt-6"></div>
     </section>
 
-    <a href="#/college/sumeru/timeline" class="mt-14 flex items-center justify-between gap-4 bg-gradient-to-r from-[#13294b] via-[#1d3e72] to-[#13294b] text-white px-6 sm:px-10 py-7 hover:brightness-110 transition">
-      <span><b class="block text-xl sm:text-2xl font-black">수메르 아카데미아 · 티바트 연표</b><span class="text-sm text-slate-300">시대와 지역별 사건을 기록하고 수정하는 학부 자료실</span></span>
-      <span class="flex-none text-[#e7c978] font-bold">바로가기 &gt;</span>
-    </a>
 
     <section class="mt-16 grid lg:grid-cols-2 gap-10" id="notices">
       <div class="anchor">
@@ -188,7 +184,7 @@ style,script,head{display:none!important}
 
 <footer class="bg-slate-100 text-slate-500 text-xs mt-16 border-t border-slate-200">
   <div class="max-w-[1180px] mx-auto px-4 py-8">
-    <p class="flex flex-wrap gap-x-5 gap-y-1 text-slate-700 font-medium"><a href="#colleges">교내기관 안내</a><a href="#/page/status">대학소개</a><a href="#/page/adm">입학안내</a><a href="#/college/sumeru/timeline">티바트 연표</a><button id="imgReset" class="adm text-slate-400 hover:text-slate-700">사진 초기화</button><button id="dataDefault" class="adm text-slate-400 hover:text-slate-700">기본값으로 되돌리기</button><button id="dataExport" class="adm text-slate-400 hover:text-slate-700">데이터 백업</button><label class="adm cursor-pointer text-slate-400 hover:text-slate-700">데이터 복원<input id="dataImport" type="file" accept=".json" class="hidden"></label><button id="webEditBtn" class="adm text-[#1d3e72] font-bold hover:text-[#13294b]">✏️ 웹 수정하기</button></p>
+    <p class="flex flex-wrap gap-x-5 gap-y-1 text-slate-700 font-medium"><a href="#colleges">교내기관 안내</a><a href="#/page/status">대학소개</a><a href="#/page/adm">입학안내</a><button id="imgReset" class="adm text-slate-400 hover:text-slate-700">사진 초기화</button><button id="dataDefault" class="adm text-slate-400 hover:text-slate-700">기본값으로 되돌리기</button><button id="dataExport" class="adm text-slate-400 hover:text-slate-700">데이터 백업</button><label class="adm cursor-pointer text-slate-400 hover:text-slate-700">데이터 복원<input id="dataImport" type="file" accept=".json" class="hidden"></label><button id="webEditBtn" class="adm text-[#1d3e72] font-bold hover:text-[#13294b]">✏️ 웹 수정하기</button></p>
     <div class="flex items-center gap-3 mt-5"><svg class="w-10 h-10" viewBox="0 0 100 100"><use href="#seal"/></svg><p>티바트 대륙 원신로 1 원신대학교<br>Copyright 2020–2026 Genshin University. All Rights Reserved.</p></div>
     <p class="mt-4 opacity-80">※ 본 페이지는 원신 개교 6주년을 기념해 만든 팬 패러디 페이지이며, 실제 대학이나 공식 사이트가 아닙니다.</p>
   </div>
@@ -1156,7 +1152,7 @@ const G=[
  {n:'대학소개',items:[['status','대학현황'],['faculty','교수진'],['greeting','총장 인사말'],['history','개교 6주년 연혁'],['symbol','대학상징'],['map','캠퍼스맵']]},
  {n:'입학안내',items:[['adm','입학 메인'],['early','수시모집'],['regular','정시모집'],['transfer','편입학'],['docs','입학자료실']]},
  {n:'대학생활',items:[['calendar','학사일정'],['library','도서관'],['clubs','동아리'],['dorm','기숙사'],['bus','캠퍼스 버스']]},
- {n:'연구/산학',items:[['results','연구성과'],['institutes','연구기관'],['industry','산학협력단']]}
+ {n:'연구/산학',items:[['results','연구성과'],['institutes','연구기관'],['industry','산학협력단'],['mindmap','연구 마인드맵'],['timeline','티바트 연표']]}
 ];
 let MENUOV={}; try{ MENUOV=JSON.parse(localStorage.getItem('gu_menu')||'{}')||{}; }catch(e){}
 const mkCustomPage=(id,lbl)=>{ R[id]=()=>H(lbl)+`<div class="space-y-4 text-slate-600 leading-relaxed"><p>${lbl} 페이지입니다. 웹 수정하기에서 글자를 클릭해 내용을 바꾸세요.</p><p>문단에 마우스를 올리고 ＋ 복제를 누르면 문단을 늘릴 수 있어요.</p></div>`; };
@@ -1175,7 +1171,7 @@ function buildMenu(){
    ['학부/대학원','#colleges',COLLEGES.map(c=>[c.name,'#/college/'+c.id])],
    [G[1].n,'#/page/'+G[1].items[0][0],pg(G[1])],
    [G[2].n,'#/page/'+G[2].items[0][0],pg(G[2])],
-   [G[3].n,'#/page/'+G[3].items[0][0],[...pg(G[3]),['티바트 연표','#/college/sumeru/timeline']]]
+   [G[3].n,'#/page/'+G[3].items[0][0],pg(G[3])]
   ];
 $('gnb').innerHTML=MENU.map((m,k)=>`<div class="gnb-item relative"><a href="${m[1]}" class="gnb-link block text-center py-4 hover:text-[#1d3e72]">${m[0]}</a><div class="gnb-sub absolute top-full z-50 ${k===MENU.length-1?'right-0':'left-1/2 -translate-x-1/2'} min-w-[170px] w-max bg-white border border-slate-200 border-t-2 border-t-[#c9a24b] shadow-xl py-3 px-4"><ul class="space-y-2.5 text-center text-sm font-normal text-slate-600 whitespace-nowrap">${m[2].map(i=>`<li><a href="${i[1]}" class="block hover:text-[#1d3e72] hover:font-bold">${i[0]}</a></li>`).join('')}</ul></div></div>`).join('');
 $('mobileMenu').innerHTML=MENU.map(m=>`<details class="border-b border-slate-200"><summary class="py-3 font-bold text-[#13294b] cursor-pointer">${m[0]}</summary><div class="pb-2 pl-3">${m[2].map(i=>`<a href="${i[1]}" class="block py-1.5 text-slate-600">${i[0]}</a>`).join('')}</div></details>`).join('');
@@ -1188,7 +1184,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')megaOpen(false)});
 $('menuBtn').onclick=()=>$('mobileMenu').classList.toggle('hidden');
 $('mobileMenu').addEventListener('click',e=>{if(e.target.closest('a'))$('mobileMenu').classList.add('hidden')});
 $('searchBtn').onclick=()=>{$('searchBox').classList.toggle('hidden');$('searchInput').focus()};
-const PAGES=[['교수진','#/page/faculty'],...COLLEGES.map(c=>[c.name,'#/college/'+c.id]),['티바트 역사 연표','#/college/sumeru/timeline']];
+const PAGES=[['교수진','#/page/faculty'],...COLLEGES.map(c=>[c.name,'#/college/'+c.id])];
 $('searchInput').oninput=e=>{const q=e.target.value.trim();$('searchRes').innerHTML=q?PAGES.filter(p=>p[0].includes(q)).map(p=>`<a href="${p[1]}" class="bg-white border border-slate-300 hover:border-[#13294b] px-3 py-1">${p[0]}</a>`).join('')||'<span class="text-slate-500">결과가 없습니다.</span>':''};
 $('searchRes').onclick=()=>$('searchBox').classList.add('hidden');
 
@@ -1582,6 +1578,398 @@ function initTMap(){
 }
 
 const INIT={calendar:renderCal,clubs:renderClubs,map:initTMap};
+/* ===== 연구 마인드맵 =====
+   하나의 연구에서 갈라져 나온 관련 연구들을 마인드맵으로 보고, 추가·수정·이동·삭제할 수 있습니다.
+   ▶ 처음 보이는 예시 데이터는 아래 MM_T0 입니다. 직접 만든 연구는 이 브라우저(gu_mm)에 저장되고,
+     "데이터 백업"으로 받은 seed.json 에 함께 담겨 html 에 합칠 수 있습니다.
+   [제목, 상태(진행중/완료/계획/보류), 담당, 기간, 설명, [하위 연구…]] */
+const MM_T0=[
+ ['티바트 원소 순환 연구','진행중','원소학연구소','2025.03 ~ 진행 중','원소 반응이 지역 생태계에 미치는 영향을 일곱 국가에서 비교 조사하는 장기 연구입니다. 이 연구에서 여러 갈래의 관련 연구가 이어져 나왔습니다.',[
+  ['원소 반응과 지역 생태계','완료','원소학연구소','2025.03 ~ 2025.12','원소 반응이 식물과 동물의 분포에 주는 영향을 조사했습니다.',[
+   ['7개국 비교 조사','완료','','2025.03 ~ 2025.08','일곱 국가의 원소 농도와 생태계 변화를 비교했습니다.'],
+   ['몬드 바람 원소 분포 측정','완료','몬드 캠퍼스','2025.05 ~ 2025.09','계절에 따른 바람 원소 분포를 측정했습니다.'],
+   ['리월 암원소 퇴적층 분석','완료','리월 캠퍼스','2025.06 ~ 2025.11','암원소가 쌓이는 지층의 구조를 분석했습니다.']]],
+  ['이나즈마 장인 기술과 에너지 공학','진행중','이나즈마 캠퍼스','2026.01 ~ 진행 중','이나즈마 장인의 기술을 현대 공학에 접목하는 연구입니다.',[
+   ['번개 원소 축전 공법','진행중','이나즈마 캠퍼스','2026.03 ~','번개 원소를 안전하게 저장하는 방법을 실험하고 있습니다.'],
+   ['전통 공예 열처리 기법의 현대화','계획','','2026.12 ~ 예정','전통 열처리 기법을 정량화하는 연구를 준비 중입니다.']]],
+  ['심층 수계 생태 조사','완료','폰타인 캠퍼스','2025.04 ~ 2026.02','폰타인 수역의 생물 다양성을 조사했습니다.',[
+   ['폰타인 수역 생물 다양성','완료','폰타인 캠퍼스','2025.04 ~ 2025.12','수역별 생물종 목록을 정리했습니다.'],
+   ['물 원소 순환과 수질 변화','보류','','','후속 조사 예산이 확정되면 재개할 예정입니다.']]],
+  ['열소 배관 안전성 연구','계획','시설관리처 · 원소학연구소','2026.11 ~ 예정','기숙사 열소 배관 점검 결과를 바탕으로 한 안전성 연구입니다.']]],
+ ['고대 문헌 디지털 아카이브','진행중','고대문헌연구소','2025.09 ~ 진행 중','수메르 도서관의 고서를 디지털로 보존하고 연구에 활용하는 프로젝트입니다.',[
+  ['고서 1만 권 디지털화','진행중','수메르 도서관','2025.09 ~','고서 1만 권의 디지털화를 진행 중입니다.',[
+   ['스캔 품질 표준화','완료','','2025.09 ~ 2025.11','스캔 해상도와 색 보정 기준을 정했습니다.'],
+   ['OCR 오류 교정','진행중','','2026.01 ~','자동 인식 결과의 오류를 사람이 교정하고 있습니다.'],
+   ['훼손 문헌 복원','계획','','2026.12 ~ 예정','훼손이 심한 문헌의 복원 방법을 연구합니다.']]],
+  ['고대 용 문명 기록 해독','계획','고대문헌연구소','2027.01 ~ 예정','디지털화된 고서에서 고대 용 문명의 기록을 해독하는 연구입니다.',[
+   ['니벨룽겐 시대 기록','계획'],['원시 티바트 시대 유물 목록','계획']]],
+  ['온라인 열람 시스템 구축','진행중','수메르 도서관','2026.06 ~','디지털 자료를 열람하는 시스템을 만들고 있습니다.',[
+   ['열람 권한 체계 설계','계획']]]]],
+ ['심연 탐사 안전 연구','계획','심연탐사센터','2026.12 ~ 예정','미지의 지하 구역을 안전하게 탐사하기 위한 연구입니다.',[
+  ['지하 구역 지도 작성','진행중','심연탐사센터','2026.09 ~','탐사 구역의 지도를 만들고 있습니다.'],
+  ['탐사 안전 장비 개발','계획']]]
+];
+const MMSC={'진행중':'#2563eb','완료':'#16a34a','계획':'#94a3b8','보류':'#d97706'};
+const MMBR=['#65a30d','#0d9488','#d97706','#db2777','#2563eb','#dc2626','#0891b2','#9333ea'], MMROOT='#6d28d9';
+const MMPAL=['#ef4444','#f97316','#f59e0b','#eab308','#84cc16','#22c55e','#10b981','#14b8a6','#06b6d4','#0ea5e9','#3b82f6','#6366f1','#8b5cf6','#a855f7','#d946ef','#ec4899','#f43f5e','#78716c','#64748b','#1f2937'];
+function mmFlat(t,p,out){ t.forEach(x=>{ const id='d'+(out.length+1); out.push({id,p,t:x[0],st:x[1]||'계획',who:x[2]||'',when:x[3]||'',note:x[4]||'',link:'',col:'',media:[]}); if(x[5]) mmFlat(x[5],id,out); }); return out; }
+let MM=null; try{ const v=JSON.parse(localStorage.getItem('gu_mm')||'null'); if(Array.isArray(v)) MM=v; }catch(e){}
+if(!MM) MM=mmFlat(MM_T0,'',[]);
+const mmSave=()=>{ try{ localStorage.setItem('gu_mm',JSON.stringify(MM)); }catch(e){ alert('브라우저 저장 공간이 부족해 이번 방문에만 적용됩니다. 사진이 많으면 assets 폴더에 올리고 경로로 넣어 주세요.'); } };
+let MMH=[]; const mmSnap=()=>{ MMH.push(JSON.stringify(MM)); if(MMH.length>40) MMH.shift(); };
+const MS={root:'all',sel:null,view:'map',q:'',st:'all',tf:{x:0,y:0,k:1},fit:true,moved:false,lay:null,drop:null};
+const mmBy=id=>MM.find(n=>n.id===id);
+const mmRoots=()=>MM.filter(n=>!n.p||!mmBy(n.p));
+const mmKids=id=>MM.filter(n=>n.p===id);
+const mmDesc=id=>{ const o=[]; (function f(i){ mmKids(i).forEach(c=>{ if(!o.includes(c.id)){ o.push(c.id); f(c.id); } }); })(id); return o; };
+const mmCan=()=>{ try{ return canEditNow(); }catch(e){ return true; } };
+const mmId=()=>'m'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const mmCv=document.createElement('canvas').getContext('2d');
+const mmFirstImg=n=>(n.media||[]).find(m=>m.k==='img'&&m.src);
+function mmSize(n,lv){
+  const s=lv===0?{f:'700 17px',px:26,h:46}:lv===1?{f:'700 14px',px:20,h:36}:{f:'500 12.5px',px:12,h:28};
+  mmCv.font=s.f+' "Noto Sans KR","Malgun Gothic",sans-serif';
+  let t=n.t||''; if(t.length>24) t=t.slice(0,23)+'…';
+  const dot=lv>=1?14:0, im=lv>=1?mmFirstImg(n):null, th=im?(lv===1?38:32):0, x0=th?7+th+9:s.px, h=th?Math.max(s.h,th+10):s.h;
+  return {t,f:s.f,px:s.px,h,dot,th,im:im?im.src:'',x0,w:Math.ceil(mmCv.measureText(t).width)+x0+dot-2+s.px+8};
+}
+function mmLayout(root){
+  const nodes=[],edges=[],VG=10,HG=54;
+  const open=n=>!n.c||!!MS.q.trim();
+  const kidsOf=n=>open(n)?mmKids(n.id):[];
+  const sh=(n,lv)=>{ const h=mmSize(n,lv).h+VG, k=kidsOf(n); return k.length?Math.max(h,k.reduce((a,c)=>a+sh(c,lv+1),0)):h; };
+  function place(n,lv,dir,pEdge,top,col){
+    const z=mmSize(n,lv), k=kidsOf(n), hg=lv===1?80:HG;
+    const left=dir>0?pEdge+hg:pEdge-hg-z.w, right=left+z.w, outX=dir>0?right:left, nearX=dir>0?left:right;
+    let y=top; const cs=[];
+    k.forEach(c=>{ cs.push(place(c,lv+1,dir,outX,y,c.col||col)); y+=sh(c,lv+1); });
+    const cy=cs.length?(cs[0].cy+cs[cs.length-1].cy)/2:top+sh(n,lv)/2;
+    nodes.push({n,lv,x:left,y:cy-z.h/2,w:z.w,h:z.h,z,dir,col,outX,cy,nk:mmKids(n.id).length});
+    cs.forEach(r=>edges.push({x1:outX,y1:cy,x2:r.nearX,y2:r.cy,col:r.col,lv:lv+1}));
+    return {cy,nearX,col};
+  }
+  const rz=mmSize(root,0), ks=kidsOf(root); let sR=0,sL=0; const Rr=[],Ll=[];
+  ks.forEach((c,i)=>{ const h=sh(c,1); if(sR<=sL){ Rr.push([c,i]); sR+=h; } else { Ll.push([c,i]); sL+=h; } });
+  const rcol=root.col||MMROOT;
+  [[Rr,1,sR],[Ll,-1,sL]].forEach(([arr,dir,tot])=>{ let top=-tot/2; arr.forEach(([c,i])=>{ const col=c.col||MMBR[i%MMBR.length]; const r=place(c,1,dir,dir*rz.w/2,top,col); top+=sh(c,1); edges.push({x1:dir*rz.w/2,y1:0,x2:r.nearX,y2:r.cy,col,lv:1}); }); });
+  nodes.push({n:root,lv:0,x:-rz.w/2,y:-rz.h/2,w:rz.w,h:rz.h,z:rz,dir:0,col:rcol,outX:rz.w/2,cy:0,nk:0});
+  let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9; nodes.forEach(o=>{ x0=Math.min(x0,o.x-50); x1=Math.max(x1,o.x+o.w+50); y0=Math.min(y0,o.y); y1=Math.max(y1,o.y+o.h); });
+  return {nodes,edges,b:{x0,x1,y0,y1}};
+}
+function mmDraw(){
+  const svg=$('mmSvg'); if(!svg) return;
+  const roots=mmRoots(); if(MS.root!=='all'&&!roots.some(r=>r.id===MS.root)) MS.root='all';
+  const list=MS.root==='all'?roots:roots.filter(r=>r.id===MS.root);
+  let off=0, nodes=[], edges=[], b={x0:1e9,x1:-1e9,y0:1e9,y1:-1e9};
+  list.forEach(r=>{ const L=mmLayout(r), dy=off-L.b.y0; L.nodes.forEach(o=>{ o.y+=dy; o.cy+=dy; }); L.edges.forEach(e=>{ e.y1+=dy; e.y2+=dy; }); nodes=nodes.concat(L.nodes); edges=edges.concat(L.edges); b.x0=Math.min(b.x0,L.b.x0); b.x1=Math.max(b.x1,L.b.x1); b.y0=Math.min(b.y0,L.b.y0+dy); b.y1=Math.max(b.y1,L.b.y1+dy); off=L.b.y1+dy+80; });
+  if(!nodes.length) b={x0:-100,x1:100,y0:-50,y1:50};
+  MS.lay={nodes,edges,b};
+  const q=MS.q.trim().toLowerCase(), hit=n=>q&&((n.t||'')+' '+(n.note||'')+' '+(n.who||'')).toLowerCase().includes(q), can=mmCan();
+  const eh=edges.map(e=>{ const dx=(e.x2-e.x1)/2; return `<path d="M${e.x1} ${e.y1} C${e.x1+dx} ${e.y1},${e.x2-dx} ${e.y2},${e.x2} ${e.y2}" fill="none" stroke="${e.col}" stroke-width="${e.lv===1?3.5:2}" stroke-linecap="round" opacity=".85"/>`; }).join('');
+  const nh=nodes.map(o=>{
+    const n=o.n, z=o.z, lv=o.lv, sel=MS.sel===n.id, fade=(q&&!hit(n))||(MS.st!=='all'&&n.st!==MS.st);
+    const solid=lv<=1, fill=solid?o.col:o.col+'1f', tc=solid?'#fff':'#334155';
+    let s=`<g data-mmn="${n.id}" transform="translate(${o.x} ${o.y})" opacity="${fade?.28:1}" style="cursor:pointer"><title>${esc(n.t)}${n.who?' · '+esc(n.who):''}${n.st?' ['+n.st+']':''}</title>`;
+    if(sel) s+=`<rect x="-5" y="-5" width="${o.w+10}" height="${o.h+10}" rx="${(o.h+10)/2}" fill="none" stroke="#f59e0b" stroke-width="3"/>`;
+    else if(q&&hit(n)) s+=`<rect x="-4" y="-4" width="${o.w+8}" height="${o.h+8}" rx="${(o.h+8)/2}" fill="none" stroke="#facc15" stroke-width="3"/>`;
+    s+=`<rect class="mmr" width="${o.w}" height="${o.h}" rx="${o.h/2}" fill="${fill}" ${solid?'':`stroke="${o.col}" stroke-width="1"`}/>`;
+    if(z.th){ const ty=(o.h-z.th)/2; s+=`<clipPath id="mmc_${n.id}"><rect x="7" y="${ty}" width="${z.th}" height="${z.th}" rx="9"/></clipPath><image href="${esc(z.im)}" x="7" y="${ty}" width="${z.th}" height="${z.th}" preserveAspectRatio="xMidYMid slice" clip-path="url(#mmc_${n.id})"/>`; }
+    if(lv>=1) s+=`<circle cx="${z.x0}" cy="${o.h/2}" r="4.5" fill="${MMSC[n.st]||'#94a3b8'}" stroke="#fff" stroke-width="1.5"/>`;
+    s+=`<text x="${lv===0?o.w/2:z.x0+z.dot-2}" y="${o.h/2}" dy=".35em" text-anchor="${lv===0?'middle':'start'}" font-size="${parseFloat(z.f.split(' ')[1])}" font-weight="${z.f.split(' ')[0]}" fill="${tc}" style="pointer-events:none">${esc(z.t)}</text></g>`;
+    const nm=(n.media||[]).filter(m=>m.src).length;
+    if(nm) s+=`<g transform="translate(${o.x+o.w-2} ${o.y+1})" style="pointer-events:none"><circle r="8" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/><text text-anchor="middle" dy=".35em" font-size="10" font-weight="700" fill="#fff">${nm}</text></g>`;
+    const hasTog=lv>=1&&o.nk, right=o.dir>=0;
+    if(hasTog){ const cx=right?o.x+o.w+11:o.x-11; s+=`<g data-mmt="${n.id}" transform="translate(${cx} ${o.cy})" style="cursor:pointer"><circle r="${n.c?10:8}" fill="#fff" stroke="${o.col}" stroke-width="1.5"/><text text-anchor="middle" dy=".35em" font-size="${n.c?10:12}" font-weight="700" fill="${o.col}" style="pointer-events:none">${n.c?'+'+mmDesc(n.id).length:'−'}</text></g>`; }
+    if(sel&&can&&!q){ const cx=right?o.x+o.w+(hasTog?34:15):o.x-(hasTog?34:15); s+=`<g data-mmq="${n.id}" transform="translate(${cx} ${o.cy})" style="cursor:pointer"><title>하위 연구 추가 (Tab)</title><circle r="10" fill="${o.col}" stroke="#fff" stroke-width="2"/><text text-anchor="middle" dy=".36em" font-size="16" font-weight="700" fill="#fff" style="pointer-events:none">+</text></g>`; }
+    return s;
+  }).join('');
+  svg.innerHTML=`<g id="mmView">${eh}${nh}</g>`;
+  if(MS.fit&&!MS.moved){ mmFit(); } else mmApplyTf();
+}
+function mmApplyTf(){ const g=$('mmView'); if(g) g.setAttribute('transform',`translate(${MS.tf.x} ${MS.tf.y}) scale(${MS.tf.k})`); }
+function mmFit(){
+  const svg=$('mmSvg'); if(!svg||!MS.lay) return; const r=svg.getBoundingClientRect(), b=MS.lay.b; if(!r.width) return;
+  const bw=b.x1-b.x0, bh=b.y1-b.y0, k=Math.max(.25,Math.min(1.15,(r.width-40)/bw,(r.height-40)/bh));
+  MS.tf={k,x:r.width/2-(b.x0+b.x1)/2*k,y:r.height/2-(b.y0+b.y1)/2*k}; MS.fit=false; MS.moved=false; mmApplyTf();
+}
+function mmZoomAt(cx,cy,f){ const r=$('mmSvg').getBoundingClientRect(), px=cx-r.left, py=cy-r.top, t=MS.tf, k2=Math.max(.2,Math.min(2.5,t.k*f)), g=k2/t.k; t.x=px-(px-t.x)*g; t.y=py-(py-t.y)*g; t.k=k2; MS.moved=true; mmApplyTf(); }
+const mmDot=st=>`<i class="inline-block w-2.5 h-2.5 rounded-full align-middle mr-1" style="background:${MMSC[st]||'#94a3b8'}"></i>`;
+function mmBar(){
+  const cnt={}; MM.forEach(n=>cnt[n.st]=(cnt[n.st]||0)+1);
+  const stats=$('mmStats'); if(stats) stats.innerHTML=[['all','전체 연구',MM.length,'#13294b'],...Object.keys(MMSC).map(s=>[s,s,cnt[s]||0,MMSC[s]])].map(x=>`<button data-mmst="${x[0]}" class="text-center border py-2.5 ${MS.st===x[0]?'bg-slate-100 border-[#13294b]':'bg-white border-slate-200 hover:border-slate-400'}"><b class="block text-xl" style="color:${x[3]}">${x[2]}</b><span class="text-xs text-slate-500">${x[0]==='all'?'':mmDot(x[0])}${x[1]}</span></button>`).join('');
+  const maps=$('mmMaps'); if(maps) maps.innerHTML=CHIP('data-mmroot','all','전체 보기',MS.root==='all')+mmRoots().map(r=>CHIP('data-mmroot',r.id,esc(r.t.length>12?r.t.slice(0,11)+'…':r.t),MS.root===r.id)).join('');
+  const vs=$('mmViews'); if(vs) vs.innerHTML=CHIP('data-mmview','map','마인드맵',MS.view==='map')+CHIP('data-mmview','list','개요 목록',MS.view==='list');
+  const nb=$('mmNew'); if(nb) nb.classList.toggle('hidden',!mmCan());
+  const ub=$('mmUndo'); if(ub) ub.classList.toggle('hidden',!mmCan());
+  const qn=$('mmQn'); if(qn){ const q=MS.q.trim().toLowerCase(); qn.textContent=q?MM.filter(n=>((n.t||'')+' '+(n.note||'')+' '+(n.who||'')).toLowerCase().includes(q)).length+'건':''; }
+}
+function mmList(){
+  const box=$('mmList'); if(!box) return; const q=MS.q.trim().toLowerCase();
+  const hit=n=>q&&((n.t||'')+' '+(n.note||'')+' '+(n.who||'')).toLowerCase().includes(q);
+  const rs=MS.root==='all'?mmRoots():mmRoots().filter(r=>r.id===MS.root);
+  const row=(n,lv)=>`<button data-mmsel="${n.id}" class="flex w-full items-center gap-2 py-1.5 pr-2 text-left hover:bg-slate-50 ${MS.sel===n.id?'bg-amber-50':''} ${hit(n)?'bg-yellow-100':''} ${(MS.st!=='all'&&n.st!==MS.st)?'opacity-40':''}" style="padding-left:${lv*22+8}px">${mmDot(n.st)}<span class="${lv===0?'font-bold text-[#13294b]':lv===1?'font-semibold':''}">${esc(n.t)}</span>${n.who?`<span class="text-xs text-slate-400">${esc(n.who)}</span>`:''}<span class="ml-auto text-xs text-slate-400 flex-none">${esc(n.when||'')}</span></button>`;
+  const walk=(n,lv)=>row(n,lv)+mmKids(n.id).map(c=>walk(c,lv+1)).join('');
+  box.innerHTML=rs.length?rs.map(r=>`<div class="border-b border-slate-200 py-2">${walk(r,0)}</div>`).join(''):'<p class="py-10 text-center text-sm text-slate-400">등록된 연구가 없습니다.</p>';
+}
+/* ---- 사진·영상 ---- */
+const mmYt=u=>{ const m=String(u).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/); return m?m[1]:''; };
+function mmMediaFromUrl(u){ u=String(u||'').trim(); if(!u) return null; const y=mmYt(u); if(y&&/youtu/.test(u)) return {k:'yt',src:y}; if(/\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/i.test(u)) return {k:'vid',src:u}; if(/^(https?:\/\/|assets\/|data:image\/)/i.test(u)) return {k:'img',src:u}; return null; }
+const mmThumb=(m,fit)=>m.k==='img'?`<img src="${esc(m.src)}" alt="" class="w-full h-full ${fit||'object-cover'}" loading="lazy">`:m.k==='yt'?`<img src="https://img.youtube.com/vi/${esc(m.src)}/mqdefault.jpg" alt="" class="w-full h-full object-cover" loading="lazy"><span class="absolute inset-0 flex items-center justify-center text-white text-3xl bg-black/30">▶</span>`:`<span class="absolute inset-0 flex items-center justify-center text-white text-3xl bg-slate-700">▶</span>`;
+function mmReadImg(f){ return new Promise((ok,no)=>{ const r=new FileReader(); r.onerror=no; r.onload=()=>{ const im=new Image(); im.onerror=no; im.onload=()=>{ const s=Math.min(1,1280/Math.max(im.width,im.height)), c=document.createElement('canvas'); c.width=Math.max(1,Math.round(im.width*s)); c.height=Math.max(1,Math.round(im.height*s)); const x=c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(im,0,0,c.width,c.height); ok(c.toDataURL('image/jpeg',.8)); }; im.src=r.result; }; r.readAsDataURL(f); }); }
+function mmPanel(){
+  const box=$('mmPanel'); if(!box) return; const n=MS.sel&&mmBy(MS.sel), can=mmCan();
+  if(!n){ box.innerHTML=`<div class="border border-dashed border-slate-300 p-6 text-sm text-slate-500 text-center leading-relaxed">연구를 클릭하면 담당·기간·설명과 사진·영상 자료가 여기에 나와요.${can?'<br>연구를 고르면 옆에 나타나는 <b>＋</b> 버튼(또는 Tab 키)으로 그 연구에서 갈라져 나온 관련 연구를 바로 이어서 만들 수 있어요.':''}</div>`; return; }
+  const path=[]; for(let x=n,i=0;x&&i<30;x=mmBy(x.p),i++) path.unshift(x);
+  const kids=mmKids(n.id), sibs=MM.filter(x=>x.p===n.p), si=sibs.indexOf(n);
+  const link=n.link&&/^(https?:\/\/|assets\/|#\/)/.test(n.link)?`<a href="${esc(n.link)}" ${n.link[0]==='#'?'':'target="_blank" rel="noopener"'} class="inline-block mt-3 text-sm text-[#1d3e72] hover:underline">🔗 관련 자료 열기 ›</a>`:'';
+  const btn=(a,l,cls)=>`<button ${a} class="px-3 py-1.5 text-sm border ${cls||'border-slate-300 hover:border-[#13294b]'}">${l}</button>`;
+  const ents=(n.media||[]).map((m,i)=>`<div class="py-4 ${i?'border-t border-slate-200':''}">${m.t?`<h4 class="font-bold text-[#13294b] mb-2">${esc(m.t)}</h4>`:''}<div class="flex flex-col sm:flex-row gap-4">${m.k&&m.src?`<button data-mmmed="${n.id}:${i}" class="relative flex-none sm:w-[46%] aspect-video bg-slate-100 overflow-hidden hover:opacity-90" title="눌러서 크게 보기">${mmThumb(m,'object-contain')}</button>`:''}<p class="flex-1 min-w-0 text-[15px] text-slate-700 leading-relaxed whitespace-pre-line">${esc(m.cap||'')}</p></div></div>`).join('');
+  const colNow=n.col||'';
+  box.innerHTML=`<div class="border border-slate-200 border-t-4" style="border-top-color:${MMSC[n.st]||'#94a3b8'}"><div class="p-5">
+   <p class="text-xs text-slate-400 mb-2">${path.map(p=>`<button data-mmsel="${p.id}" class="hover:underline">${esc(p.t)}</button>`).join(' › ')}</p>
+   <div class="flex flex-wrap items-center gap-3"><h3 class="text-xl font-bold text-[#13294b]">${esc(n.t)}</h3><span class="text-xs px-2 py-0.5 text-white font-bold" style="background:${MMSC[n.st]||'#94a3b8'}">${n.st||'계획'}</span></div>
+   <div class="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-slate-500">${n.who?`<span>담당 <b class="text-slate-700">${esc(n.who)}</b></span>`:''}${n.when?`<span>기간 <b class="text-slate-700">${esc(n.when)}</b></span>`:''}<span>하위 연구 ${mmDesc(n.id).length}건</span></div>
+   ${n.note?`<p class="mt-3 text-[15px] text-slate-700 leading-relaxed whitespace-pre-line">${esc(n.note)}</p>`:(ents?'':'<p class="mt-3 text-sm text-slate-400">등록된 설명이 없습니다.</p>')}${link}
+   ${ents?`<div class="mt-3 border-t border-slate-200">${ents}</div>`:''}
+   ${kids.length?`<div class="mt-4"><b class="text-sm text-[#13294b]">이 연구에서 이어진 관련 연구</b><div class="flex flex-wrap gap-2 mt-2">${kids.map(k=>`<button data-mmsel="${k.id}" class="text-sm border border-slate-300 px-3 py-1 hover:border-[#13294b]">${mmDot(k.st)}${esc(k.t)}</button>`).join('')}</div></div>`:''}
+   ${can?`<div class="mt-5 pt-4 border-t border-slate-200"><div class="flex flex-wrap items-center gap-1.5 mb-3"><span class="text-xs font-bold text-slate-500 mr-1">가지 색</span><button data-mmqc="" class="h-6 px-2 text-xs border-2 ${colNow?'border-slate-300':'border-black'} bg-slate-100">자동</button>${MMPAL.map(c=>`<button data-mmqc="${c}" class="w-6 h-6 border-2 ${c===colNow?'border-black':'border-white shadow'}" style="background:${c}" aria-label="${c}"></button>`).join('')}<label class="flex items-center gap-1 ml-1 text-xs text-slate-500 cursor-pointer">직접<input type="color" id="mmQcIn" value="${/^#[0-9a-f]{6}$/i.test(colNow)?colNow:'#3b82f6'}" class="w-7 h-6 p-0 border border-slate-300 bg-white cursor-pointer"></label></div>
+   <div class="flex flex-wrap gap-2">${btn(`data-mmadd="${n.id}"`,'＋ 하위 연구 추가','bg-[#13294b] text-white border-[#13294b] hover:bg-[#1d3e72]')}${btn(`data-mmsib="${n.id}"`,n.p&&mmBy(n.p)?'＋ 같은 단계 추가':'＋ 새 연구 시작')}${btn(`data-mmedit="${n.id}"`,'✎ 수정 (사진·설명 추가)')}${btn(`data-mmup="${n.id}"`,'↑',si<=0?'border-slate-200 text-slate-300':'')}${btn(`data-mmdn="${n.id}"`,'↓',si>=sibs.length-1?'border-slate-200 text-slate-300':'')}${btn(`data-mmdel="${n.id}"`,'삭제','border-red-200 text-red-600 hover:border-red-500')}</div></div>`:''}
+  </div></div>`;
+}
+function mmAll(){ mmBar(); const isMap=MS.view==='map'; $('mmCanvasBox').classList.toggle('hidden',!isMap); $('mmList').classList.toggle('hidden',isMap); mmInlineClose(); if(isMap) mmDraw(); else mmList(); mmPanel(); }
+function mmSelect(id){ MS.sel=id; mmAll(); }
+/* ---- 제자리 입력 (이름 바꾸기 / 하위 연구 빠르게 추가) ---- */
+function mmInlineClose(){ const i=$('mmQI'); if(i){ i.dataset.done='1'; i.remove(); } }
+function mmInline(kind,id){
+  const o=MS.lay&&MS.lay.nodes.find(o=>o.n.id===id); if(!o||!mmCan()||MS.view!=='map') return; mmInlineClose();
+  const box=$('mmCanvasBox'), k=MS.tf.k, n=o.n, right=o.dir>=0, hasTog=o.lv>=1&&o.nk;
+  const W=kind==='rename'?Math.max(150,o.w*k):190;
+  const wx=kind==='rename'?o.x:(right?o.x+o.w+(hasTog?50:30):o.x-(hasTog?50:30)-W/k);
+  const sx=Math.max(4,Math.min(box.clientWidth-W-4,wx*k+MS.tf.x)), sy=Math.max(4,Math.min(box.clientHeight-40,(kind==='rename'?o.y:o.cy-16/k)*k+MS.tf.y));
+  const i=document.createElement('input'); i.id='mmQI'; i.maxLength=60; i.placeholder=kind==='rename'?'':'하위 연구 이름 · Enter로 추가';
+  i.className='absolute z-10 bg-white text-sm px-3 py-1.5 shadow-lg focus:outline-none'; i.style.cssText=`left:${sx}px;top:${sy}px;width:${W}px;border:2px solid ${o.col};border-radius:999px`;
+  if(kind==='rename') i.value=n.t; box.appendChild(i); i.focus(); if(kind==='rename') i.select();
+  i.addEventListener('keydown',e=>{
+    e.stopPropagation();
+    if(e.key==='Escape'){ mmInlineClose(); }
+    else if(e.key==='Enter'){ e.preventDefault(); const v=i.value.trim(); if(!v){ mmInlineClose(); return; }
+      mmSnap();
+      if(kind==='rename'){ n.t=v; mmSave(); MS.sel=id; mmAll(); }
+      else { const c={id:mmId(),p:id,t:v,st:'계획',who:'',when:'',note:'',link:'',col:'',media:[]}; MM.push(c); n.c=0; mmSave(); MS.sel=id; mmAll(); mmInline('add',id); }
+    }
+  });
+  i.addEventListener('blur',()=>{ setTimeout(()=>{ if(i.isConnected&&!i.dataset.done) mmInlineClose(); },120); });
+}
+/* ---- 추가 / 수정 폼 ---- */
+let MF={mode:'add',id:null}, MMED=[], MMIDX=-1;
+function mmEnsureModal(){
+  if($('mmModal')) return;
+  document.body.insertAdjacentHTML('beforeend',`<div id="mmModal" class="hidden fixed inset-0 z-[90] bg-black/50 flex items-start justify-center p-4 overflow-y-auto overscroll-contain"><form id="mmForm" class="bg-white w-full max-w-2xl shadow-2xl my-auto">
+  <div class="bg-[#13294b] text-white px-5 py-3 flex justify-between items-center"><p id="mmFH" class="text-sm font-bold"></p><button type="button" data-mmx class="text-xl leading-none" aria-label="닫기">×</button></div>
+  <div class="p-5 space-y-3 text-sm">
+   <label class="block"><span class="font-bold text-slate-700">연구 제목</span><input id="mmfT" maxlength="60" class="mt-1 w-full border border-slate-300 px-3 py-2" placeholder="예: 고대 용 문명 기록 해독"></label>
+   <div class="grid grid-cols-2 gap-3"><label class="block"><span class="font-bold text-slate-700">상태</span><select id="mmfSt" class="mt-1 w-full border border-slate-300 px-3 py-2">${Object.keys(MMSC).map(s=>`<option>${s}</option>`).join('')}</select></label>
+   <label class="block"><span class="font-bold text-slate-700">담당 (연구실·학부)</span><input id="mmfWho" maxlength="40" class="mt-1 w-full border border-slate-300 px-3 py-2"></label></div>
+   <div class="grid grid-cols-2 gap-3"><label class="block"><span class="font-bold text-slate-700">기간</span><input id="mmfWhen" maxlength="40" class="mt-1 w-full border border-slate-300 px-3 py-2" placeholder="예: 2026.03 ~ 진행 중"></label>
+   <label class="block"><span class="font-bold text-slate-700">상위 연구</span><select id="mmfP" class="mt-1 w-full border border-slate-300 px-3 py-2"></select></label></div>
+   <label class="block"><span class="font-bold text-slate-700">요약 설명</span><textarea id="mmfNote" rows="3" class="mt-1 w-full border border-slate-300 px-3 py-2" placeholder="연구 내용, 이어진 이유 등 (맨 위에 보여요)"></textarea></label>
+   <div><span class="font-bold text-slate-700">상세 내용 (사진 + 설명)</span><p class="text-[11px] text-slate-400 leading-snug">항목마다 소제목, 사진(또는 영상), 설명을 적으면 사진 옆에 설명이 나란히 표시돼요.</p><div id="mmfMed" class="mt-1.5 space-y-2.5"></div>
+    <div class="flex flex-wrap gap-2 mt-2"><button type="button" data-mmeadd class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">＋ 내용 추가</button><button type="button" data-mmimgs class="px-3 py-1.5 text-sm border border-slate-300 hover:border-[#13294b]">📷 사진·영상 여러 개 올리기</button><input id="mmFile" type="file" accept="image/*,video/*" multiple class="hidden"></div>
+    <p class="text-[11px] text-slate-400 mt-1 leading-snug">바탕화면의 사진·영상 파일을 이 창 안으로 끌어다 놓아도 돼요 (항목 위에 놓으면 그 항목에 들어가요). 사진은 가로 1280px로 줄여 저장돼요. 영상 파일은 3MB까지만 바로 넣을 수 있고, 더 큰 영상은 YouTube 주소나 mp4 파일 경로(저장소 assets 폴더에 올린 파일)를 넣어 주세요.</p></div>
+   <div id="mmfColBox"><span class="font-bold text-slate-700">색상</span><div id="mmfCols" class="mt-1.5"></div></div>
+  </div>
+  <div class="px-5 pb-5 flex justify-between items-center"><button type="button" id="mmfDel" data-mmdel2 class="text-sm text-red-600 hover:underline hidden">삭제</button><span class="flex gap-2 ml-auto"><button type="button" data-mmx class="px-4 py-2 text-sm border border-slate-300 hover:border-[#13294b]">취소</button><button class="px-5 py-2 text-sm bg-[#13294b] text-white hover:bg-[#1d3e72]">저장</button></span></div></form></div>
+  <div id="mmLb" class="hidden fixed inset-0 z-[96] bg-black/85 flex flex-col items-center justify-center p-4"><button data-mmlbx class="absolute right-4 top-3 text-white text-3xl leading-none" aria-label="닫기">×</button><button data-mmlbp class="absolute left-2 sm:left-5 top-1/2 text-white text-4xl px-2" aria-label="이전">‹</button><button data-mmlbn class="absolute right-2 sm:right-5 top-1/2 text-white text-4xl px-2" aria-label="다음">›</button><div id="mmLbBox" class="w-full max-w-4xl flex items-center justify-center"></div><div id="mmLbCap" class="mt-3 max-w-3xl text-center text-white text-sm leading-relaxed whitespace-pre-line"></div></div>`);
+  $('mmForm').addEventListener('submit',mmSubmit);
+}
+function mmReadVid(f){ return new Promise((ok,no)=>{ if(f.size>3*1024*1024){ no('big'); return; } const r=new FileReader(); r.onerror=no; r.onload=()=>ok(r.result); r.readAsDataURL(f); }); }
+async function mmAddFiles(fs,at,arr){
+  arr=arr||MMED; const big=[]; let first=true;
+  for(const f of fs){ try{
+    let k,src; if(/^image\//.test(f.type)){ k='img'; src=await mmReadImg(f); } else if(/^video\//.test(f.type)){ k='vid'; src=await mmReadVid(f); } else { alert('‘'+f.name+'’ 은(는) 사진·영상 파일이 아니에요.'); continue; }
+    if(first&&at>=0&&arr[at]&&!arr[at].src){ arr[at].k=k; arr[at].src=src; at++; } else { arr.push({t:'',k,src,cap:''}); at=-1; } first=false;
+  }catch(x){ if(x==='big') big.push(f.name); else alert('‘'+f.name+'’ 파일을 읽지 못했습니다.'); } }
+  if(big.length) alert('영상은 3MB까지만 바로 넣을 수 있어요: '+big.join(', ')+'\n큰 영상은 저장소 assets 폴더에 올린 뒤 경로(assets/파일.mp4)나 YouTube 주소로 넣어 주세요.');
+}
+const mmHasFiles=e=>e.dataTransfer&&[...(e.dataTransfer.types||[])].includes('Files');
+document.addEventListener('dragover',e=>{ const m=e.target.closest&&e.target.closest('#mmModal'), s=e.target.closest&&e.target.closest('#mmSvg'); if(!(m||s)) return; if(!mmHasFiles(e)) return; e.preventDefault(); if(m){ document.querySelectorAll('.mmdz').forEach(x=>x.classList.remove('mmdz')); const en=e.target.closest('[data-mment]'); (en||$('mmfMed')).classList.add('mmdz'); } else { const g=e.target.closest('[data-mmn]'); document.querySelectorAll('.mmdz').forEach(x=>x.classList.remove('mmdz')); if(g&&mmCan()) g.querySelector('.mmr').classList.add('mmdz'); } });
+document.addEventListener('dragleave',e=>{ if(!e.relatedTarget) document.querySelectorAll('.mmdz').forEach(x=>x.classList.remove('mmdz')); });
+document.addEventListener('drop',async e=>{
+  const m=e.target.closest&&e.target.closest('#mmModal'), s=e.target.closest&&e.target.closest('#mmSvg'); if(!(m||s)) return; if(!mmHasFiles(e)&&!(e.dataTransfer&&e.dataTransfer.getData('text/uri-list'))) return;
+  e.preventDefault(); document.querySelectorAll('.mmdz').forEach(x=>x.classList.remove('mmdz'));
+  const fs=[...e.dataTransfer.files]; let urlm=null; if(!fs.length){ urlm=mmMediaFromUrl((e.dataTransfer.getData('text/uri-list')||'').split('\n')[0]); if(!urlm) return; }
+  if(m){ const en=e.target.closest('[data-mment]'), at=en?+en.dataset.mment:-1;
+    if(urlm){ if(at>=0&&MMED[at]&&!MMED[at].src) Object.assign(MMED[at],urlm); else MMED.push(Object.assign({t:'',cap:''},urlm)); } else await mmAddFiles(fs,at);
+    mmMedRows(); }
+  else { const g=e.target.closest('[data-mmn]'); if(!g||!mmCan()) return; const n=mmBy(g.dataset.mmn); if(!n) return; const arr=JSON.parse(JSON.stringify(n.media||[]));
+    if(urlm) arr.push(Object.assign({t:'',cap:''},urlm)); else await mmAddFiles(fs,-1,arr);
+    if(arr.length===(n.media||[]).length) return; mmSnap(); n.media=arr; mmSave(); MS.fit=false; MS.sel=n.id; mmAll(); }
+});
+let LB={id:null,i:0};
+function mmLbShow(){
+  const n=mmBy(LB.id), ms=n?(n.media||[]).filter(m=>m.k&&m.src):[], m=ms[LB.i]; if(!m){ mmLbClose(); return; }
+  $('mmLbBox').innerHTML=m.k==='img'?`<img src="${esc(m.src)}" alt="" class="max-w-full object-contain" style="max-height:72vh">`:m.k==='yt'?`<div class="w-full" style="aspect-ratio:16/9;max-height:72vh"><iframe src="https://www.youtube-nocookie.com/embed/${esc(m.src)}?rel=0" class="w-full h-full" style="border:0" allow="accelerometer;autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe></div>`:`<video src="${esc(m.src)}" controls autoplay playsinline class="max-w-full" style="max-height:72vh"></video>`;
+  $('mmLbCap').innerHTML=(m.t?`<b class="block text-base mb-1">${esc(m.t)}</b>`:'')+(m.cap?esc(m.cap):'')+`<div class="text-xs text-slate-400 mt-1">${esc(n.t)} · ${LB.i+1} / ${ms.length}</div>`;
+  const many=ms.length>1; document.querySelector('[data-mmlbp]').style.display=many?'':'none'; document.querySelector('[data-mmlbn]').style.display=many?'':'none';
+}
+function mmLbOpen(id,i){ mmEnsureModal(); const n=mmBy(id); if(!n) return; const m=(n.media||[])[i]; LB={id,i:Math.max(0,(n.media||[]).filter(x=>x.k&&x.src).indexOf(m))}; $('mmLb').classList.remove('hidden'); mmLbShow(); }
+function mmLbClose(){ const b=$('mmLb'); if(b){ b.classList.add('hidden'); $('mmLbBox').innerHTML=''; } }
+let mmColSel='';
+function mmPickCol(c){ mmColSel=c||''; const sw=x=>`<button type="button" data-mmcol="${x}" class="w-6 h-6 border-2 ${x.toLowerCase()===mmColSel.toLowerCase()?'border-black':'border-white shadow'}" style="background:${x}" aria-label="${x}"></button>`;
+  $('mmfCols').innerHTML=`<div class="flex flex-wrap items-center gap-1.5"><button type="button" data-mmcol="" class="h-6 px-2 text-xs border-2 ${mmColSel?'border-slate-300':'border-black'} bg-slate-100">자동</button>${MMPAL.map(sw).join('')}<label class="flex items-center gap-1.5 ml-1 text-xs text-slate-600 cursor-pointer">직접 고르기 <input type="color" id="mmfColIn" value="${/^#[0-9a-f]{6}$/i.test(mmColSel)?mmColSel:'#3b82f6'}" class="w-8 h-7 p-0 border border-slate-300 bg-white cursor-pointer"></label></div><p class="text-[11px] text-slate-400 mt-1">‘자동’이면 상위 연구의 색을 따라가요.</p>`; }
+function mmMedRows(){
+  const b=$('mmfMed'); if(!b) return;
+  b.innerHTML=MMED.length?MMED.map((m,i)=>`<div data-mment="${i}" class="border border-slate-200 bg-slate-50/60 p-2.5"><div class="flex items-center mb-1.5"><b class="text-xs text-slate-500">내용 ${i+1}</b><span class="ml-auto flex text-xs"><button type="button" data-mmmup="${i}" class="px-1.5 text-slate-500 hover:text-[#13294b]">▲</button><button type="button" data-mmmdn="${i}" class="px-1.5 text-slate-500 hover:text-[#13294b]">▼</button><button type="button" data-mmmrm="${i}" class="px-1.5 text-red-500">✕ 삭제</button></span></div>
+   <input data-mmet="${i}" maxlength="60" value="${esc(m.t||'')}" class="w-full border border-slate-300 px-2 py-1 text-sm mb-1.5 bg-white" placeholder="소제목 (선택) 예: 서풍 매의 사당">
+   <div class="flex gap-2 items-start"><div class="flex-none w-32">${m.src?`<span class="relative block w-32 h-[5.2rem] bg-slate-100 overflow-hidden">${mmThumb(m)}</span><button type="button" data-mmmclr="${i}" class="text-[11px] text-red-500 mt-1">사진·영상 빼기</button>`:`<button type="button" data-mmimg="${i}" class="w-32 h-[5.2rem] border-2 border-dashed border-slate-300 text-xs text-slate-500 hover:border-[#13294b] bg-white">📷 사진<br>올리기</button>`}</div>
+   <textarea data-mmcap="${i}" rows="4" class="flex-1 min-w-0 border border-slate-300 px-2 py-1 text-sm bg-white" placeholder="설명 (사진 옆에 나란히 표시돼요)">${esc(m.cap||'')}</textarea></div>
+   ${m.src?'':`<div class="flex gap-1 mt-1.5"><input data-mmeu="${i}" class="flex-1 min-w-0 border border-slate-300 px-2 py-1 text-xs bg-white" placeholder="또는 영상·사진 주소 (YouTube, mp4, assets/…)"><button type="button" data-mmeuset="${i}" class="px-2.5 text-xs border border-slate-300 hover:border-[#13294b] bg-white flex-none">적용</button></div>`}</div>`).join(''):'<p class="text-xs text-slate-400">아직 상세 내용이 없습니다. ‘＋ 내용 추가’를 눌러 사진과 설명을 넣어 보세요.</p>';
+}
+function mmOpenForm(mode,id,parent){
+  mmEnsureModal(); MF={mode,id}; const n=mode==='edit'?mmBy(id):null, ex=n?[n.id,...mmDesc(n.id)]:[];
+  $('mmFH').textContent=mode==='edit'?'연구 수정':(parent?'하위 연구 추가':'새 연구 시작');
+  const opts=['<option value="">(없음 — 새 연구의 시작점)</option>']; (function w(pid,d){ MM.filter(x=>(pid===''?(!x.p||!mmBy(x.p)):x.p===pid)).forEach(x=>{ if(ex.includes(x.id)) return; opts.push(`<option value="${x.id}">${'　'.repeat(d)}${d?'└ ':''}${esc(x.t)}</option>`); w(x.id,d+1); }); })('',0);
+  $('mmfP').innerHTML=opts.join(''); $('mmfP').value=n?(mmBy(n.p)?n.p:''):(parent||''); MMED=n?JSON.parse(JSON.stringify(n.media||[])):[]; mmMedRows();
+  $('mmfT').value=n?n.t:''; $('mmfSt').value=n?n.st:'계획'; $('mmfWho').value=n?n.who||'':''; $('mmfWhen').value=n?n.when||'':''; $('mmfNote').value=n?n.note||'':'';
+  mmPickCol(n?n.col||'':''); $('mmfDel').classList.toggle('hidden',mode!=='edit');
+  $('mmModal').classList.remove('hidden'); setTimeout(()=>$('mmfT').focus(),30);
+}
+function mmSubmit(e){
+  e.preventDefault(); const t=$('mmfT').value.trim(); if(!t){ $('mmfT').focus(); return; }
+  const d={t,st:$('mmfSt').value,who:$('mmfWho').value.trim(),when:$('mmfWhen').value.trim(),note:$('mmfNote').value.trim(),p:$('mmfP').value,col:mmColSel,media:MMED.filter(m=>m.src||(m.t||'').trim()||(m.cap||'').trim()).map(m=>({t:(m.t||'').trim(),k:m.src?m.k:'',src:m.src||'',cap:(m.cap||'').trim()}))};
+  mmSnap(); let n;
+  if(MF.mode==='edit'){ n=mmBy(MF.id); const moved=n.p!==d.p; Object.assign(n,d); if(moved){ MM.splice(MM.indexOf(n),1); MM.push(n); } }
+  else { n=Object.assign({id:mmId(),link:''},d); MM.push(n); }
+  const par=mmBy(d.p); if(par) par.c=0;
+  MS.sel=n.id; mmSave(); $('mmModal').classList.add('hidden'); MS.fit=!MS.moved; mmAll();
+}
+function mmDelete(id){
+  const n=mmBy(id); if(!n) return; const ids=[id,...mmDesc(id)];
+  if(!confirm(ids.length>1?`‘${n.t}’ 와 하위 연구 ${ids.length-1}건을 모두 삭제할까요?\n(Ctrl+Z 로 되돌릴 수 있어요)`:`‘${n.t}’ 연구를 삭제할까요?\n(Ctrl+Z 로 되돌릴 수 있어요)`)) return;
+  mmSnap(); MM=MM.filter(x=>!ids.includes(x.id)); MS.sel=ids.includes(MS.sel)?(mmBy(n.p)?n.p:null):MS.sel; mmSave(); $('mmModal')&&$('mmModal').classList.add('hidden'); mmAll();
+}
+function mmMoveTo(id,to){
+  const n=mmBy(id), t=mmBy(to); if(!n||!t||id===to||mmDesc(id).includes(to)||n.p===to) return;
+  mmSnap(); n.p=to; t.c=0; MM.splice(MM.indexOf(n),1); MM.push(n); mmSave(); MS.sel=id; MS.fit=!MS.moved; mmAll();
+}
+function mmShift(id,dir){
+  const n=mmBy(id); if(!n) return; const sibs=MM.filter(x=>x.p===n.p), i=sibs.indexOf(n), o=sibs[i+dir]; if(!o) return;
+  mmSnap(); const a=MM.indexOf(n), b=MM.indexOf(o); MM[a]=o; MM[b]=n; mmSave(); mmAll();
+}
+function mmUndo(){ const s=MMH.pop(); if(!s) return; MM=JSON.parse(s); if(MS.sel&&!mmBy(MS.sel)) MS.sel=null; mmSave(); mmAll(); }
+function mmPng(){
+  const L=MS.lay, g=$('mmView'); if(!L||!g||!L.nodes.length) return; const b=L.b, pad=24, W=Math.ceil(b.x1-b.x0+pad*2), H=Math.ceil(b.y1-b.y0+pad*2);
+  const c=g.cloneNode(true); c.setAttribute('transform',`translate(${pad-b.x0} ${pad-b.y0})`); c.querySelectorAll('[data-mmq]').forEach(x=>x.remove());
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" font-family="'Noto Sans KR','Malgun Gothic',sans-serif"><rect width="100%" height="100%" fill="#fff"/>${c.outerHTML}</svg>`;
+  const img=new Image(); img.onload=()=>{ try{ const cv=document.createElement('canvas'); cv.width=W*2; cv.height=H*2; const x=cv.getContext('2d'); x.scale(2,2); x.drawImage(img,0,0); cv.toBlob(bl=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(bl); a.download='research-mindmap.png'; document.body.appendChild(a); a.click(); a.remove(); }); }catch(e){ alert('이미지로 저장하지 못했습니다.'); } };
+  img.onerror=()=>alert('이미지로 저장하지 못했습니다.'); img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+/* ---- 화면 만들기 + 드래그/확대 조작 ---- */
+function mmInit(){
+  const wrap=$('subBody').firstElementChild; if(wrap) wrap.classList.remove('max-w-4xl');
+  MS.fit=true; MS.moved=false; MS.drop=null; mmEnsureModal();
+  const can=mmCan();
+  $('mm-wrap').innerHTML=`<p class="text-sm text-slate-500 mb-4 leading-relaxed">하나의 연구에서 갈라져 나온 관련 연구를 한눈에 볼 수 있는 지도입니다. 연구를 클릭하면 사진·영상이 포함된 자세한 내용이 나오고, ${can?'연구를 고르면 나타나는 ＋ 버튼으로 관련 연구를 바로 이어서 추가하거나 끌어서 다른 연구 아래로 옮길 수 있어요.':'가지의 −/＋ 버튼으로 접고 펼 수 있어요.'}</p>
+  <div id="mmStats" class="grid grid-cols-5 gap-2 mb-4"></div>
+  <div class="flex flex-wrap items-center gap-2 mb-3"><div id="mmMaps" class="flex flex-wrap gap-2"></div><button id="mmNew" data-mmnew class="px-4 py-1.5 text-sm bg-[#13294b] text-white hover:bg-[#1d3e72]">＋ 새 연구 시작</button><span class="flex-1"></span><span id="mmQn" class="text-xs text-slate-500"></span><input id="mmQ" type="search" placeholder="연구 검색" class="border border-slate-300 px-3 py-1.5 text-sm w-36 sm:w-48 focus:outline-none focus:border-[#13294b]"><div id="mmViews" class="flex gap-1"></div></div>
+  <div id="mmCanvasBox" class="relative border border-slate-300 bg-white overflow-hidden" style="height:min(72vh,640px);min-height:420px;background-image:radial-gradient(#e2e8f0 1px,transparent 1px);background-size:18px 18px"><svg id="mmSvg" class="w-full h-full" style="display:block;width:100%;height:100%;touch-action:none;user-select:none;cursor:grab"></svg>
+   <div class="absolute right-2 top-2 flex flex-col gap-1 text-sm"><button data-mmz="1.2" class="w-8 h-8 bg-white border border-slate-300 hover:border-[#13294b]" aria-label="확대">＋</button><button data-mmz="0.83" class="w-8 h-8 bg-white border border-slate-300 hover:border-[#13294b]" aria-label="축소">－</button><button data-mmfit class="w-8 h-8 bg-white border border-slate-300 hover:border-[#13294b] text-xs" title="전체가 보이게 맞추기">맞춤</button><button id="mmUndo" data-mmundo class="w-8 h-8 bg-white border border-slate-300 hover:border-[#13294b]" title="되돌리기 (Ctrl+Z)">↶</button><button data-mmpng class="w-8 h-8 bg-white border border-slate-300 hover:border-[#13294b] text-xs" title="이미지로 저장">PNG</button></div>
+   <p class="absolute left-3 bottom-2 right-14 text-[11px] text-slate-400 pointer-events-none">드래그: 이동 · Ctrl+휠: 확대/축소${can?' · Tab: 하위 연구 추가 · Enter: 같은 단계 추가 · 더블클릭: 수정 · F2: 이름 바꾸기 · 사진·영상 파일을 연구 위로 끌어다 놓기 · 끌어서 다른 연구에 놓으면 하위로 이동 · Delete: 삭제 · Ctrl+Z: 되돌리기':''}</p></div>
+  <div id="mmList" class="hidden border-t-2 border-[#13294b]"></div><div id="mmPanel" class="mt-5"></div><div id="mmGhost" class="hidden fixed z-[95] pointer-events-none px-3 py-1 text-xs font-bold text-white bg-[#13294b] shadow-lg"></div>`;
+  mmAll();
+  const svg=$('mmSvg'), pts=new Map(); let pan=null, drag=null, tog=null, quick=null, pinch=null;
+  const world=(cx,cy)=>{ const r=svg.getBoundingClientRect(); return {x:(cx-r.left-MS.tf.x)/MS.tf.k,y:(cy-r.top-MS.tf.y)/MS.tf.k}; };
+  const dropAt=(cx,cy,id)=>{ const w=world(cx,cy), ex=[id,...mmDesc(id)]; const o=MS.lay.nodes.find(o=>!ex.includes(o.n.id)&&w.x>=o.x-6&&w.x<=o.x+o.w+6&&w.y>=o.y-6&&w.y<=o.y+o.h+6); return o?o.n.id:null; };
+  svg.addEventListener('pointerdown',e=>{
+    if(e.button>0) return; try{ svg.setPointerCapture(e.pointerId); }catch(x){}
+    pts.set(e.pointerId,{x:e.clientX,y:e.clientY}); mmInlineClose();
+    if(pts.size===2){ pan=null; drag=null; tog=null; quick=null; const a=[...pts.values()]; pinch=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y); return; }
+    const t=e.target.closest('[data-mmt]'); if(t){ tog={id:t.dataset.mmt,x:e.clientX,y:e.clientY}; return; }
+    const qq=e.target.closest('[data-mmq]'); if(qq){ quick={id:qq.dataset.mmq,x:e.clientX,y:e.clientY}; return; }
+    const g=e.target.closest('[data-mmn]');
+    if(g) drag={id:g.dataset.mmn,sx:e.clientX,sy:e.clientY,on:false,pan:false,ox:MS.tf.x,oy:MS.tf.y};
+    else { pan={sx:e.clientX,sy:e.clientY,ox:MS.tf.x,oy:MS.tf.y}; svg.style.cursor='grabbing'; }
+  });
+  svg.addEventListener('pointermove',e=>{
+    if(!pts.has(e.pointerId)) return; pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===2&&pinch){ const a=[...pts.values()], d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y); if(d>0){ mmZoomAt((a[0].x+a[1].x)/2,(a[0].y+a[1].y)/2,d/pinch); pinch=d; } return; }
+    if(pan){ MS.tf.x=pan.ox+e.clientX-pan.sx; MS.tf.y=pan.oy+e.clientY-pan.sy; MS.moved=true; mmApplyTf(); return; }
+    if(drag){
+      const dist=Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy);
+      if(!drag.on&&!drag.pan&&dist>6){ if(mmCan()){ drag.on=true; const n=mmBy(drag.id); const gh=$('mmGhost'); gh.textContent=n?n.t:''; gh.classList.remove('hidden'); } else drag.pan=true; }
+      if(drag.pan){ MS.tf.x=drag.ox+e.clientX-drag.sx; MS.tf.y=drag.oy+e.clientY-drag.sy; MS.moved=true; mmApplyTf(); }
+      if(drag.on){ const gh=$('mmGhost'); gh.style.left=(e.clientX+12)+'px'; gh.style.top=(e.clientY+12)+'px'; const t=dropAt(e.clientX,e.clientY,drag.id);
+        if(t!==MS.drop){ const old=svg.querySelector('.mmdrop'); if(old){ old.removeAttribute('stroke'); old.removeAttribute('stroke-width'); old.classList.remove('mmdrop'); } MS.drop=t; if(t){ const r=svg.querySelector(`[data-mmn="${t}"] .mmr`); if(r){ r.classList.add('mmdrop'); r.setAttribute('stroke','#f59e0b'); r.setAttribute('stroke-width','4'); } } } }
+    }
+  });
+  const end=e=>{
+    pts.delete(e.pointerId); if(pts.size<2) pinch=null; svg.style.cursor='grab';
+    if(tog){ const t=tog; tog=null; if(Math.hypot(e.clientX-t.x,e.clientY-t.y)<6){ const n=mmBy(t.id); if(n){ n.c=n.c?0:1; mmSave(); MS.fit=false; mmDraw(); } } return; }
+    if(quick){ const t=quick; quick=null; if(Math.hypot(e.clientX-t.x,e.clientY-t.y)<6) mmInline('add',t.id); return; }
+    if(drag){ const d=drag; drag=null; $('mmGhost').classList.add('hidden'); const to=MS.drop; MS.drop=null;
+      if(d.on){ if(to) mmMoveTo(d.id,to); else mmDraw(); }
+      else if(!d.pan){ const now=Date.now(); if(MS.lc&&MS.lc.id===d.id&&now-MS.lc.t<400&&mmCan()){ MS.lc=null; mmOpenForm('edit',d.id); } else { MS.lc={id:d.id,t:now}; mmSelect(d.id); } } return; }
+    pan=null;
+  };
+  svg.addEventListener('pointerup',end); svg.addEventListener('pointercancel',end);
+  svg.addEventListener('wheel',e=>{ if(!(e.ctrlKey||e.metaKey)) return; e.preventDefault(); mmZoomAt(e.clientX,e.clientY,e.deltaY<0?1.12:1/1.12); },{passive:false});
+  $('mmQ').addEventListener('input',e=>{ MS.q=e.target.value; MS.fit=!MS.moved; mmAll(); });
+}
+R.mindmap=()=>H('연구 마인드맵')+'<div id="mm-wrap"></div>'; INIT.mindmap=mmInit;
+R.timeline=()=>''; INIT.timeline=()=>{ $('tl-wrap').classList.remove('hidden'); $('subBody').classList.add('hidden'); startTimeline(); };
+document.addEventListener('click',e=>{
+  if(e.target.id==='mmLb'){ mmLbClose(); return; }
+  const t=e.target.closest('[data-mmroot],[data-mmview],[data-mmst],[data-mmsel],[data-mmnew],[data-mmadd],[data-mmsib],[data-mmedit],[data-mmup],[data-mmdn],[data-mmdel],[data-mmdel2],[data-mmx],[data-mmcol],[data-mmz],[data-mmfit],[data-mmpng],[data-mmundo],[data-mmqc],[data-mmeadd],[data-mmimgs],[data-mmimg],[data-mmmrm],[data-mmmup],[data-mmmdn],[data-mmmclr],[data-mmeuset],[data-mmmed],[data-mmlbx],[data-mmlbp],[data-mmlbn]'); if(!t||!$('mm-wrap')&&!t.closest('#mmModal,#mmLb')) return;
+  const d=t.dataset;
+  if(d.mmroot!==undefined){ MS.root=d.mmroot; MS.fit=true; MS.moved=false; mmAll(); }
+  else if(d.mmview!==undefined){ MS.view=d.mmview; MS.fit=!MS.moved; mmAll(); if(MS.view==='map') requestAnimationFrame(()=>{ if(MS.fit&&!MS.moved) mmFit(); }); }
+  else if(d.mmst!==undefined){ MS.st=d.mmst===MS.st?'all':d.mmst; mmAll(); }
+  else if(d.mmsel!==undefined){ mmSelect(d.mmsel); }
+  else if(d.mmnew!==undefined){ if(mmCan()) mmOpenForm('add',null,''); }
+  else if(d.mmadd!==undefined){ if(mmCan()) mmOpenForm('add',null,d.mmadd); }
+  else if(d.mmsib!==undefined){ const n=mmBy(d.mmsib); if(n&&mmCan()) mmOpenForm('add',null,mmBy(n.p)?n.p:''); }
+  else if(d.mmedit!==undefined){ if(mmCan()) mmOpenForm('edit',d.mmedit); }
+  else if(d.mmup!==undefined){ if(mmCan()) mmShift(d.mmup,-1); }
+  else if(d.mmdn!==undefined){ if(mmCan()) mmShift(d.mmdn,1); }
+  else if(d.mmdel!==undefined){ if(mmCan()) mmDelete(d.mmdel); }
+  else if(d.mmdel2!==undefined){ if(MF.id&&mmCan()) mmDelete(MF.id); }
+  else if(d.mmx!==undefined){ $('mmModal').classList.add('hidden'); }
+  else if(d.mmcol!==undefined){ mmPickCol(d.mmcol); }
+  else if(d.mmqc!==undefined){ const n=mmBy(MS.sel); if(n&&mmCan()){ mmSnap(); n.col=d.mmqc; mmSave(); MS.fit=false; mmAll(); } }
+  else if(d.mmz!==undefined){ const r=$('mmSvg').getBoundingClientRect(); mmZoomAt(r.left+r.width/2,r.top+r.height/2,+d.mmz); }
+  else if(d.mmfit!==undefined){ MS.fit=true; MS.moved=false; mmFit(); }
+  else if(d.mmpng!==undefined){ mmPng(); }
+  else if(d.mmundo!==undefined){ if(mmCan()) mmUndo(); }
+  else if(d.mmeadd!==undefined){ MMED.push({t:'',k:'',src:'',cap:''}); mmMedRows(); }
+  else if(d.mmimgs!==undefined){ MMIDX=-1; $('mmFile').click(); }
+  else if(d.mmimg!==undefined){ MMIDX=+d.mmimg; $('mmFile').click(); }
+  else if(d.mmmclr!==undefined){ const m=MMED[+d.mmmclr]; if(m){ m.k=''; m.src=''; mmMedRows(); } }
+  else if(d.mmeuset!==undefined){ const i=+d.mmeuset, inp=document.querySelector(`[data-mmeu="${i}"]`), m=mmMediaFromUrl(inp&&inp.value); if(!m){ alert('주소를 확인해 주세요. YouTube 주소, mp4 파일 경로, 또는 사진 주소(https:// 또는 assets/…)를 넣을 수 있어요.'); return; } Object.assign(MMED[i],m); mmMedRows(); }
+  else if(d.mmmrm!==undefined){ MMED.splice(+d.mmmrm,1); mmMedRows(); }
+  else if(d.mmmup!==undefined||d.mmmdn!==undefined){ const i=+(d.mmmup!==undefined?d.mmmup:d.mmmdn), j=d.mmmup!==undefined?i-1:i+1; if(MMED[j]){ const a=MMED[i]; MMED[i]=MMED[j]; MMED[j]=a; mmMedRows(); } }
+  else if(d.mmmed!==undefined){ const q=d.mmmed.split(':'); mmLbOpen(q[0],+q[1]); }
+  else if(d.mmlbx!==undefined){ mmLbClose(); }
+  else if(d.mmlbp!==undefined||d.mmlbn!==undefined){ const n=mmBy(LB.id); if(n){ const L=(n.media||[]).filter(m=>m.k&&m.src).length; LB.i=(LB.i+(d.mmlbn!==undefined?1:-1)+L)%L; mmLbShow(); } }
+});
+document.addEventListener('input',e=>{ const t=e.target, d=t.dataset||{}; if(d.mmcap!==undefined&&MMED[+d.mmcap]) MMED[+d.mmcap].cap=t.value; if(d.mmet!==undefined&&MMED[+d.mmet]) MMED[+d.mmet].t=t.value; if(t.id==='mmfColIn') mmPickCol(t.value); });
+document.addEventListener('change',async e=>{
+  const t=e.target;
+  if(t.id==='mmQcIn'){ const n=mmBy(MS.sel); if(n&&mmCan()){ mmSnap(); n.col=t.value; mmSave(); MS.fit=false; mmAll(); } return; }
+  if(t.id!=='mmFile') return; const fs=[...t.files]; t.value=''; const at=MMIDX; MMIDX=-1;
+  await mmAddFiles(fs,at); mmMedRows();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&$('mmModal')){ if(!$('mmLb').classList.contains('hidden')) mmLbClose(); else $('mmModal').classList.add('hidden'); }
+  if($('mmLb')&&!$('mmLb').classList.contains('hidden')){ if(e.key==='ArrowRight') document.querySelector('[data-mmlbn]').click(); if(e.key==='ArrowLeft') document.querySelector('[data-mmlbp]').click(); return; }
+  if(!$('mm-wrap')||!mmCan()) return; const tg=e.target; if(/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName)||tg.isContentEditable) return; if(!$('mmModal').classList.contains('hidden')) return;
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){ e.preventDefault(); mmUndo(); return; }
+  const n=MS.sel&&mmBy(MS.sel); if(!n||MS.view!=='map') return;
+  if(e.key==='Tab'){ e.preventDefault(); mmInline('add',n.id); }
+  else if(e.key==='Enter'){ e.preventDefault(); if(mmBy(n.p)) mmInline('add',n.p); else mmOpenForm('add',null,''); }
+  else if(e.key==='Delete'){ e.preventDefault(); mmDelete(n.id); }
+  else if(e.key==='F2'){ e.preventDefault(); mmInline('rename',n.id); }
+});
+addEventListener('resize',()=>{ if($('mmSvg')&&MS.fit&&!MS.moved) mmFit(); });
 function openModal(t,meta,body){ $('mTitle').textContent=t; $('mMeta').textContent=meta; $('mText').textContent=body; $('modal').classList.remove('hidden'); }
 $('modal').addEventListener('click',e=>{ if(e.target.id==='modal'||e.target.closest('[data-close]')) $('modal').classList.add('hidden'); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('modal').classList.add('hidden'); });
@@ -1609,7 +1997,7 @@ function showPage(id){
   $('subTitle').textContent=it[1]; $('subTag').textContent=g.n;
   renderTabs(g,id);
   $('subBody').innerHTML=`<div class="max-w-4xl">${R[id]()}</div>`; facFixed=''; if(INIT[id]) INIT[id]();
-  $('syncBar').classList.toggle('hidden',!(id==='faculty'||id==='clubs')); setStatus();
+  $('syncBar').classList.toggle('hidden',!(id==='faculty'||id==='clubs'||id==='timeline')); setStatus();
   window.scrollTo(0,0);
 }
 
@@ -1832,7 +2220,7 @@ R.faculty=()=>H('교수진')+`<div class="flex flex-wrap items-center gap-2 mb-5
 INIT.faculty=()=>{ facQ=''; facCollege='all'; renderFaculty(); };
 renderHomeFaculty();
 
-const TABS0=c=>[['info','학부 소개'],['depts','학과 안내'],['faculty','교수진'],...(c.id==='sumeru'?[['timeline','티바트 연표']]:[])];
+const TABS0=c=>[['info','학부 소개'],['depts','학과 안내'],['faculty','교수진'],];
 let CTOV={}; try{ CTOV=JSON.parse(localStorage.getItem('gu_ctabs')||'{}')||{}; }catch(e){}
 const TABS=c=>{ const base=TABS0(c), o=CTOV[c.id]; if(!o) return base; const out=[]; o.forEach(it=>{ const k=base.find(x=>x[0]===it[0]); if(k) out.push(k); else if(String(it[0]).startsWith('c_')) out.push([it[0],it[1]]); }); base.forEach(k=>{ if(!out.some(x=>x[0]===k[0])) out.push(k); }); return out; };
 function saveCT(c,list){ const base=TABS0(c); if(list.length===base.length&&list.every((x,i)=>x[0]===base[i][0])) delete CTOV[c.id]; else CTOV[c.id]=list.map(x=>[x[0],x[1]]); try{ if(Object.keys(CTOV).length) localStorage.setItem('gu_ctabs',JSON.stringify(CTOV)); else localStorage.removeItem('gu_ctabs'); }catch(e){} }
@@ -1848,7 +2236,7 @@ function showSub(id,tab){
   const body=$('subBody'); $('tl-wrap').classList.toggle('hidden',tab!=='timeline'); body.classList.toggle('hidden',tab==='timeline');
   if(tab==='info'){
     body.innerHTML=`<div class="max-w-3xl"><h2 class="text-xl font-bold text-[#13294b] border-b-2 border-[#13294b] pb-2">학부 소개</h2><p class="mt-4 text-slate-600 leading-relaxed">${c.desc}</p>`+
-    (id==='sumeru'?`<a href="#/college/sumeru/timeline" class="mt-6 flex items-center justify-between gap-4 bg-gradient-to-r from-[#1d3e72] to-[#13294b] text-white p-5 hover:brightness-110"><span><b class="block text-lg">티바트 연표</b><span class="text-sm text-slate-300">시대와 지역별로 사건을 기록하고 수정하는 학부 자료실</span></span><span class="text-[#e7c978] flex-none">열람하기 &gt;</span></a>`:'')+`</div>`;
+    ''+`</div>`;
   } else if(tab==='depts'){
     body.innerHTML=`<h2 class="text-xl font-bold text-[#13294b] border-b-2 border-[#13294b] pb-2">학과 안내</h2><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">`+c.depts.map(d=>`<div class="border border-slate-200 border-l-[6px] p-4 font-medium" style="border-left-color:${c.c}">${d}</div>`).join('')+`</div>`;
   } else if(tab==='faculty'){
@@ -1863,7 +2251,7 @@ function showSub(id,tab){
 loadMenuOv(); buildMenu();
 function route(){
   const h=location.hash; megaOpen(false);
-  if(h==='#academia'){location.replace('#/college/sumeru/timeline');return}
+  if(h==='#academia'||h==='#/college/sumeru/timeline'){location.replace('#/page/timeline');return}
   const m=h.match(/^#\/college\/([a-z]+)(?:\/([a-z0-9_]+))?$/);
   if(m) return showSub(m[1],m[2]||'info');
   const nm=h.match(/^#\/notice(?:\/([a-z0-9_]+))?$/); if(nm) return showNotice(nm[1]);
@@ -1904,7 +2292,7 @@ async function uploadAll(){
   if(tl){ docs.main.remoteJson=null; window.GU_SYNC.push('main',tl); }
 }
 $('syncUpload').onclick=uploadAll;
-$('dataDefault').onclick=()=>{ if(!confirm('이 브라우저에 저장된 연표·교수진·동아리 가입·바꾼 사진·수정한 문구·항목 구성·메뉴를 모두 지우고 기본값으로 되돌릴까요?')) return; try{ ['gt_regions','gt_eras','gt_events','gu_people','gu_clubs','gu_imgs','gu_text','gu_struct','gu_imgpos','gu_menu','gu_ctabs','gu_seedsig'].forEach(x=>localStorage.removeItem(x)); }catch(e){} location.reload(); };
+$('dataDefault').onclick=()=>{ if(!confirm('이 브라우저에 저장된 연표·교수진·동아리 가입·바꾼 사진·수정한 문구·항목 구성·메뉴를 모두 지우고 기본값으로 되돌릴까요?')) return; try{ ['gt_regions','gt_eras','gt_events','gu_people','gu_clubs','gu_imgs','gu_text','gu_struct','gu_imgpos','gu_menu','gu_ctabs','gu_mm','gu_seedsig'].forEach(x=>localStorage.removeItem(x)); }catch(e){} location.reload(); };
 $('dataExport').onclick=()=>{
   const o={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^(gt_|gu_)/.test(k)&&k!=='gu_code'&&k!=='gu_seedsig') o[k]=localStorage.getItem(k); } }catch(e){}
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'genshin-univ',v:1,data:o})],{type:'application/json'})); a.download='seed.json'; a.click();
@@ -1942,7 +2330,7 @@ try{ Object.assign(TXT,JSON.parse(localStorage.getItem('gu_text')||'{}')); }catc
 const ovs=t=>{ const k=norm(t); return (k&&k in TXT)?TXT[k]:t; };
 const origMap=new WeakMap(), applied=new WeakMap();
 const WE={on:false,node:null,key:'',busy:false,q:false};
-const SKIPSEL='#tl-wrap,#wePop,#webEditBar,#weHover,#weItem,#weItemBar,#ipModal,.adm,.imgbtn,.iposbtn,#tlSrc,svg defs';
+const SKIPSEL='#tl-wrap,#mm-wrap,#mmModal,#wePop,#webEditBar,#weHover,#weItem,#weItemBar,#ipModal,.adm,.imgbtn,.iposbtn,#tlSrc,svg defs';
 const textOK=(n,opt)=>{ if(!n||n.nodeType!==3||!n.nodeValue.trim()) return false; const p=n.parentElement; if(!p) return false; if((opt?/^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT|TITLE)$/:/^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT|OPTION|TITLE)$/).test(p.tagName)) return false; return !p.closest(SKIPSEL); };
 const applyOK=n=>textOK(n,true)&&!n.parentElement.closest('[data-we-add]');
 const grpOrig=new WeakMap();
@@ -1971,7 +2359,7 @@ const mo=new MutationObserver(()=>{ if(WE.q) return; WE.q=true; requestAnimation
 /* ===== 웹 수정하기: 항목 순서 변경 · 복제(추가) · 삭제 ===== */
 let SX={}; try{ SX=JSON.parse(localStorage.getItem('gu_struct')||'{}')||{}; }catch(e){}
 const saveSX=()=>{ try{ if(Object.keys(SX).length) localStorage.setItem('gu_struct',JSON.stringify(SX)); else localStorage.removeItem('gu_struct'); }catch(e){ alert('브라우저 저장 공간이 부족해 이번 방문에만 적용됩니다.'); } };
-const XEXCL='#subTabs,#ipModal,#hdr,header,footer,#tl-wrap,#modal,#pmodal,#emodal,#wePop,#webEditBar,#weItemBar,#weHover,#weItem,#syncBar,#searchBox,#mobileMenu,svg';
+const XEXCL='#subTabs,#ipModal,#hdr,header,footer,#tl-wrap,#mm-wrap,#mmModal,#modal,#pmodal,#emodal,#wePop,#webEditBar,#weItemBar,#weHover,#weItem,#syncBar,#searchBox,#mobileMenu,svg';
 const routeKey=()=>location.hash.replace(/^#\/?/,'')||'home';
 function pathKey(el){ const parts=[]; for(let n=el;n&&n!==document.body;n=n.parentElement){ if(n.id){ parts.push('#'+n.id); break; } parts.push(n.tagName.toLowerCase()+':'+[...n.parentElement.children].indexOf(n)); } return routeKey()+'|'+parts.reverse().join('>'); }
 function resolveKey(k){
@@ -2172,7 +2560,7 @@ $('weCancel').onclick=weClose; $('weX').onclick=weClose;
 $('weResetAll').onclick=()=>{ if(!Object.keys(TXT).length){ alert('수정한 문구가 없습니다.'); return; } if(!confirm('수정한 문구를 모두 원래대로 되돌릴까요? (교수진·동아리·사진·연표는 그대로입니다)')) return; TXT=Object.create(null); saveTXT(); weClose(); weApply(); };
 document.addEventListener('click',e=>{
   if(!WE.on||e.altKey) return;
-  if(e.target.closest('#wePop,#webEditBar,#weItemBar,#ipModal,#tl-wrap,.adm,.imgbtn,.iposbtn,#emodal,#pmodal,#syncBar')) return;
+  if(e.target.closest('#wePop,#webEditBar,#weItemBar,#ipModal,#tl-wrap,#mm-wrap,#mmModal,.adm,.imgbtn,.iposbtn,#emodal,#pmodal,#syncBar')) return;
   const n=weNodeAt(e.clientX,e.clientY); if(!n) return;
   e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); weOpen(n);
 },true);
